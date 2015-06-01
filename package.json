@@ -19,5 +19,12 @@
   "bugs": {
     "url": "https://github.com/daviferreira/react-sanfona/issues"
   },
-  "homepage": "https://github.com/daviferreira/react-sanfona"
+  "homepage": "https://github.com/daviferreira/react-sanfona",
+  "dependencies": {
+    "react": "0.13.x"
+  },
+  "devDependencies": {
+    "babel": "5.4.7",
+    "webpack": "1.9.10"
+  }
 }
