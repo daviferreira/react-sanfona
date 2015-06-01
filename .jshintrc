@@ -1,0 +1,18 @@
+{
+  "node": true,
+  "browser": true,
+  "bitwise": true,
+  "camelcase": false,
+  "curly": true,
+  "esnext": true,
+  "immed": true,
+  "newcap": true,
+  "noarg": true,
+  "undef": true,
+  "unused": false,
+  "strict": true,
+  "globals": {
+    "$": false,
+    "Promise": true
+  }
+}
