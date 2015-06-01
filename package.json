@@ -1,0 +1,23 @@
+{
+  "name": "react-sanfona",
+  "version": "0.0.1",
+  "description": "React accordion component",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/daviferreira/react-sanfona.git"
+  },
+  "keywords": [
+    "react",
+    "accordion"
+  ],
+  "author": "Davi Ferreira <hi@daviferreira.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/daviferreira/react-sanfona/issues"
+  },
+  "homepage": "https://github.com/daviferreira/react-sanfona"
+}
