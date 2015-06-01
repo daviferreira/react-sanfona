@@ -3,36 +3,23 @@
 import React from 'react/addons';
 
 import Accordion from '../src/Accordion';
-
-import {
-  AccordionItem,
-  AccordionItemTitle,
-  AccordionItemContent
-} from '../src/AccordionItem';
+import AccordionItem from '../src/AccordionItem';
 
 class Demo extends React.Component {
+
   render() {
     return (
       <Accordion>
-        <AccordionItem>
-          <AccordionItemTitle>
-            First Item
-          </AccordionItemTitle>
-          <AccordionItemContent>
-            First item content
-          </AccordionItemContent>
+        <AccordionItem title="First item">
+          <p>First item content</p>
         </AccordionItem>
-        <AccordionItem>
-          <AccordionItemTitle>
-            Second Item
-          </AccordionItemTitle>
-          <AccordionItemContent>
-            Second item content
-          </AccordionItemContent>
+        <AccordionItem title="Second item">
+          <p>Second item content</p>
         </AccordionItem>
       </Accordion>
     );
   }
+
 }
 
 React.render(

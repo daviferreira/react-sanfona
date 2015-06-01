@@ -2,36 +2,40 @@
 
 import React, { Component, PropTypes } from 'react';
 
-export class AccordionItem extends Component {
+// TODO: title and body componenets:
+// TODO: PropTypes
+export default class AccordionItem extends Component {
 
   render() {
+    let props = {
+      'aria-expanded': this.props.expanded,
+      'aria-hidden': !this.props.expanded,
+      className: 'react-sanfona-item', // TODO: modifier class
+      role: 'tabpanel'
+    };
+
+    let titleProps = {
+      'aria-controls': `react-sanfona-item-body-${ this.props.itemId }`,
+      className: 'react-sanfona-item-title', // TODO: modifier class
+      id: `react-safona-item-title-${ this.props.itemId }`
+    };
+
+    let bodyProps = {
+      'aria-labelledby': `react-safona-item-title-${ this.props.itemId }`,
+      className: 'react-sanfona-item-body', // TODO: modifier class
+      id: `react-safona-item-body-${ this.props.itemId }`
+    };
+
     return (
-      <div className="react-sanfona-item">
-        {this.props.children}
+      <div {...props}>
+        <h3 {...titleProps}>
+          {this.props.title}
+        </h3>
+        <div {...bodyProps}>
+          {this.props.children}
+        </div>
       </div>
     );
-  }
-
-}
-
-export class AccordionItemTitle extends Component {
-
-  render() {
-    return (
-      <h3>{this.props.children}</h3>
-    )
-  }
-
-}
-
-export class AccordionItemContent extends Component {
-
-  render() {
-    return (
-      <div className="react-sanfona-item-content">
-        {this.props.children}
-      </div>
-    )
   }
 
 }
