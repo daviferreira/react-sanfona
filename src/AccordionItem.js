@@ -3,8 +3,6 @@
 import React, { Component, PropTypes } from 'react';
 import uuid from 'uuid';
 
-// TODO: title and body componenets?
-// TODO: PropTypes
 export default class AccordionItem extends Component {
 
   componentWillMount() {
