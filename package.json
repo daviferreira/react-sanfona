@@ -22,7 +22,8 @@
   },
   "homepage": "https://github.com/daviferreira/react-sanfona",
   "dependencies": {
-    "react": "0.13.x"
+    "react": "0.13.x",
+    "uuid": "2.0.1"
   },
   "devDependencies": {
     "babel": "5.4.7",
