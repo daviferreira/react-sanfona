@@ -1,7 +1,6 @@
 'use strict';
 
 import React, { Component, PropTypes } from 'react/addons';
-import uuid from 'uuid';
 
 // TODO: PropTypes
 export default class Accordion extends Component {
@@ -15,7 +14,6 @@ export default class Accordion extends Component {
     return this.props.children.map((item, index) => {
       return React.addons.cloneWithProps(item, {
         key: index,
-        itemId: uuid.v1(),
         expanded: this.state.selectedItem === index
       });
     });

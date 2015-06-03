@@ -1,10 +1,15 @@
 'use strict';
 
 import React, { Component, PropTypes } from 'react';
+import uuid from 'uuid';
 
 // TODO: title and body componenets?
 // TODO: PropTypes
 export default class AccordionItem extends Component {
+
+  componentWillMount() {
+    this.id = uuid.v4();
+  }
 
   getItemProps() {
     return {
@@ -17,27 +22,27 @@ export default class AccordionItem extends Component {
 
   getTitleProps() {
     return {
-      'aria-controls': `react-sanfona-item-body-${ this.props.itemId }`,
+      'aria-controls': `react-sanfona-item-body-${ this.id }`,
       className: 'react-sanfona-item-title',
-      id: `react-safona-item-title-${ this.props.itemId }`
+      id: `react-safona-item-title-${ this.id }`
     };
   }
 
   getBodyProps() {
     return {
-      'aria-labelledby': `react-safona-item-title-${ this.props.itemId }`,
+      'aria-labelledby': `react-safona-item-title-${ this.id }`,
       className: 'react-sanfona-item-body',
-      id: `react-safona-item-body-${ this.props.itemId }`
+      id: `react-safona-item-body-${ this.id }`
     };
   }
 
   render() {
     return (
-      <div {this.getItemProps()}>
-        <h3 {this.getTitleProps()}>
+      <div {...this.getItemProps()}>
+        <h3 {...this.getTitleProps()}>
           {this.props.title}
         </h3>
-        <div {this.getBodyProps()}>
+        <div {...this.getBodyProps()}>
           {this.props.children}
         </div>
       </div>
@@ -48,6 +53,5 @@ export default class AccordionItem extends Component {
 
 AccordionItem.propTypes = {
   expanded: React.PropTypes.bool,
-  itemId: React.PropTypes.string.isRequired,
   title: React.PropTypes.string
 };
