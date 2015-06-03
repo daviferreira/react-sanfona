@@ -1,5 +1,6 @@
 'use strict';
 
+import className from 'classnames';
 import React, { Component, PropTypes } from 'react';
 import uuid from 'uuid';
 
@@ -13,7 +14,10 @@ export default class AccordionItem extends Component {
     return {
       'aria-expanded': this.props.expanded,
       'aria-hidden': !this.props.expanded,
-      className: 'react-sanfona-item', // TODO: modifier class
+      className: className([
+        'react-sanfona-item',
+        { 'react-sanfona-item-expanded': this.props.expanded }
+      ]),
       role: 'tabpanel'
     };
   }
@@ -37,7 +41,7 @@ export default class AccordionItem extends Component {
   render() {
     return (
       <div {...this.getItemProps()}>
-        <h3 {...this.getTitleProps()}>
+        <h3 {...this.getTitleProps()} onClick={this.props.onClick}>
           {this.props.title}
         </h3>
         <div {...this.getBodyProps()}>
@@ -51,5 +55,6 @@ export default class AccordionItem extends Component {
 
 AccordionItem.propTypes = {
   expanded: PropTypes.bool,
+  onClick: PropTypes.func,
   title: PropTypes.string
 };

@@ -9,11 +9,16 @@ export default class Accordion extends Component {
     this.state = { selectedItem: props.selectedItem || 0 };
   }
 
+  handleClick(index) {
+    this.setState({ selectedItem: index });
+  }
+
   renderItems() {
     return this.props.children.map((item, index) => {
       return React.addons.cloneWithProps(item, {
+        expanded: this.state.selectedItem === index,
         key: index,
-        expanded: this.state.selectedItem === index
+        onClick: this.handleClick.bind(this, index)
       });
     });
   }
