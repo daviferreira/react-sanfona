@@ -6,32 +6,38 @@ import React, { Component, PropTypes } from 'react';
 // TODO: PropTypes
 export default class AccordionItem extends Component {
 
-  render() {
-    let itemProps = {
+  getItemProps() {
+    return {
       'aria-expanded': this.props.expanded,
       'aria-hidden': !this.props.expanded,
       className: 'react-sanfona-item', // TODO: modifier class
       role: 'tabpanel'
     };
+  }
 
-    let titleProps = {
+  getTitleProps() {
+    return {
       'aria-controls': `react-sanfona-item-body-${ this.props.itemId }`,
       className: 'react-sanfona-item-title',
       id: `react-safona-item-title-${ this.props.itemId }`
     };
+  }
 
-    let bodyProps = {
+  getBodyProps() {
+    return {
       'aria-labelledby': `react-safona-item-title-${ this.props.itemId }`,
       className: 'react-sanfona-item-body',
       id: `react-safona-item-body-${ this.props.itemId }`
     };
+  }
 
+  render() {
     return (
-      <div {...itemProps}>
-        <h3 {...titleProps}>
+      <div {this.getItemProps()}>
+        <h3 {this.getTitleProps()}>
           {this.props.title}
         </h3>
-        <div {...bodyProps}>
+        <div {this.getBodyProps()}>
           {this.props.children}
         </div>
       </div>
