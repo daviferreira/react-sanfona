@@ -50,6 +50,6 @@ export default class AccordionItem extends Component {
 }
 
 AccordionItem.propTypes = {
-  expanded: React.PropTypes.bool,
-  title: React.PropTypes.string
+  expanded: PropTypes.bool,
+  title: PropTypes.string
 };

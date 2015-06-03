@@ -2,7 +2,6 @@
 
 import React, { Component, PropTypes } from 'react/addons';
 
-// TODO: PropTypes
 export default class Accordion extends Component {
 
   constructor(props) {
@@ -28,3 +27,7 @@ export default class Accordion extends Component {
   }
 
 }
+
+Accordion.propTypes = {
+  selectedItem: PropTypes.number
+};
