@@ -8,7 +8,7 @@ import Accordion from './Accordion';
 
 var TestUtils = React.addons.TestUtils;
 
-describe('App Test Case', () => {
+describe('Accordion Test Case', () => {
   jsdom();
 
   it('should render', () => {
