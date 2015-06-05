@@ -10,12 +10,13 @@ class Demo extends React.Component {
   render() {
     return (
       <Accordion>
-        <AccordionItem title="First item">
-          <p>First item content</p>
-        </AccordionItem>
-        <AccordionItem title="Second item">
-          <p>Second item content</p>
-        </AccordionItem>
+        {[1, 2, 3, 4, 5].map((item) => {
+          return (
+            <AccordionItem title={`Item ${ item }`} key={item}>
+              <p>{`Item ${ item } content`}</p>
+            </AccordionItem>
+          );
+        })}
       </Accordion>
     );
   }
