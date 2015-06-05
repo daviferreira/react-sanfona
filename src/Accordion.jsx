@@ -14,6 +14,10 @@ export default class Accordion extends Component {
   }
 
   renderItems() {
+    if (!this.props.children) {
+      return null;
+    }
+
     return this.props.children.map((item, index) => {
       return React.addons.cloneWithProps(item, {
         expanded: this.state.selectedItem === index,
