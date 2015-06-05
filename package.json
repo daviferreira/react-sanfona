@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "demo": "webpack-dev-server --config webpack.config.demo.js",
-    "test": "mocha --reporter spec --compilers jsx:test/compiler.js ./src/**/*Test.jsx"
+    "test": "mocha -R spec --compilers jsx:test/compiler.js ./src/**/*Test.jsx"
   },
   "repository": {
     "type": "git",
@@ -37,8 +37,10 @@
     "node-sass": "3.1.2",
     "normalize.css": "3.0.3",
     "sass-loader": "1.0.2",
+    "sinon": "1.14.1",
     "style-loader": "0.12.3",
     "unexpected": "7.5.1",
+    "unexpected-sinon": "6.1.2",
     "uuid": "2.0.1",
     "webpack": "1.9.10",
     "webpack-dev-server": "1.9.0"

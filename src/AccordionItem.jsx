@@ -77,7 +77,7 @@ export default class AccordionItem extends Component {
 
   render() {
     return (
-      <div {...this.getItemProps()}>
+      <div {...this.getItemProps()} ref="item">
         <h3 {...this.getTitleProps()} onClick={this.props.onClick}>
           {this.props.title}
         </h3>
