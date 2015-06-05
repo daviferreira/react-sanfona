@@ -1,5 +1,6 @@
 'use strict';
 
+var path = require('path');
 var webpack = require('webpack');
 
 module.exports = {
@@ -11,7 +12,18 @@ module.exports = {
 
   module: {
     loaders: [
-      { test: /\.js$/, loader: 'babel?loose=all', exclude: /node_modules/ }
+      { test: /\.js$/, loader: 'babel?loose=all', exclude: /node_modules/ },
+      { test: /\.css$/, loaders: ['style', 'css'] },
+      {
+        test: /\.scss$/,
+        loaders: [
+          'style',
+          'css',
+          'autoprefixer?browsers=last 2 version',
+          'sass?outputStyle=expanded&includePaths[]=' +
+          (path.resolve(__dirname, './src'))
+        ]
+      }
     ]
   },
 

@@ -1,13 +1,43 @@
 'use strict';
 
+require('./AccordionItem.scss');
+
 import className from 'classnames';
 import React, { Component, PropTypes } from 'react';
 import uuid from 'uuid';
 
 export default class AccordionItem extends Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      style: { maxHeight: props.expanded ? 'none' : 0 }
+    };
+  }
+
   componentWillMount() {
     this.id = uuid.v4();
+  }
+
+  componentDidMount() {
+    this.setMaxHeight();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.expanded !== this.props.expanded) {
+      this.setMaxHeight();
+    }
+  }
+
+  setMaxHeight() {
+    var maxHeight = this.props.expanded ? React.findDOMNode(this).offsetHeight + 'px' : 0;
+
+    this.setState({
+      style: {
+        maxHeight: maxHeight,
+        overflow: maxHeight === 0 ? 'hidden' : 'auto'
+      }
+    });
   }
 
   getItemProps() {
@@ -40,7 +70,8 @@ export default class AccordionItem extends Component {
     return {
       'aria-labelledby': `react-safona-item-title-${ this.id }`,
       className: 'react-sanfona-item-body',
-      id: `react-safona-item-body-${ this.id }`
+      id: `react-safona-item-body-${ this.id }`,
+      style: this.state.style
     };
   }
 

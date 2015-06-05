@@ -1,5 +1,7 @@
 'use strict';
 
+require('normalize.css');
+
 import React from 'react/addons';
 
 import Accordion from '../src/Accordion';
@@ -13,7 +15,7 @@ class Demo extends React.Component {
         {[1, 2, 3, 4, 5].map((item) => {
           return (
             <AccordionItem title={`Item ${ item }`} key={item}>
-              <p>{`Item ${ item } content`}</p>
+              <div>{`Item ${ item } content`}</div>
             </AccordionItem>
           );
         })}
