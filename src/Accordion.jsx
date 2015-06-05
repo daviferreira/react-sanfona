@@ -10,6 +10,9 @@ export default class Accordion extends Component {
   }
 
   handleClick(index) {
+    if (this.state.selectedItem === index) {
+      index = -1;
+    }
     this.setState({ selectedItem: index });
   }
 
