@@ -11,15 +11,21 @@ export default class AccordionItem extends Component {
   }
 
   getItemProps() {
-    return {
-      'aria-expanded': this.props.expanded,
-      'aria-hidden': !this.props.expanded,
+    var props = {
       className: className([
         'react-sanfona-item',
         { 'react-sanfona-item-expanded': this.props.expanded }
       ]),
       role: 'tabpanel'
     };
+
+    if (this.props.expanded) {
+      props['aria-expanded'] = true;
+    } else {
+      props['aria-hidden'] = true;
+    }
+
+    return props;
   }
 
   getTitleProps() {
