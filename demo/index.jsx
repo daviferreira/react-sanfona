@@ -12,15 +12,21 @@ class Demo extends React.Component {
 
   render() {
     return (
-      <Accordion>
-        {[1, 2, 3, 4, 5].map((item) => {
-          return (
-            <AccordionItem title={`Item ${ item }`} key={item}>
-              <div>{`Item ${ item } content`}</div>
-            </AccordionItem>
-          );
-        })}
-      </Accordion>
+      <div className="demo-container">
+        <h1>react-sanfona</h1>
+        <Accordion>
+          {[1, 2, 3, 4, 5].map((item) => {
+            return (
+              <AccordionItem title={`Item ${ item }`} key={item}>
+                <div>
+                  {`Item ${ item } content`}
+                  {item === 3 ? <p><img src="http://i.giphy.com/nIMpbXH2WfYRi.gif" /></p> : null}
+                </div>
+              </AccordionItem>
+            );
+          })}
+        </Accordion>
+      </div>
     );
   }
 
