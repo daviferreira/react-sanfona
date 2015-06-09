@@ -14,7 +14,7 @@ class Demo extends React.Component {
     return (
       <div className="demo-container">
         <h1>react-sanfona</h1>
-        <Accordion selectedItem={2}>
+        <Accordion allowMultiple={true} selectedItem={2}>
           {[1, 2, 3, 4, 5].map((item) => {
             return (
               <AccordionItem title={`Item ${ item }`} key={item}>

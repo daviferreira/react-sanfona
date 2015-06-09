@@ -6,19 +6,39 @@ export default class Accordion extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { selectedItem: props.selectedItem || 0 };
+
+    let selectedItem = props.selectedItem || 0;
+
+    if (props.allowMultiple) {
+      this.activeItems = [selectedItem];
+    }
+
+    this.state = { selectedItem: selectedItem };
   }
 
   componentDidMount() {
+    // allow overflow for absolute positioned elements inside
+    // the item body, but only after animation is complete
     React.findDOMNode(this).addEventListener('transitionend', () => {
-      this.refs[`item-${ this.state.selectedItem }`].allowOverflow();
+      if (this.state.selectedItem !== -1) {
+        this.refs[`item-${ this.state.selectedItem }`].allowOverflow();
+      }
     });
   }
 
   handleClick(index) {
-    if (this.state.selectedItem === index) {
+    if (this.props.allowMultiple) {
+      let position = this.activeItems.indexOf(index);
+      if (position !== -1) {
+        this.activeItems.splice(position, 1);
+        index = -1;
+      } else {
+        this.activeItems.push(index);
+      }
+    } else if (index === this.state.selectedItem) {
       index = -1;
     }
+
     this.setState({ selectedItem: index });
   }
 
@@ -28,8 +48,12 @@ export default class Accordion extends Component {
     }
 
     return this.props.children.map((item, index) => {
+      let expanded = this.state.selectedItem === index ||
+                      (this.props.allowMultiple &&
+                        this.activeItems.indexOf(index) !== -1);
+
       return React.addons.cloneWithProps(item, {
-        expanded: this.state.selectedItem === index,
+        expanded: expanded,
         key: index,
         onClick: this.handleClick.bind(this, index),
         ref: `item-${ index }`
@@ -48,5 +72,6 @@ export default class Accordion extends Component {
 }
 
 Accordion.propTypes = {
+  allowMultiple: PropTypes.bool,
   selectedItem: PropTypes.number
 };
