@@ -4,6 +4,9 @@ import className from 'classnames';
 import React, { Component, PropTypes } from 'react';
 import uuid from 'uuid';
 
+import AccordionItemBody from './AccordionItemBody';
+import AccordionItemTitle from './AccordionItemTitle';
+
 export default class AccordionItem extends Component {
 
   constructor(props) {
@@ -15,7 +18,7 @@ export default class AccordionItem extends Component {
   }
 
   componentWillMount() {
-    this.id = uuid.v4();
+    this.uuid = uuid.v4();
   }
 
   componentDidMount() {
@@ -41,7 +44,7 @@ export default class AccordionItem extends Component {
     });
   }
 
-  getItemProps() {
+  getProps() {
     var props = {
       className: className([
         'react-sanfona-item',
@@ -59,42 +62,18 @@ export default class AccordionItem extends Component {
     return props;
   }
 
-  getTitleProps() {
-    return {
-      'aria-controls': `react-sanfona-item-body-${ this.id }`,
-      className: 'react-sanfona-item-title',
-      id: `react-safona-item-title-${ this.id }`,
-      style: {
-        cursor: 'pointer',
-        margin: 0
-      }
-    };
-  }
-
-  getBodyProps() {
-    return {
-      'aria-labelledby': `react-safona-item-title-${ this.id }`,
-      className: 'react-sanfona-item-body',
-      id: `react-safona-item-body-${ this.id }`,
-      style: {
-        maxHeight: this.state.maxHeight,
-        overflow: this.state.overflow,
-        transition: 'max-height .3s ease'
-      }
-    };
-  }
-
   render() {
     return (
-      <div {...this.getItemProps()} ref="item">
-        <h3 {...this.getTitleProps()} onClick={this.props.onClick}>
-          {this.props.title}
-        </h3>
-        <div {...this.getBodyProps()} ref="body">
-          <div className="react-sanfona-item-body-wrapper">
-            {this.props.children}
-          </div>
-        </div>
+      <div {...this.getProps()} ref="item">
+        <AccordionItemTitle title={this.props.title}
+          onClick={this.props.onClick}
+          uuid={this.uuid} />
+        <AccordionItemBody maxHeight={this.state.maxHeight}
+          overflow={this.state.overflow}
+          ref="body"
+          uuid={this.uuid}>
+          {this.props.children}
+        </AccordionItemBody>
       </div>
     );
   }
