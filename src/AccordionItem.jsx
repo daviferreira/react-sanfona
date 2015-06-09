@@ -37,11 +37,38 @@ export default class AccordionItem extends Component {
 
   setMaxHeight() {
     var bodyNode = React.findDOMNode(this.refs.body);
+    var images = bodyNode.querySelectorAll('img');
+
+    if (images.length > 0) {
+      return this.preloadImages(bodyNode, images);
+    }
 
     this.setState({
       maxHeight: this.props.expanded ? bodyNode.scrollHeight + 'px' : 0,
       overflow: 'hidden'
     });
+  }
+
+  // Wait for images to load before calculating maxHeight
+  preloadImages(node, images) {
+    var imagesLoaded = 0;
+
+    let imgLoaded = () => {
+      imagesLoaded++;
+
+      if (imagesLoaded === images.length) {
+        this.setState({
+          maxHeight: this.props.expanded ? node.scrollHeight + 'px' : 0,
+          overflow: 'hidden'
+        });
+      }
+    };
+
+    for (let i = 0; i < images.length; i += 1) {
+      let img = new Image();
+      img.src = images[i].src;
+      img.onload = img.onerror = imgLoaded;
+    }
   }
 
   getProps() {
