@@ -76,7 +76,6 @@ export default class AccordionItem extends Component {
       'aria-labelledby': `react-safona-item-title-${ this.id }`,
       className: 'react-sanfona-item-body',
       id: `react-safona-item-body-${ this.id }`,
-      onTransitionEnd: this.handleTransitionEnd,
       style: {
         maxHeight: this.state.maxHeight,
         overflow: this.state.overflow,
