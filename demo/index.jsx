@@ -1,6 +1,7 @@
 'use strict';
 
 require('normalize.css');
+require('./demo.scss');
 
 import React from 'react/addons';
 

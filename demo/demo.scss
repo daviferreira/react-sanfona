@@ -1,0 +1,44 @@
+.demo-container {
+
+  margin: 0 auto;
+  padding: 60px;
+  width: 768px;
+
+}
+
+.react-sanfona {
+
+  border-radius: 3px;
+
+}
+
+.react-sanfona-item {
+
+  &-title {
+
+    background-color: #fafafa;
+    border-bottom: 1px solid #ccc;
+    color: #333;
+    padding: 10px 20px;
+
+  }
+
+  &:last-child &-title {
+
+    border-bottom: none;
+
+  }
+
+  &-expanded &-title {
+    background-color: #03a94f;
+    color: #fff;
+  }
+
+  &-body-wrapper {
+
+    box-shadow: inset 0 0 12px rgba(#ccc, .2);
+    padding: 15px;
+
+  }
+
+}
