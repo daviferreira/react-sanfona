@@ -9,6 +9,12 @@ export default class Accordion extends Component {
     this.state = { selectedItem: props.selectedItem || 0 };
   }
 
+  componentDidMount() {
+    React.findDOMNode(this).addEventListener('transitionend', () => {
+      this.refs[`item-${ this.state.selectedItem }`].allowOverflow();
+    });
+  }
+
   handleClick(index) {
     if (this.state.selectedItem === index) {
       index = -1;
@@ -25,7 +31,8 @@ export default class Accordion extends Component {
       return React.addons.cloneWithProps(item, {
         expanded: this.state.selectedItem === index,
         key: index,
-        onClick: this.handleClick.bind(this, index)
+        onClick: this.handleClick.bind(this, index),
+        ref: `item-${ index }`
       });
     });
   }

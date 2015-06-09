@@ -1,7 +1,5 @@
 'use strict';
 
-require('./AccordionItem.scss');
-
 import className from 'classnames';
 import React, { Component, PropTypes } from 'react';
 import uuid from 'uuid';
@@ -11,7 +9,8 @@ export default class AccordionItem extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      style: { maxHeight: props.expanded ? 'none' : 0 }
+      maxHeight: props.expanded ? 'none' : 0,
+      overflow: props.expanded ? 'visible' : 'hidden'
     };
   }
 
@@ -29,14 +28,16 @@ export default class AccordionItem extends Component {
     }
   }
 
+  allowOverflow() {
+    this.setState({ overflow: 'visible' });
+  }
+
   setMaxHeight() {
-    var maxHeight = this.props.expanded ? React.findDOMNode(this).offsetHeight + 'px' : 0;
+    var bodyNode = React.findDOMNode(this.refs.body);
 
     this.setState({
-      style: {
-        maxHeight: maxHeight,
-        overflow: maxHeight === 0 ? 'hidden' : 'auto'
-      }
+      maxHeight: this.props.expanded ? bodyNode.scrollHeight + 'px' : 0,
+      overflow: 'hidden'
     });
   }
 
@@ -62,7 +63,11 @@ export default class AccordionItem extends Component {
     return {
       'aria-controls': `react-sanfona-item-body-${ this.id }`,
       className: 'react-sanfona-item-title',
-      id: `react-safona-item-title-${ this.id }`
+      id: `react-safona-item-title-${ this.id }`,
+      style: {
+        cursor: 'pointer',
+        margin: 0
+      }
     };
   }
 
@@ -71,7 +76,12 @@ export default class AccordionItem extends Component {
       'aria-labelledby': `react-safona-item-title-${ this.id }`,
       className: 'react-sanfona-item-body',
       id: `react-safona-item-body-${ this.id }`,
-      style: this.state.style
+      onTransitionEnd: this.handleTransitionEnd,
+      style: {
+        maxHeight: this.state.maxHeight,
+        overflow: this.state.overflow,
+        transition: 'max-height .3s ease'
+      }
     };
   }
 
@@ -81,8 +91,10 @@ export default class AccordionItem extends Component {
         <h3 {...this.getTitleProps()} onClick={this.props.onClick}>
           {this.props.title}
         </h3>
-        <div {...this.getBodyProps()}>
-          {this.props.children}
+        <div {...this.getBodyProps()} ref="body">
+          <div className="react-sanfona-item-body-wrapper">
+            {this.props.children}
+          </div>
         </div>
       </div>
     );
