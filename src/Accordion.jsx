@@ -8,12 +8,13 @@ export default class Accordion extends Component {
     super(props);
 
     let selectedItem = props.selectedItem || 0;
+    let state = { selectedItem: selectedItem };
 
     if (props.allowMultiple) {
-      this.activeItems = [selectedItem];
+      state.activeItems = [selectedItem];
     }
 
-    this.state = { selectedItem: selectedItem };
+    this.state = state;
   }
 
   componentDidMount() {
@@ -27,19 +28,25 @@ export default class Accordion extends Component {
   }
 
   handleClick(index) {
+    var newState = { selectedItem: index };
+
     if (this.props.allowMultiple) {
-      let position = this.activeItems.indexOf(index);
+      // clone active items state array
+      newState.activeItems = this.state.activeItems.slice(0);
+
+      let position = newState.activeItems.indexOf(index);
+
       if (position !== -1) {
-        this.activeItems.splice(position, 1);
-        index = -1;
+        newState.activeItems.splice(position, 1);
+        newState.selectedItem = -1;
       } else {
-        this.activeItems.push(index);
+        newState.activeItems.push(index);
       }
     } else if (index === this.state.selectedItem) {
-      index = -1;
+      newState.selectedItem = -1;
     }
 
-    this.setState({ selectedItem: index });
+    this.setState(newState);
   }
 
   renderItems() {
@@ -50,7 +57,7 @@ export default class Accordion extends Component {
     return this.props.children.map((item, index) => {
       let expanded = this.state.selectedItem === index ||
                       (this.props.allowMultiple &&
-                        this.activeItems.indexOf(index) !== -1);
+                        this.state.activeItems.indexOf(index) !== -1);
 
       return React.addons.cloneWithProps(item, {
         expanded: expanded,
