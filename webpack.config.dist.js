@@ -1,9 +1,9 @@
 module.exports = {
-  entry: './src/createReactSanfona.js',
+  entry: './src/index.js',
 
   module: {
     loaders: [
-      { test: /\.jsx$/, loader: 'babel?loose=all', exclude: /node_modules/ }
+      { test: /\.jsx?$/, loader: 'babel?loose=all', exclude: /node_modules/ }
     ]
   },
 
@@ -15,5 +15,9 @@ module.exports = {
     filename: 'dist/react-sanfona.js',
     libraryTarget: 'umd',
     library: 'ReactSanfona'
+  },
+
+  resolve: {
+    extensions: ['', '.jsx', '.js']
   }
 };
