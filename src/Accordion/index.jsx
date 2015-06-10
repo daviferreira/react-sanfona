@@ -10,6 +10,7 @@ export default class Accordion extends Component {
     let selectedItem = props.selectedItem || 0;
     let state = { selectedItem: selectedItem };
 
+
     if (props.allowMultiple) {
       state.activeItems = [selectedItem];
     }
@@ -18,6 +19,8 @@ export default class Accordion extends Component {
   }
 
   componentDidMount() {
+    this.refs[`item-${ this.state.selectedItem }`].allowOverflow();
+
     // allow overflow for absolute positioned elements inside
     // the item body, but only after animation is complete
     React.findDOMNode(this).addEventListener('transitionend', () => {

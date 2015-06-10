@@ -15,18 +15,7 @@ class Demo extends React.Component {
       <div className="demo-container">
         <h1>react-sanfona</h1>
 
-        <Accordion allowMultiple={true} selectedItem={2}>
-          {[1, 2, 3, 4, 5].map((item) => {
-            return (
-              <AccordionItem title={`Item ${ item }`} key={item}>
-                <div>
-                  {`Item ${ item } content`}
-                  {item === 3 ? <p><img src="http://i.giphy.com/nIMpbXH2WfYRi.gif" /></p> : null}
-                </div>
-              </AccordionItem>
-            );
-          })}
-        </Accordion>
+        <h2>Default settings</h2>
 
         <Accordion>
           {[1, 2, 3, 4, 5].map((item) => {
@@ -40,6 +29,37 @@ class Demo extends React.Component {
             );
           })}
         </Accordion>
+
+        <h2>Allow multiple</h2>
+
+        <Accordion allowMultiple={true} selectedItem={2}>
+          {[1, 2, 3, 4, 5].map((item) => {
+            return (
+              <AccordionItem title={`Item ${ item }`} key={item}>
+                <div>
+                  {`Item ${ item } content`}
+                  {item === 3 ? <p><img src="http://i.giphy.com/nIMpbXH2WfYRi.gif" /></p> : null}
+                </div>
+              </AccordionItem>
+            );
+          })}
+        </Accordion>
+
+        <h2>Overflow example</h2>
+
+        <Accordion>
+          {[1, 2].map((item) => {
+            return (
+              <AccordionItem title={`Item ${ item }`} key={item}>
+                <div>
+                  {`Item ${ item } content`}
+                  <div className="tooltip">{`Tooltip ${ item } content`}</div>
+                </div>
+              </AccordionItem>
+            );
+          })}
+        </Accordion>
+
       </div>
     );
   }

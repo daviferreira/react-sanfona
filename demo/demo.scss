@@ -1,19 +1,35 @@
 $primary-color: #03a9f4;
+$gray: #ccc;
+
+*,
+*:after,
+*:before {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Nobile', sans-serif;
+}
 
 .demo-container {
-  border: 1px solid #ccc;
-  margin: 40px auto;
-  padding: 0;
-  width: 768px;
+  padding: 40px;
+  width: 100%;
 
-  > h1 {
+  h1 {
+    border-bottom: 1px solid $gray;
     color: $primary-color;
+    margin-bottom: 40px;
+    padding-bottom: 40px;
     text-align: center;
+  }
+
+  h2 {
+    color: $gray;
   }
 }
 
 .react-sanfona {
-  border-bottom: 1px solid #ccc;
+  border: 1px solid $gray;
   border-radius: 3px;
   margin-bottom: 70px;
 }
@@ -22,11 +38,15 @@ $primary-color: #03a9f4;
 
   &-title {
     background-color: #fafafa;
-    border-top: 1px solid #ccc;
+    border-top: 1px solid $gray;
     color: #333;
     padding: 20px;
     text-transform: uppercase;
     transition: background-color .3s;
+  }
+
+  &:first-child &-title {
+    border-top: none;
   }
 
   &-expanded &-title {
@@ -37,6 +57,23 @@ $primary-color: #03a9f4;
   &-body-wrapper {
     color: #666;
     padding: 20px;
+    position: relative;
+
+    &:hover .tooltip {
+      opacity: 1;
+    }
   }
 
+}
+
+.tooltip {
+  background-color: #000;
+  bottom: -10px;
+  border-radius: 3px;
+  color: #fff;
+  left: 10px;
+  opacity: 0;
+  padding: 10px;
+  position: absolute;
+  transition: opacity .3s;
 }
