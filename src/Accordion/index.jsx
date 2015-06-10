@@ -64,7 +64,7 @@ export default class Accordion extends Component {
                       (this.props.allowMultiple &&
                         this.state.activeItems.indexOf(index) !== -1);
 
-      return React.addons.cloneWithProps(item, {
+      return React.cloneElement(item, {
         expanded: expanded,
         key: index,
         onClick: this.handleClick.bind(this, index),

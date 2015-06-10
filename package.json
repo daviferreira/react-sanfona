@@ -2,8 +2,10 @@
   "name": "react-sanfona",
   "version": "0.0.1",
   "description": "React accordion component",
-  "main": "index.js",
+  "main": "./dist-modules/index.js",
   "scripts": {
+    "bundle-dist": "webpack --config webpack.config.dist.js",
+    "build-modules": "trash dist-modules/* --force && babel src --loose --out-dir dist-modules",
     "demo": "webpack-dev-server --config webpack.config.demo.js",
     "test": "mocha -R spec --compilers jsx:test/compiler.js ./src/**/test.jsx"
   },
@@ -21,7 +23,7 @@
     "url": "https://github.com/daviferreira/react-sanfona/issues"
   },
   "homepage": "https://github.com/daviferreira/react-sanfona",
-  "dependencies": {
+  "peerDependencies": {
     "react": "0.13.x"
   },
   "devDependencies": {
@@ -39,6 +41,7 @@
     "sass-loader": "1.0.2",
     "sinon": "1.14.1",
     "style-loader": "0.12.3",
+    "trash": "1.4.1",
     "unexpected": "7.5.1",
     "unexpected-sinon": "6.1.2",
     "uuid": "2.0.1",
