@@ -1,3 +1,5 @@
+var webpack = require('webpack');
+
 module.exports = {
   entry: './src/index.js',
 
@@ -16,6 +18,10 @@ module.exports = {
     libraryTarget: 'umd',
     library: 'ReactSanfona'
   },
+
+  plugins: [
+    new webpack.optimize.DedupePlugin()
+  ],
 
   resolve: {
     extensions: ['', '.jsx', '.js']
