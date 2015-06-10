@@ -53,7 +53,7 @@ export default class AccordionItem extends Component {
   preloadImages(node, images) {
     var imagesLoaded = 0;
 
-    let imgLoaded = () => {
+    var imgLoaded = () => {
       imagesLoaded++;
 
       if (imagesLoaded === images.length) {

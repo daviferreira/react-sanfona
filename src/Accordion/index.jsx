@@ -7,8 +7,8 @@ export default class Accordion extends Component {
   constructor(props) {
     super(props);
 
-    let selectedItem = props.selectedItem || 0;
-    let state = { selectedItem: selectedItem };
+    var selectedItem = props.selectedItem || 0;
+    var state = { selectedItem: selectedItem };
 
 
     if (props.allowMultiple) {
