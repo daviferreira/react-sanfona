@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "demo": "webpack-dev-server --config webpack.config.demo.js",
-    "test": "mocha -R spec --compilers jsx:test/compiler.js ./src/**/*Test.jsx"
+    "test": "mocha -R spec --compilers jsx:test/compiler.js ./src/**/test.jsx"
   },
   "repository": {
     "type": "git",

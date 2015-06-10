@@ -5,7 +5,7 @@ import jsdom from 'mocha-jsdom';
 import sinon from 'sinon';
 import React from 'react/addons'
 
-import AccordionItem from './AccordionItem';
+import AccordionItem from './index';
 
 var TestUtils = React.addons.TestUtils;
 

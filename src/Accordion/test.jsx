@@ -4,7 +4,7 @@ import expect from 'unexpected';
 import jsdom from 'mocha-jsdom';
 import React from 'react/addons'
 
-import Accordion from './Accordion';
+import Accordion from './index';
 
 var TestUtils = React.addons.TestUtils;
 

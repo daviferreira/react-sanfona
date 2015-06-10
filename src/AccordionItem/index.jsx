@@ -4,8 +4,8 @@ import className from 'classnames';
 import React, { Component, PropTypes } from 'react';
 import uuid from 'uuid';
 
-import AccordionItemBody from './AccordionItemBody';
-import AccordionItemTitle from './AccordionItemTitle';
+import AccordionItemBody from '../AccordionItemBody';
+import AccordionItemTitle from '../AccordionItemTitle';
 
 export default class AccordionItem extends Component {
 
