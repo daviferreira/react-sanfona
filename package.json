@@ -8,7 +8,7 @@
     "build-modules": "trash dist-modules/* --force && babel src --loose --out-dir dist-modules",
     "demo": "webpack-dev-server --config webpack.config.demo.js",
     "lint": "eslint ./src",
-    "test": "mocha -R spec --compilers jsx:test/compiler.js ./src/**/test.jsx"
+    "test": "npm run lint && mocha -R spec --compilers jsx:test/compiler.js ./src/**/test.jsx"
   },
   "repository": {
     "type": "git",
