@@ -4,6 +4,7 @@
   "description": "React accordion component",
   "main": "./dist-modules/index.js",
   "scripts": {
+    "bundle-demo": "webpack --config webpack.config.demo.js",
     "bundle-dist": "webpack --config webpack.config.dist.js",
     "bundle-modules": "trash dist-modules/* --force && babel src --loose --out-dir dist-modules",
     "demo": "webpack-dev-server --config webpack.config.demo.js",
