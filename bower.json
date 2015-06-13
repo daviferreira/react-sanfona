@@ -1,0 +1,28 @@
+{
+  "name": "react-sanfona",
+  "description": "React accessible accordion component",
+  "homepage": "https://github.com/daviferreira/react-sanfona",
+  "authors": [
+    "Davi Ferreira <hi@daviferreira.com>"
+  ],
+  "keywords": [
+    "react",
+    "reactjs",
+    "react-component",
+    "accordion",
+    "accessibility",
+    "aria",
+    "widget"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "demo",
+    "dist-modules",
+    "node_modules",
+    "src",
+    "test",
+    "*.json",
+    "webpack.*",
+    "*.md"
+  ]
+}

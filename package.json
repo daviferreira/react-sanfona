@@ -1,7 +1,7 @@
 {
   "name": "react-sanfona",
   "version": "0.0.1",
-  "description": "React accordion component",
+  "description": "React accessible accordion component",
   "main": "./dist-modules/index.js",
   "scripts": {
     "bundle-demo": "webpack --config webpack.config.demo.js",
