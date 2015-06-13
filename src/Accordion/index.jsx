@@ -83,6 +83,10 @@ export default class Accordion extends Component {
 
 }
 
+Accordion.defaultProps = {
+  allowMultiple: false
+};
+
 Accordion.propTypes = {
   allowMultiple: PropTypes.bool,
   selectedIndex: PropTypes.number
