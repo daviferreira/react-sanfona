@@ -5,6 +5,7 @@
   "authors": [
     "Davi Ferreira <hi@daviferreira.com>"
   ],
+  "main": "dist/js/react-sanfona.js",
   "keywords": [
     "react",
     "reactjs",
@@ -16,6 +17,7 @@
   ],
   "license": "MIT",
   "ignore": [
+    "**/.*",
     "demo",
     "dist-modules",
     "node_modules",
