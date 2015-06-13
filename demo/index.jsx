@@ -32,7 +32,7 @@ class Demo extends React.Component {
 
         <h2>Allow multiple</h2>
 
-        <Accordion allowMultiple={true} selectedItem={2}>
+        <Accordion allowMultiple={true} selectedIndex={2}>
           {[1, 2, 3, 4, 5].map((item) => {
             return (
               <AccordionItem title={`Item ${ item }`} key={item}>

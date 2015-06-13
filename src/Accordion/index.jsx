@@ -7,33 +7,33 @@ export default class Accordion extends Component {
   constructor(props) {
     super(props);
 
-    var selectedItem = props.selectedItem || 0;
-    var state = { selectedItem: selectedItem };
+    var selectedIndex = props.selectedIndex || 0;
+    var state = { selectedIndex: selectedIndex };
 
 
     if (props.allowMultiple) {
-      state.activeItems = [selectedItem];
+      state.activeItems = [selectedIndex];
     }
 
     this.state = state;
   }
 
   componentDidMount() {
-    if (this.refs[`item-${ this.state.selectedItem }`]) {
-      this.refs[`item-${ this.state.selectedItem }`].allowOverflow();
+    if (this.refs[`item-${ this.state.selectedIndex }`]) {
+      this.refs[`item-${ this.state.selectedIndex }`].allowOverflow();
     }
 
     // allow overflow for absolute positioned elements inside
     // the item body, but only after animation is complete
     React.findDOMNode(this).addEventListener('transitionend', () => {
-      if (this.state.selectedItem !== -1) {
-        this.refs[`item-${ this.state.selectedItem }`].allowOverflow();
+      if (this.state.selectedIndex !== -1) {
+        this.refs[`item-${ this.state.selectedIndex }`].allowOverflow();
       }
     });
   }
 
   handleClick(index) {
-    var newState = { selectedItem: index };
+    var newState = { selectedIndex: index };
 
     if (this.props.allowMultiple) {
       // clone active items state array
@@ -43,12 +43,12 @@ export default class Accordion extends Component {
 
       if (position !== -1) {
         newState.activeItems.splice(position, 1);
-        newState.selectedItem = -1;
+        newState.selectedIndex = -1;
       } else {
         newState.activeItems.push(index);
       }
-    } else if (index === this.state.selectedItem) {
-      newState.selectedItem = -1;
+    } else if (index === this.state.selectedIndex) {
+      newState.selectedIndex = -1;
     }
 
     this.setState(newState);
@@ -60,7 +60,7 @@ export default class Accordion extends Component {
     }
 
     return this.props.children.map((item, index) => {
-      let expanded = this.state.selectedItem === index ||
+      let expanded = this.state.selectedIndex === index ||
                       (this.props.allowMultiple &&
                         this.state.activeItems.indexOf(index) !== -1);
 
@@ -85,5 +85,5 @@ export default class Accordion extends Component {
 
 Accordion.propTypes = {
   allowMultiple: PropTypes.bool,
-  selectedItem: PropTypes.number
+  selectedIndex: PropTypes.number
 };
