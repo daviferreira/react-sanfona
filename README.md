@@ -18,7 +18,7 @@ npm install react-sanfona
 
 Then:
 
-```
+```javascript
 require(‘react-sanfona’);
 
 …
@@ -45,11 +45,13 @@ bower install react-sanfona
 
 Then:
 
-```
+```html
 <script src=“https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react-with-addons.min.js” type=“text/javascript” charset=“utf-8”></script>
 <script src=“https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js” type=“text/javascript” charset=“utf-8”></script>
 <script src=“≈react-sanfona/dist/react-sanfona.js” type=“text/javascript” charset=“utf-8”></script>
+```
 
+```javascript
 <script type=“text/jsx”>
 var Accordion = ReactSanfona.Accordion;
 var AccordionItem = ReactSanfona.AccordionItem;
