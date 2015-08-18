@@ -18,11 +18,11 @@ var Accordion = (function (_Component) {
 
     _Component.call(this, props);
 
-    var selectedItem = props.selectedItem || 0;
-    var state = { selectedItem: selectedItem };
+    var selectedIndex = props.selectedIndex || 0;
+    var state = { selectedIndex: selectedIndex };
 
     if (props.allowMultiple) {
-      state.activeItems = [selectedItem];
+      state.activeItems = [selectedIndex];
     }
 
     this.state = state;
@@ -33,21 +33,21 @@ var Accordion = (function (_Component) {
   Accordion.prototype.componentDidMount = function componentDidMount() {
     var _this = this;
 
-    if (this.refs['item-' + this.state.selectedItem]) {
-      this.refs['item-' + this.state.selectedItem].allowOverflow();
+    if (this.refs['item-' + this.state.selectedIndex]) {
+      this.refs['item-' + this.state.selectedIndex].allowOverflow();
     }
 
     // allow overflow for absolute positioned elements inside
     // the item body, but only after animation is complete
     _react2['default'].findDOMNode(this).addEventListener('transitionend', function () {
-      if (_this.state.selectedItem !== -1) {
-        _this.refs['item-' + _this.state.selectedItem].allowOverflow();
+      if (_this.state.selectedIndex !== -1) {
+        _this.refs['item-' + _this.state.selectedIndex].allowOverflow();
       }
     });
   };
 
   Accordion.prototype.handleClick = function handleClick(index) {
-    var newState = { selectedItem: index };
+    var newState = { selectedIndex: index };
 
     if (this.props.allowMultiple) {
       // clone active items state array
@@ -57,12 +57,12 @@ var Accordion = (function (_Component) {
 
       if (position !== -1) {
         newState.activeItems.splice(position, 1);
-        newState.selectedItem = -1;
+        newState.selectedIndex = -1;
       } else {
         newState.activeItems.push(index);
       }
-    } else if (index === this.state.selectedItem) {
-      newState.selectedItem = -1;
+    } else if (index === this.state.selectedIndex) {
+      newState.selectedIndex = -1;
     }
 
     this.setState(newState);
@@ -76,7 +76,7 @@ var Accordion = (function (_Component) {
     }
 
     return this.props.children.map(function (item, index) {
-      var expanded = _this2.state.selectedItem === index || _this2.props.allowMultiple && _this2.state.activeItems.indexOf(index) !== -1;
+      var expanded = _this2.state.selectedIndex === index || _this2.props.allowMultiple && _this2.state.activeItems.indexOf(index) !== -1;
 
       return _react2['default'].cloneElement(item, {
         expanded: expanded,
@@ -100,8 +100,12 @@ var Accordion = (function (_Component) {
 
 exports['default'] = Accordion;
 
+Accordion.defaultProps = {
+  allowMultiple: false
+};
+
 Accordion.propTypes = {
   allowMultiple: _react.PropTypes.bool,
-  selectedItem: _react.PropTypes.number
+  selectedIndex: _react.PropTypes.number
 };
 module.exports = exports['default'];
