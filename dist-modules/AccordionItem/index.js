@@ -121,6 +121,7 @@ var AccordionItem = (function (_Component) {
       _extends({}, this.getProps(), { ref: 'item' }),
       _react2['default'].createElement(_AccordionItemTitle2['default'], { title: this.props.title,
         onClick: this.props.onClick,
+        color: this.props.color,
         uuid: this.uuid }),
       _react2['default'].createElement(
         _AccordionItemBody2['default'],

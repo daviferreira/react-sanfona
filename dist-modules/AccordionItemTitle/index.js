@@ -26,7 +26,8 @@ var AccordionItemTitle = (function (_Component) {
   AccordionItemTitle.prototype.render = function render() {
     var style = {
       cursor: 'pointer',
-      margin: 0
+      margin: 0,
+      color: this.props.color
     };
 
     return _react2['default'].createElement(

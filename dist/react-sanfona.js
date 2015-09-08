@@ -722,7 +722,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var style = {
 	      cursor: 'pointer',
 	      margin: 0,
-	      backgroundColor: this.props.color
+	      color: this.props.color
 	    };
 
 	    return _react2['default'].createElement(
