@@ -318,9 +318,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return _react2['default'].createElement(
 	      'div',
 	      _extends({}, this.getProps(), { ref: 'item' }),
-	      _react2['default'].createElement(_AccordionItemTitle2['default'], { title: this.props.title,
+	      _react2['default'].createElement(_AccordionItemTitle2['default'], {
+	        title: this.props.title,
 	        onClick: this.props.onClick,
-	        color: this.props.color,
+	        titleColor: this.props.titleColor,
 	        uuid: this.uuid }),
 	      _react2['default'].createElement(
 	        _AccordionItemBody2['default'],
@@ -722,7 +723,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var style = {
 	      cursor: 'pointer',
 	      margin: 0,
-	      color: this.props.color
+	      color: this.props.titleColor
 	    };
 
 	    return _react2['default'].createElement(
