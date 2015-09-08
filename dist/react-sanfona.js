@@ -320,6 +320,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      _extends({}, this.getProps(), { ref: 'item' }),
 	      _react2['default'].createElement(_AccordionItemTitle2['default'], { title: this.props.title,
 	        onClick: this.props.onClick,
+	        color: this.props.color,
 	        uuid: this.uuid }),
 	      _react2['default'].createElement(
 	        _AccordionItemBody2['default'],
@@ -720,7 +721,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	  AccordionItemTitle.prototype.render = function render() {
 	    var style = {
 	      cursor: 'pointer',
-	      margin: 0
+	      margin: 0,
+	      backgroundColor: this.props.color
 	    };
 
 	    return _react2['default'].createElement(

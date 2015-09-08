@@ -10,7 +10,7 @@ export default class Accordion extends Component {
     var selectedIndex = props.selectedIndex || 0;
     var state = { selectedIndex: selectedIndex };
 
-
+    
     if (props.allowMultiple) {
       state.activeItems = [selectedIndex];
     }

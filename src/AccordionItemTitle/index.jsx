@@ -7,7 +7,8 @@ export default class AccordionItemTitle extends Component {
   render() {
     var style = {
       cursor: 'pointer',
-      margin: 0
+      margin: 0,
+      backgroundColor : this.props.color
     };
 
     return (
