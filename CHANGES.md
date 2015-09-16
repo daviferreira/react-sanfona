@@ -1,3 +1,10 @@
+0.0.3 / 2015-09-18
+==================
+
+* Add titleColor prop
+* Add classnames as dependency
+
+
 0.0.2 / 2015-08-18
 ==================
 
