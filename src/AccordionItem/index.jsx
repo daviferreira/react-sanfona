@@ -2,6 +2,7 @@
 
 import className from 'classnames';
 import React, { Component, PropTypes } from 'react';
+import ReactDOM from 'react-dom';
 import uuid from 'uuid';
 
 import AccordionItemBody from '../AccordionItemBody';
@@ -36,7 +37,7 @@ export default class AccordionItem extends Component {
   }
 
   setMaxHeight() {
-    var bodyNode = React.findDOMNode(this.refs.body);
+    var bodyNode = ReactDOM.findDOMNode(this.refs.body);
     var images = bodyNode.querySelectorAll('img');
 
     if (images.length > 0) {
@@ -92,7 +93,7 @@ export default class AccordionItem extends Component {
   render() {
     return (
       <div {...this.getProps()} ref="item">
-        <AccordionItemTitle 
+        <AccordionItemTitle
           title={this.props.title}
           onClick={this.props.onClick}
           titleColor= {this.props.titleColor}

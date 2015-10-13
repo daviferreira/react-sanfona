@@ -3,7 +3,8 @@
 require('normalize.css');
 require('./demo.scss');
 
-import React from 'react/addons';
+import React from 'react';
+import ReactDOM from 'react-dom';
 
 import Accordion from '../src/Accordion';
 import AccordionItem from '../src/AccordionItem';
@@ -66,7 +67,7 @@ class Demo extends React.Component {
 
 }
 
-React.render(
+ReactDOM.render(
   <Demo />,
-  document.body
+  document.getElementById('demo')
 );

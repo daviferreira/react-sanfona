@@ -1,6 +1,7 @@
 'use strict';
 
 import React, { Component, PropTypes } from 'react';
+import ReactDOM from 'react-dom';
 
 export default class Accordion extends Component {
 
@@ -10,7 +11,6 @@ export default class Accordion extends Component {
     var selectedIndex = props.selectedIndex || 0;
     var state = { selectedIndex: selectedIndex };
 
-    
     if (props.allowMultiple) {
       state.activeItems = [selectedIndex];
     }
@@ -25,7 +25,7 @@ export default class Accordion extends Component {
 
     // allow overflow for absolute positioned elements inside
     // the item body, but only after animation is complete
-    React.findDOMNode(this).addEventListener('transitionend', () => {
+    ReactDOM.findDOMNode(this).addEventListener('transitionend', () => {
       if (this.state.selectedIndex !== -1) {
         this.refs[`item-${ this.state.selectedIndex }`].allowOverflow();
       }
