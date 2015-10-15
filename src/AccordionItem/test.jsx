@@ -1,19 +1,15 @@
 'use strict';
 
 import expect from 'unexpected';
-import jsdom from 'mocha-jsdom';
 import sinon from 'sinon';
-import React from 'react/addons'
+import React from 'react'
+import TestUtils from 'react-addons-test-utils';
 
 import AccordionItem from './index';
-
-var TestUtils = React.addons.TestUtils;
 
 expect.installPlugin(require('unexpected-sinon'));
 
 describe('AccordionItem Test Case', () => {
-
-  jsdom();
 
   it('should render', () => {
     var instance = TestUtils.renderIntoDocument(<AccordionItem />);

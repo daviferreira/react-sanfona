@@ -1,55 +1,53 @@
 'use strict';
 
 import expect from 'unexpected';
-import jsdom from 'mocha-jsdom';
-import React from 'react/addons'
+import React from 'react';
+import ReactDOM from 'react-dom';
+import TestUtils from 'react-addons-test-utils';
 
 import Accordion from './index';
 import AccordionItem from '../AccordionItem';
 import AccordionItemTitle from '../AccordionItemTitle';
 
-var TestUtils = React.addons.TestUtils;
-
 describe('Accordion Test Case', () => {
 
-  jsdom();
-
   it('should render', () => {
-    var instance = TestUtils.renderIntoDocument(<Accordion />);
+    const shallowRenderer = TestUtils.createRenderer();
+    shallowRenderer.render(<Accordion />);
+    const instance = shallowRenderer.getRenderOutput();
     expect(instance, 'to be defined');
   });
 
   describe('selectedIndex', () => {
 
     it('should select the first item as default', () => {
-      var instance = TestUtils.renderIntoDocument(
+      const shallowRenderer = TestUtils.createRenderer();
+      shallowRenderer.render(
         <Accordion>
           <AccordionItem title="First" />
           <AccordionItem title="Second" />
         </Accordion>
       );
+      const instance = shallowRenderer.getRenderOutput();
 
-      var items = TestUtils.scryRenderedComponentsWithType(
-        instance,
-        AccordionItem
-      );
+      const items = instance.props.children;
 
       expect(items[0].props.expanded, 'to be true');
       expect(items[1].props.expanded, 'to be false');
     });
 
     it('should accept a selectedIndex prop', () => {
-      var instance = TestUtils.renderIntoDocument(
+      const shallowRenderer = TestUtils.createRenderer();
+      shallowRenderer.render(
         <Accordion selectedIndex={1}>
           <AccordionItem title="First" />
           <AccordionItem title="Second" />
         </Accordion>
       );
 
-      var items = TestUtils.scryRenderedComponentsWithType(
-        instance,
-        AccordionItem
-      );
+      const instance = shallowRenderer.getRenderOutput();
+
+      const items = instance.props.children;
 
       expect(items[0].props.expanded, 'to be false');
       expect(items[1].props.expanded, 'to be true');
@@ -60,27 +58,23 @@ describe('Accordion Test Case', () => {
   describe('allowMultiple', () => {
 
     it('should allow multiple expanded items', () => {
-      var instance = TestUtils.renderIntoDocument(
+      const shallowRenderer = TestUtils.createRenderer();
+      shallowRenderer.render(
         <Accordion selectedIndex={1} allowMultiple={true}>
           <AccordionItem title="First" />
           <AccordionItem title="Second" />
         </Accordion>
       );
 
-      var items = TestUtils.scryRenderedComponentsWithType(
-        instance,
-        AccordionItem
-      );
+      const instance = shallowRenderer.getRenderOutput();
 
-      var title = TestUtils.findRenderedComponentWithType(
-        items[0],
-        AccordionItemTitle
-      );
+      const items = instance.props.children;
 
       expect(items[0].props.expanded, 'to be false');
       expect(items[1].props.expanded, 'to be true');
 
-      TestUtils.Simulate.click(React.findDOMNode(title));
+      // TestUtils.Simulate.click(React.findDOMNode(title));
+      shallowRenderer.getMountedInstance().handleClick(1);
 
       expect(items[0].props.expanded, 'to be true');
       expect(items[1].props.expanded, 'to be true');
