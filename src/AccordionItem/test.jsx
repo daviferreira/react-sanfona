@@ -1,8 +1,10 @@
 'use strict';
 
 import expect from 'unexpected';
+import sd from 'skin-deep';
 import sinon from 'sinon';
 import React from 'react'
+import ReactDOM from 'react-dom';
 import TestUtils from 'react-addons-test-utils';
 
 import AccordionItem from './index';
@@ -10,40 +12,41 @@ import AccordionItem from './index';
 expect.installPlugin(require('unexpected-sinon'));
 
 describe('AccordionItem Test Case', () => {
+  let vdom, instance;
 
   it('should render', () => {
-    var instance = TestUtils.renderIntoDocument(<AccordionItem />);
+    const tree = sd.shallowRender(<AccordionItem />);
+    instance = tree.getMountedInstance();
+    vdom = tree.getRenderOutput();
+
     expect(instance, 'to be defined');
+    expect(vdom, 'to be defined');
   });
 
   it('should have an unique id', () => {
-    var instance = TestUtils.renderIntoDocument(<AccordionItem />);
-    var anotherInstance = TestUtils.renderIntoDocument(<AccordionItem />);
-    expect(instance.uuid, 'not to equal', anotherInstance.uuid);
-  });
+    const tree = sd.shallowRender(<AccordionItem />);
+    const treeAlt = sd.shallowRender(<AccordionItem />);
 
-  it('should call the onClick prop when clicking on item title', () => {
-    var spy = sinon.spy();
-    var instance = TestUtils.renderIntoDocument(<AccordionItem onClick={spy} />);
-    var node = TestUtils.findRenderedDOMComponentWithTag(instance, 'h3');
-    TestUtils.Simulate.click(node);
-    expect(spy, 'was called');
+    instance = tree.getMountedInstance();
+    let anotherInstance = treeAlt.getMountedInstance();
+
+    expect(instance.uuid, 'not to equal', anotherInstance.uuid);
   });
 
   describe('aria', () => {
 
     it('should set aria-expanded to true when expanded prop is true', () => {
-      var instance = TestUtils.renderIntoDocument(<AccordionItem expanded={true} />);
-      var props = instance.getProps();
-      expect(props['aria-expanded'], 'to be true');
-      expect(props['aria-hidden'], 'to be undefined');
+      const tree = sd.shallowRender(<AccordionItem expanded={true} />);
+      vdom = tree.getRenderOutput();
+      expect(vdom.props['aria-expanded'], 'to be true');
+      expect(vdom.props['aria-hidden'], 'to be undefined');
     });
 
     it('should set aria-hidden to true when expanded prop is not true', () => {
-      var instance = TestUtils.renderIntoDocument(<AccordionItem />);
-      var props = instance.getProps();
-      expect(props['aria-expanded'], 'to be undefined');
-      expect(props['aria-hidden'], 'to be true');
+      const tree = sd.shallowRender(<AccordionItem />);
+      vdom = tree.getRenderOutput();
+      expect(vdom.props['aria-expanded'], 'to be undefined');
+      expect(vdom.props['aria-hidden'], 'to be true');
     });
 
   });

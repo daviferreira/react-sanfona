@@ -2,52 +2,54 @@
 
 import expect from 'unexpected';
 import React from 'react';
-import ReactDOM from 'react-dom';
+import sd from 'skin-deep';
 import TestUtils from 'react-addons-test-utils';
 
 import Accordion from './index';
 import AccordionItem from '../AccordionItem';
-import AccordionItemTitle from '../AccordionItemTitle';
 
 describe('Accordion Test Case', () => {
+  let vdom, instance, items;
 
   it('should render', () => {
-    const shallowRenderer = TestUtils.createRenderer();
-    shallowRenderer.render(<Accordion />);
-    const instance = shallowRenderer.getRenderOutput();
+    const tree = sd.shallowRender(<Accordion />);
+
+    instance = tree.getMountedInstance();
+    vdom = tree.getRenderOutput();
+
     expect(instance, 'to be defined');
+    expect(vdom, 'to be defined');
   });
 
   describe('selectedIndex', () => {
 
     it('should select the first item as default', () => {
-      const shallowRenderer = TestUtils.createRenderer();
-      shallowRenderer.render(
+      const tree = sd.shallowRender(
         <Accordion>
           <AccordionItem title="First" />
           <AccordionItem title="Second" />
         </Accordion>
       );
-      const instance = shallowRenderer.getRenderOutput();
 
-      const items = instance.props.children;
+      vdom = tree.getRenderOutput();
+
+      items = vdom.props.children;
 
       expect(items[0].props.expanded, 'to be true');
       expect(items[1].props.expanded, 'to be false');
     });
 
     it('should accept a selectedIndex prop', () => {
-      const shallowRenderer = TestUtils.createRenderer();
-      shallowRenderer.render(
+      const tree = sd.shallowRender(
         <Accordion selectedIndex={1}>
           <AccordionItem title="First" />
           <AccordionItem title="Second" />
         </Accordion>
       );
 
-      const instance = shallowRenderer.getRenderOutput();
+      vdom = tree.getRenderOutput();
 
-      const items = instance.props.children;
+      items = tree.props.children;
 
       expect(items[0].props.expanded, 'to be false');
       expect(items[1].props.expanded, 'to be true');
@@ -58,60 +60,55 @@ describe('Accordion Test Case', () => {
   describe('allowMultiple', () => {
 
     it('should allow multiple expanded items', () => {
-      const shallowRenderer = TestUtils.createRenderer();
-      shallowRenderer.render(
+      const tree = sd.shallowRender(
         <Accordion selectedIndex={1} allowMultiple={true}>
           <AccordionItem title="First" />
           <AccordionItem title="Second" />
         </Accordion>
       );
 
-      const instance = shallowRenderer.getRenderOutput();
-
-      const items = instance.props.children;
+      instance = tree.getMountedInstance();
+      vdom = tree.getRenderOutput();
+      items = vdom.props.children;
 
       expect(items[0].props.expanded, 'to be false');
       expect(items[1].props.expanded, 'to be true');
 
-      // TestUtils.Simulate.click(React.findDOMNode(title));
-      shallowRenderer.getMountedInstance().handleClick(1);
+      instance.handleClick(0);
+
+      vdom = tree.getRenderOutput();
+      items = vdom.props.children;
 
       expect(items[0].props.expanded, 'to be true');
       expect(items[1].props.expanded, 'to be true');
     });
 
     it('should save activeItems on state when allowMultiple is true', () => {
-      var instance = TestUtils.renderIntoDocument(
+      const tree = sd.shallowRender(
         <Accordion selectedIndex={1} allowMultiple={true}>
           <AccordionItem title="First" />
           <AccordionItem title="Second" />
         </Accordion>
       );
+
+      instance = tree.getMountedInstance();
 
       expect(instance.state.activeItems, 'to equal', [1]);
     });
 
     it('should update activeItems state when clicking on an item', () => {
-      var instance = TestUtils.renderIntoDocument(
+      const tree = sd.shallowRender(
         <Accordion selectedIndex={1} allowMultiple={true}>
           <AccordionItem title="First" />
           <AccordionItem title="Second" />
         </Accordion>
       );
 
-      var items = TestUtils.scryRenderedComponentsWithType(
-        instance,
-        AccordionItem
-      );
-
-      var title = TestUtils.findRenderedComponentWithType(
-        items[0],
-        AccordionItemTitle
-      );
+      instance = tree.getMountedInstance();
 
       expect(instance.state.activeItems, 'to equal', [1]);
 
-      TestUtils.Simulate.click(React.findDOMNode(title));
+      instance.handleClick(0);
 
       expect(instance.state.activeItems, 'to equal', [1, 0]);
     });
