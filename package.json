@@ -35,7 +35,7 @@
     "react-dom": "0.14.0"
   },
   "dependencies": {
-    "classnames": "2.1.5",
+    "classnames": "2.2.0",
     "uuid": "2.0.1"
   },
   "devDependencies": {
