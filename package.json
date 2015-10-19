@@ -53,7 +53,7 @@
     "sass-loader": "3.0.0",
     "sinon": "1.17.1",
     "skin-deep": "0.10.0",
-    "style-loader": "0.12.4",
+    "style-loader": "0.13.0",
     "trash": "3.1.1",
     "unexpected": "10.0.1",
     "unexpected-sinon": "8.0.0",
