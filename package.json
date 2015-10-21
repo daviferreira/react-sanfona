@@ -51,7 +51,7 @@
     "normalize.css": "3.0.3",
     "react-addons-test-utils": "0.14.0",
     "sass-loader": "3.0.0",
-    "sinon": "1.17.1",
+    "sinon": "1.17.2",
     "skin-deep": "0.10.0",
     "style-loader": "0.12.4",
     "trash": "3.1.1",
