@@ -55,7 +55,7 @@
     "skin-deep": "0.10.0",
     "style-loader": "0.12.4",
     "trash": "3.1.1",
-    "unexpected": "10.0.1",
+    "unexpected": "10.0.2",
     "unexpected-sinon": "8.0.0",
     "webpack": "1.12.2",
     "webpack-dev-server": "1.12.0"
