@@ -8,12 +8,9 @@ export default class Accordion extends Component {
   constructor(props) {
     super(props);
 
-    let activeItems = props.activeItems || [0];
-
-    // always use array for activeItems to avoid unnecessary checks
-    activeItems = !Array.isArray(activeItems) ?
-                  [activeItems] :
-                  activeItems;
+    let activeItems = !Array.isArray(props.activeItems) ?
+                      [props.activeItems] :
+                      props.activeItems;
 
     this.state = { activeItems: activeItems };
   }
@@ -79,6 +76,7 @@ export default class Accordion extends Component {
 }
 
 Accordion.defaultProps = {
+  activeItems: [0],
   allowMultiple: false
 };
 
