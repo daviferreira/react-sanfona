@@ -1,6 +1,12 @@
 # react-sanfona
 
-[![Build Status](https://travis-ci.org/daviferreira/react-sanfona.svg?branch=master)](https://travis-ci.org/daviferreira/react-sanfona)
+
+[![NPM info](https://nodei.co/npm/react-sanfona.png?downloads=true)](https://nodei.co/npm/react-sanfona.png?downloads=true)
+
+[![Travis build status](https://travis-ci.org/daviferreira/react-sanfona.png?branch=master)](https://travis-ci.org/daviferreira/react-sanfona)
+[![dependencies](https://david-dm.org/daviferreira/react-sanfona.png)](https://david-dm.org/daviferreira/react-sanfona)
+[![devDependency Status](https://david-dm.org/daviferreira/react-sanfona/dev-status.png)](https://david-dm.org/daviferreira/react-sanfona#info=devDependencies)
+
 
 React accordion component
 
