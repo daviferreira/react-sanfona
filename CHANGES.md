@@ -1,3 +1,9 @@
+0.0.5 / 2015-11-05
+==================
+
+* Remove selectedIndex and use only activeItems for opening items when mounting
+
+
 0.0.4 / 2015-09-28
 ==================
 
