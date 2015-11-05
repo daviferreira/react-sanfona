@@ -8,7 +8,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'd
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var _classnames = require('classnames');
 
@@ -17,6 +17,10 @@ var _classnames2 = _interopRequireDefault(_classnames);
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = require('react-dom');
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
 
 var _uuid = require('uuid');
 
@@ -31,6 +35,8 @@ var _AccordionItemTitle = require('../AccordionItemTitle');
 var _AccordionItemTitle2 = _interopRequireDefault(_AccordionItemTitle);
 
 var AccordionItem = (function (_Component) {
+  _inherits(AccordionItem, _Component);
+
   function AccordionItem(props) {
     _classCallCheck(this, AccordionItem);
 
@@ -40,8 +46,6 @@ var AccordionItem = (function (_Component) {
       overflow: props.expanded ? 'visible' : 'hidden'
     };
   }
-
-  _inherits(AccordionItem, _Component);
 
   AccordionItem.prototype.componentWillMount = function componentWillMount() {
     this.uuid = _uuid2['default'].v4();
@@ -62,7 +66,7 @@ var AccordionItem = (function (_Component) {
   };
 
   AccordionItem.prototype.setMaxHeight = function setMaxHeight() {
-    var bodyNode = _react2['default'].findDOMNode(this.refs.body);
+    var bodyNode = _reactDom2['default'].findDOMNode(this.refs.body);
     var images = bodyNode.querySelectorAll('img');
 
     if (images.length > 0) {
@@ -102,7 +106,7 @@ var AccordionItem = (function (_Component) {
 
   AccordionItem.prototype.getProps = function getProps() {
     var props = {
-      className: (0, _classnames2['default'])(['react-sanfona-item', { 'react-sanfona-item-expanded': this.props.expanded }]),
+      className: _classnames2['default'](['react-sanfona-item', { 'react-sanfona-item-expanded': this.props.expanded }]),
       role: 'tabpanel'
     };
 

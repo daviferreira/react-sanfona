@@ -6,63 +6,69 @@ var _unexpected = require('unexpected');
 
 var _unexpected2 = _interopRequireDefault(_unexpected);
 
-var _mochaJsdom = require('mocha-jsdom');
+var _skinDeep = require('skin-deep');
 
-var _mochaJsdom2 = _interopRequireDefault(_mochaJsdom);
+var _skinDeep2 = _interopRequireDefault(_skinDeep);
 
 var _sinon = require('sinon');
 
 var _sinon2 = _interopRequireDefault(_sinon);
 
-var _reactAddons = require('react/addons');
+var _react = require('react');
 
-var _reactAddons2 = _interopRequireDefault(_reactAddons);
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = require('react-dom');
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+var _reactAddonsTestUtils = require('react-addons-test-utils');
+
+var _reactAddonsTestUtils2 = _interopRequireDefault(_reactAddonsTestUtils);
 
 var _index = require('./index');
 
 var _index2 = _interopRequireDefault(_index);
 
-var TestUtils = _reactAddons2['default'].addons.TestUtils;
-
 _unexpected2['default'].installPlugin(require('unexpected-sinon'));
 
 describe('AccordionItem Test Case', function () {
-
-  (0, _mochaJsdom2['default'])();
+  var vdom = undefined,
+      instance = undefined;
 
   it('should render', function () {
-    var instance = TestUtils.renderIntoDocument(_reactAddons2['default'].createElement(_index2['default'], null));
-    (0, _unexpected2['default'])(instance, 'to be defined');
+    var tree = _skinDeep2['default'].shallowRender(_react2['default'].createElement(_index2['default'], null));
+    instance = tree.getMountedInstance();
+    vdom = tree.getRenderOutput();
+
+    _unexpected2['default'](instance, 'to be defined');
+    _unexpected2['default'](vdom, 'to be defined');
   });
 
   it('should have an unique id', function () {
-    var instance = TestUtils.renderIntoDocument(_reactAddons2['default'].createElement(_index2['default'], null));
-    var anotherInstance = TestUtils.renderIntoDocument(_reactAddons2['default'].createElement(_index2['default'], null));
-    (0, _unexpected2['default'])(instance.uuid, 'not to equal', anotherInstance.uuid);
-  });
+    var tree = _skinDeep2['default'].shallowRender(_react2['default'].createElement(_index2['default'], null));
+    var treeAlt = _skinDeep2['default'].shallowRender(_react2['default'].createElement(_index2['default'], null));
 
-  it('should call the onClick prop when clicking on item title', function () {
-    var spy = _sinon2['default'].spy();
-    var instance = TestUtils.renderIntoDocument(_reactAddons2['default'].createElement(_index2['default'], { onClick: spy }));
-    var node = TestUtils.findRenderedDOMComponentWithTag(instance, 'h3');
-    TestUtils.Simulate.click(node);
-    (0, _unexpected2['default'])(spy, 'was called');
+    instance = tree.getMountedInstance();
+    var anotherInstance = treeAlt.getMountedInstance();
+
+    _unexpected2['default'](instance.uuid, 'not to equal', anotherInstance.uuid);
   });
 
   describe('aria', function () {
 
     it('should set aria-expanded to true when expanded prop is true', function () {
-      var instance = TestUtils.renderIntoDocument(_reactAddons2['default'].createElement(_index2['default'], { expanded: true }));
-      var props = instance.getProps();
-      (0, _unexpected2['default'])(props['aria-expanded'], 'to be true');
-      (0, _unexpected2['default'])(props['aria-hidden'], 'to be undefined');
+      var tree = _skinDeep2['default'].shallowRender(_react2['default'].createElement(_index2['default'], { expanded: true }));
+      vdom = tree.getRenderOutput();
+      _unexpected2['default'](vdom.props['aria-expanded'], 'to be true');
+      _unexpected2['default'](vdom.props['aria-hidden'], 'to be undefined');
     });
 
     it('should set aria-hidden to true when expanded prop is not true', function () {
-      var instance = TestUtils.renderIntoDocument(_reactAddons2['default'].createElement(_index2['default'], null));
-      var props = instance.getProps();
-      (0, _unexpected2['default'])(props['aria-expanded'], 'to be undefined');
-      (0, _unexpected2['default'])(props['aria-hidden'], 'to be true');
+      var tree = _skinDeep2['default'].shallowRender(_react2['default'].createElement(_index2['default'], null));
+      vdom = tree.getRenderOutput();
+      _unexpected2['default'](vdom.props['aria-expanded'], 'to be undefined');
+      _unexpected2['default'](vdom.props['aria-hidden'], 'to be true');
     });
   });
 });

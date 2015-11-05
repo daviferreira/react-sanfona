@@ -6,63 +6,59 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'd
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactDom = require('react-dom');
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
 var Accordion = (function (_Component) {
+  _inherits(Accordion, _Component);
+
   function Accordion(props) {
     _classCallCheck(this, Accordion);
 
     _Component.call(this, props);
 
-    var selectedIndex = props.selectedIndex || 0;
-    var state = { selectedIndex: selectedIndex };
+    var activeItems = !Array.isArray(props.activeItems) ? [props.activeItems] : props.activeItems;
 
-    if (props.allowMultiple) {
-      state.activeItems = [selectedIndex];
-    }
-
-    this.state = state;
+    this.state = { activeItems: activeItems };
   }
-
-  _inherits(Accordion, _Component);
 
   Accordion.prototype.componentDidMount = function componentDidMount() {
     var _this = this;
 
-    if (this.refs['item-' + this.state.selectedIndex]) {
-      this.refs['item-' + this.state.selectedIndex].allowOverflow();
-    }
+    this.state.activeItems.forEach(function (index) {
+      if (_this.refs['item-' + index]) {
+        _this.refs['item-' + index].allowOverflow();
+      }
+    });
 
     // allow overflow for absolute positioned elements inside
     // the item body, but only after animation is complete
-    _react2['default'].findDOMNode(this).addEventListener('transitionend', function () {
-      if (_this.state.selectedIndex !== -1) {
-        _this.refs['item-' + _this.state.selectedIndex].allowOverflow();
-      }
+    _reactDom2['default'].findDOMNode(this).addEventListener('transitionend', function () {
+      _this.state.activeItems.forEach(function (index) {
+        _this.refs['item-' + index].allowOverflow();
+      });
     });
   };
 
   Accordion.prototype.handleClick = function handleClick(index) {
-    var newState = { selectedIndex: index };
+    var newState = {};
 
-    if (this.props.allowMultiple) {
-      // clone active items state array
-      newState.activeItems = this.state.activeItems.slice(0);
+    // clone active items state array
+    newState.activeItems = this.state.activeItems.slice(0);
 
-      var position = newState.activeItems.indexOf(index);
+    var position = newState.activeItems.indexOf(index);
 
-      if (position !== -1) {
-        newState.activeItems.splice(position, 1);
-        newState.selectedIndex = -1;
-      } else {
-        newState.activeItems.push(index);
-      }
-    } else if (index === this.state.selectedIndex) {
-      newState.selectedIndex = -1;
+    if (position !== -1) {
+      newState.activeItems.splice(position, 1);
+    } else {
+      newState.activeItems.push(index);
     }
 
     this.setState(newState);
@@ -76,7 +72,7 @@ var Accordion = (function (_Component) {
     }
 
     return this.props.children.map(function (item, index) {
-      var expanded = _this2.state.selectedIndex === index || _this2.props.allowMultiple && _this2.state.activeItems.indexOf(index) !== -1;
+      var expanded = _this2.state.activeItems.indexOf(index) !== -1;
 
       return _react2['default'].cloneElement(item, {
         expanded: expanded,
@@ -101,11 +97,12 @@ var Accordion = (function (_Component) {
 exports['default'] = Accordion;
 
 Accordion.defaultProps = {
+  activeItems: [0],
   allowMultiple: false
 };
 
 Accordion.propTypes = {
   allowMultiple: _react.PropTypes.bool,
-  selectedIndex: _react.PropTypes.number
+  activeItems: _react.PropTypes.oneOfType([_react.PropTypes.number, _react.PropTypes.array])
 };
 module.exports = exports['default'];

@@ -1,12 +1,12 @@
 {
   "name": "react-sanfona",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "React accessible accordion component",
   "main": "./dist-modules/index.js",
   "scripts": {
     "bundle-demo": "webpack --config webpack.config.demo.js",
     "bundle-dist": "webpack --config webpack.config.dist.js",
-    "bundle-modules": "trash dist-modules/* --force && babel src --loose --out-dir dist-modules",
+    "bundle-modules": "rm -rf dist-modules/* --force && babel src --loose --out-dir dist-modules",
     "demo": "webpack-dev-server --config webpack.config.demo.js",
     "lint": "eslint ./src",
     "test": "npm run lint && mocha -R spec --compilers jsx:test/compiler.js ./src/**/test.jsx"
@@ -55,7 +55,6 @@
     "sinon": "1.17.1",
     "skin-deep": "0.12.0",
     "style-loader": "0.12.4",
-    "trash": "3.1.2",
     "unexpected": "10.0.2",
     "unexpected-sinon": "8.0.0",
     "webpack": "1.12.2",

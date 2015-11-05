@@ -6,13 +6,17 @@ var _unexpected = require('unexpected');
 
 var _unexpected2 = _interopRequireDefault(_unexpected);
 
-var _mochaJsdom = require('mocha-jsdom');
+var _react = require('react');
 
-var _mochaJsdom2 = _interopRequireDefault(_mochaJsdom);
+var _react2 = _interopRequireDefault(_react);
 
-var _reactAddons = require('react/addons');
+var _skinDeep = require('skin-deep');
 
-var _reactAddons2 = _interopRequireDefault(_reactAddons);
+var _skinDeep2 = _interopRequireDefault(_skinDeep);
+
+var _reactAddonsTestUtils = require('react-addons-test-utils');
+
+var _reactAddonsTestUtils2 = _interopRequireDefault(_reactAddonsTestUtils);
 
 var _index = require('./index');
 
@@ -22,103 +26,126 @@ var _AccordionItem = require('../AccordionItem');
 
 var _AccordionItem2 = _interopRequireDefault(_AccordionItem);
 
-var _AccordionItemTitle = require('../AccordionItemTitle');
-
-var _AccordionItemTitle2 = _interopRequireDefault(_AccordionItemTitle);
-
-var TestUtils = _reactAddons2['default'].addons.TestUtils;
-
 describe('Accordion Test Case', function () {
-
-  (0, _mochaJsdom2['default'])();
+  var vdom = undefined,
+      instance = undefined,
+      items = undefined;
 
   it('should render', function () {
-    var instance = TestUtils.renderIntoDocument(_reactAddons2['default'].createElement(_index2['default'], null));
-    (0, _unexpected2['default'])(instance, 'to be defined');
+    var tree = _skinDeep2['default'].shallowRender(_react2['default'].createElement(_index2['default'], null));
+
+    instance = tree.getMountedInstance();
+    vdom = tree.getRenderOutput();
+
+    _unexpected2['default'](instance, 'to be defined');
+    _unexpected2['default'](vdom, 'to be defined');
   });
 
-  describe('selectedIndex', function () {
+  describe('activeItems', function () {
 
     it('should select the first item as default', function () {
-      var instance = TestUtils.renderIntoDocument(_reactAddons2['default'].createElement(
+      var tree = _skinDeep2['default'].shallowRender(_react2['default'].createElement(
         _index2['default'],
         null,
-        _reactAddons2['default'].createElement(_AccordionItem2['default'], { title: 'First' }),
-        _reactAddons2['default'].createElement(_AccordionItem2['default'], { title: 'Second' })
+        _react2['default'].createElement(_AccordionItem2['default'], { title: 'First' }),
+        _react2['default'].createElement(_AccordionItem2['default'], { title: 'Second' })
       ));
 
-      var items = TestUtils.scryRenderedComponentsWithType(instance, _AccordionItem2['default']);
+      vdom = tree.getRenderOutput();
 
-      (0, _unexpected2['default'])(items[0].props.expanded, 'to be true');
-      (0, _unexpected2['default'])(items[1].props.expanded, 'to be false');
+      items = vdom.props.children;
+
+      _unexpected2['default'](items[0].props.expanded, 'to be true');
+      _unexpected2['default'](items[1].props.expanded, 'to be false');
     });
 
-    it('should accept a selectedIndex prop', function () {
-      var instance = TestUtils.renderIntoDocument(_reactAddons2['default'].createElement(
+    it('should accept a activeItems prop', function () {
+      var tree = _skinDeep2['default'].shallowRender(_react2['default'].createElement(
         _index2['default'],
-        { selectedIndex: 1 },
-        _reactAddons2['default'].createElement(_AccordionItem2['default'], { title: 'First' }),
-        _reactAddons2['default'].createElement(_AccordionItem2['default'], { title: 'Second' })
+        { activeItems: 1 },
+        _react2['default'].createElement(_AccordionItem2['default'], { title: 'First' }),
+        _react2['default'].createElement(_AccordionItem2['default'], { title: 'Second' })
       ));
 
-      var items = TestUtils.scryRenderedComponentsWithType(instance, _AccordionItem2['default']);
+      vdom = tree.getRenderOutput();
 
-      (0, _unexpected2['default'])(items[0].props.expanded, 'to be false');
-      (0, _unexpected2['default'])(items[1].props.expanded, 'to be true');
+      items = tree.props.children;
+
+      _unexpected2['default'](items[0].props.expanded, 'to be false');
+      _unexpected2['default'](items[1].props.expanded, 'to be true');
+    });
+
+    it('should accept multiple selected indexes', function () {
+      var tree = _skinDeep2['default'].shallowRender(_react2['default'].createElement(
+        _index2['default'],
+        { activeItems: [0, 1] },
+        _react2['default'].createElement(_AccordionItem2['default'], { title: 'First' }),
+        _react2['default'].createElement(_AccordionItem2['default'], { title: 'Second' })
+      ));
+
+      vdom = tree.getRenderOutput();
+
+      items = tree.props.children;
+
+      _unexpected2['default'](items[0].props.expanded, 'to be true');
+      _unexpected2['default'](items[1].props.expanded, 'to be true');
     });
   });
 
   describe('allowMultiple', function () {
 
     it('should allow multiple expanded items', function () {
-      var instance = TestUtils.renderIntoDocument(_reactAddons2['default'].createElement(
+      var tree = _skinDeep2['default'].shallowRender(_react2['default'].createElement(
         _index2['default'],
-        { selectedIndex: 1, allowMultiple: true },
-        _reactAddons2['default'].createElement(_AccordionItem2['default'], { title: 'First' }),
-        _reactAddons2['default'].createElement(_AccordionItem2['default'], { title: 'Second' })
+        { activeItems: 1, allowMultiple: true },
+        _react2['default'].createElement(_AccordionItem2['default'], { title: 'First' }),
+        _react2['default'].createElement(_AccordionItem2['default'], { title: 'Second' })
       ));
 
-      var items = TestUtils.scryRenderedComponentsWithType(instance, _AccordionItem2['default']);
+      instance = tree.getMountedInstance();
+      vdom = tree.getRenderOutput();
+      items = vdom.props.children;
 
-      var title = TestUtils.findRenderedComponentWithType(items[0], _AccordionItemTitle2['default']);
+      _unexpected2['default'](items[0].props.expanded, 'to be false');
+      _unexpected2['default'](items[1].props.expanded, 'to be true');
 
-      (0, _unexpected2['default'])(items[0].props.expanded, 'to be false');
-      (0, _unexpected2['default'])(items[1].props.expanded, 'to be true');
+      instance.handleClick(0);
 
-      TestUtils.Simulate.click(_reactAddons2['default'].findDOMNode(title));
+      vdom = tree.getRenderOutput();
+      items = vdom.props.children;
 
-      (0, _unexpected2['default'])(items[0].props.expanded, 'to be true');
-      (0, _unexpected2['default'])(items[1].props.expanded, 'to be true');
+      _unexpected2['default'](items[0].props.expanded, 'to be true');
+      _unexpected2['default'](items[1].props.expanded, 'to be true');
     });
 
     it('should save activeItems on state when allowMultiple is true', function () {
-      var instance = TestUtils.renderIntoDocument(_reactAddons2['default'].createElement(
+      var tree = _skinDeep2['default'].shallowRender(_react2['default'].createElement(
         _index2['default'],
-        { selectedIndex: 1, allowMultiple: true },
-        _reactAddons2['default'].createElement(_AccordionItem2['default'], { title: 'First' }),
-        _reactAddons2['default'].createElement(_AccordionItem2['default'], { title: 'Second' })
+        { activeItems: 1, allowMultiple: true },
+        _react2['default'].createElement(_AccordionItem2['default'], { title: 'First' }),
+        _react2['default'].createElement(_AccordionItem2['default'], { title: 'Second' })
       ));
 
-      (0, _unexpected2['default'])(instance.state.activeItems, 'to equal', [1]);
+      instance = tree.getMountedInstance();
+
+      _unexpected2['default'](instance.state.activeItems, 'to equal', [1]);
     });
 
     it('should update activeItems state when clicking on an item', function () {
-      var instance = TestUtils.renderIntoDocument(_reactAddons2['default'].createElement(
+      var tree = _skinDeep2['default'].shallowRender(_react2['default'].createElement(
         _index2['default'],
-        { selectedIndex: 1, allowMultiple: true },
-        _reactAddons2['default'].createElement(_AccordionItem2['default'], { title: 'First' }),
-        _reactAddons2['default'].createElement(_AccordionItem2['default'], { title: 'Second' })
+        { activeItems: 1, allowMultiple: true },
+        _react2['default'].createElement(_AccordionItem2['default'], { title: 'First' }),
+        _react2['default'].createElement(_AccordionItem2['default'], { title: 'Second' })
       ));
 
-      var items = TestUtils.scryRenderedComponentsWithType(instance, _AccordionItem2['default']);
+      instance = tree.getMountedInstance();
 
-      var title = TestUtils.findRenderedComponentWithType(items[0], _AccordionItemTitle2['default']);
+      _unexpected2['default'](instance.state.activeItems, 'to equal', [1]);
 
-      (0, _unexpected2['default'])(instance.state.activeItems, 'to equal', [1]);
+      instance.handleClick(0);
 
-      TestUtils.Simulate.click(_reactAddons2['default'].findDOMNode(title));
-
-      (0, _unexpected2['default'])(instance.state.activeItems, 'to equal', [1, 0]);
+      _unexpected2['default'](instance.state.activeItems, 'to equal', [1, 0]);
     });
   });
 });
