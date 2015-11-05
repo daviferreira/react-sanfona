@@ -33,7 +33,22 @@ class Demo extends React.Component {
 
         <h2>Allow multiple</h2>
 
-        <Accordion allowMultiple={true} selectedIndex={2}>
+        <Accordion allowMultiple={true} activeItems={2}>
+          {[1, 2, 3, 4, 5].map((item) => {
+            return (
+              <AccordionItem title={`Item ${ item }`} key={item}>
+                <div>
+                  {`Item ${ item } content`}
+                  {item === 3 ? <p><img src="http://i.giphy.com/nIMpbXH2WfYRi.gif" /></p> : null}
+                </div>
+              </AccordionItem>
+            );
+          })}
+        </Accordion>
+
+        <h2>Allow multiple, all active</h2>
+
+        <Accordion allowMultiple={true} activeItems={[0, 1, 2, 3, 4]}>
           {[1, 2, 3, 4, 5].map((item) => {
             return (
               <AccordionItem title={`Item ${ item }`} key={item}>

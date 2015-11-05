@@ -21,7 +21,7 @@ describe('Accordion Test Case', () => {
     expect(vdom, 'to be defined');
   });
 
-  describe('selectedIndex', () => {
+  describe('activeItems', () => {
 
     it('should select the first item as default', () => {
       const tree = sd.shallowRender(
@@ -39,9 +39,9 @@ describe('Accordion Test Case', () => {
       expect(items[1].props.expanded, 'to be false');
     });
 
-    it('should accept a selectedIndex prop', () => {
+    it('should accept a activeItems prop', () => {
       const tree = sd.shallowRender(
-        <Accordion selectedIndex={1}>
+        <Accordion activeItems={1}>
           <AccordionItem title="First" />
           <AccordionItem title="Second" />
         </Accordion>
@@ -55,13 +55,29 @@ describe('Accordion Test Case', () => {
       expect(items[1].props.expanded, 'to be true');
     });
 
+    it('should accept multiple selected indexes', () => {
+      const tree = sd.shallowRender(
+        <Accordion activeItems={[0, 1]}>
+          <AccordionItem title="First" />
+          <AccordionItem title="Second" />
+        </Accordion>
+      );
+
+      vdom = tree.getRenderOutput();
+
+      items = tree.props.children;
+
+      expect(items[0].props.expanded, 'to be true');
+      expect(items[1].props.expanded, 'to be true');
+    });
+
   });
 
   describe('allowMultiple', () => {
 
     it('should allow multiple expanded items', () => {
       const tree = sd.shallowRender(
-        <Accordion selectedIndex={1} allowMultiple={true}>
+        <Accordion activeItems={1} allowMultiple={true}>
           <AccordionItem title="First" />
           <AccordionItem title="Second" />
         </Accordion>
@@ -85,7 +101,7 @@ describe('Accordion Test Case', () => {
 
     it('should save activeItems on state when allowMultiple is true', () => {
       const tree = sd.shallowRender(
-        <Accordion selectedIndex={1} allowMultiple={true}>
+        <Accordion activeItems={1} allowMultiple={true}>
           <AccordionItem title="First" />
           <AccordionItem title="Second" />
         </Accordion>
@@ -98,7 +114,7 @@ describe('Accordion Test Case', () => {
 
     it('should update activeItems state when clicking on an item', () => {
       const tree = sd.shallowRender(
-        <Accordion selectedIndex={1} allowMultiple={true}>
+        <Accordion activeItems={1} allowMultiple={true}>
           <AccordionItem title="First" />
           <AccordionItem title="Second" />
         </Accordion>

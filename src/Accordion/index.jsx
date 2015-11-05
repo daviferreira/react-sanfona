@@ -8,47 +8,44 @@ export default class Accordion extends Component {
   constructor(props) {
     super(props);
 
-    var selectedIndex = props.selectedIndex || 0;
-    var state = { selectedIndex: selectedIndex };
+    let activeItems = props.activeItems || [0];
 
-    if (props.allowMultiple) {
-      state.activeItems = [selectedIndex];
-    }
+    // always use array for activeItems to avoid unnecessary checks
+    activeItems = !Array.isArray(activeItems) ?
+                  [activeItems] :
+                  activeItems;
 
-    this.state = state;
+    this.state = { activeItems: activeItems };
   }
 
   componentDidMount() {
-    if (this.refs[`item-${ this.state.selectedIndex }`]) {
-      this.refs[`item-${ this.state.selectedIndex }`].allowOverflow();
-    }
+    this.state.activeItems.forEach((index) => {
+      if (this.refs[`item-${ index }`]) {
+        this.refs[`item-${ index }`].allowOverflow();
+      }
+    });
 
     // allow overflow for absolute positioned elements inside
     // the item body, but only after animation is complete
     ReactDOM.findDOMNode(this).addEventListener('transitionend', () => {
-      if (this.state.selectedIndex !== -1) {
-        this.refs[`item-${ this.state.selectedIndex }`].allowOverflow();
-      }
+      this.state.activeItems.forEach((index) => {
+        this.refs[`item-${ index }`].allowOverflow();
+      });
     });
   }
 
   handleClick(index) {
-    var newState = { selectedIndex: index };
+    let newState = {};
 
-    if (this.props.allowMultiple) {
-      // clone active items state array
-      newState.activeItems = this.state.activeItems.slice(0);
+    // clone active items state array
+    newState.activeItems = this.state.activeItems.slice(0);
 
-      let position = newState.activeItems.indexOf(index);
+    const position = newState.activeItems.indexOf(index);
 
-      if (position !== -1) {
-        newState.activeItems.splice(position, 1);
-        newState.selectedIndex = -1;
-      } else {
-        newState.activeItems.push(index);
-      }
-    } else if (index === this.state.selectedIndex) {
-      newState.selectedIndex = -1;
+    if (position !== -1) {
+      newState.activeItems.splice(position, 1);
+    } else {
+      newState.activeItems.push(index);
     }
 
     this.setState(newState);
@@ -60,9 +57,7 @@ export default class Accordion extends Component {
     }
 
     return this.props.children.map((item, index) => {
-      let expanded = this.state.selectedIndex === index ||
-                      (this.props.allowMultiple &&
-                        this.state.activeItems.indexOf(index) !== -1);
+      const expanded = this.state.activeItems.indexOf(index) !== -1;
 
       return React.cloneElement(item, {
         expanded: expanded,
@@ -89,5 +84,8 @@ Accordion.defaultProps = {
 
 Accordion.propTypes = {
   allowMultiple: PropTypes.bool,
-  selectedIndex: PropTypes.number
+  activeItems: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.array
+  ])
 };
