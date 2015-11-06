@@ -134,8 +134,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    if (position !== -1) {
 	      newState.activeItems.splice(position, 1);
-	    } else {
+	    } else if (this.props.allowMultiple) {
 	      newState.activeItems.push(index);
+	    } else {
+	      newState.activeItems = [index];
 	    }
 
 	    this.setState(newState);
@@ -333,7 +335,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	        currentQueue = queue;
 	        queue = [];
 	        while (++queueIndex < len) {
-	            currentQueue[queueIndex].run();
+	            if (currentQueue) {
+	                currentQueue[queueIndex].run();
+	            }
 	        }
 	        queueIndex = -1;
 	        len = queue.length;
@@ -385,7 +389,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    throw new Error('process.binding is not supported');
 	};
 
-	// TODO(shtylman)
 	process.cwd = function () { return '/' };
 	process.chdir = function (dir) {
 	    throw new Error('process.chdir is not supported');
