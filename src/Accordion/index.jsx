@@ -41,8 +41,10 @@ export default class Accordion extends Component {
 
     if (position !== -1) {
       newState.activeItems.splice(position, 1);
-    } else {
+    } else if (this.props.allowMultiple) {
       newState.activeItems.push(index);
+    } else {
+      newState.activeItems = [index];
     }
 
     this.setState(newState);
