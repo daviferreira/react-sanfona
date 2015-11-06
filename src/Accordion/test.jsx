@@ -71,6 +71,23 @@ describe('Accordion Test Case', () => {
       expect(items[1].props.expanded, 'to be true');
     });
 
+    it('should keep only one activeItem when allowMultiple is false', () => {
+      const tree = sd.shallowRender(
+        <Accordion activeItems={1}>
+          <AccordionItem title="First" />
+          <AccordionItem title="Second" />
+        </Accordion>
+      );
+
+      instance = tree.getMountedInstance();
+
+      expect(instance.state.activeItems, 'to equal', [1]);
+
+      instance.handleClick(0);
+
+      expect(instance.state.activeItems, 'to equal', [0]);
+    });
+
   });
 
   describe('allowMultiple', () => {
