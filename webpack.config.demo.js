@@ -4,7 +4,7 @@ var path = require('path');
 var webpack = require('webpack');
 
 module.exports = {
-  devtool: 'eval',
+  devtool: 'source-map',
 
   entry: {
     demo: ['webpack/hot/dev-server', './demo/index.jsx']
@@ -12,7 +12,14 @@ module.exports = {
 
   module: {
     loaders: [
-      { test: /\.jsx$/, loader: 'babel?loose=all', exclude: /node_modules/ },
+      {
+        test: /\.jsx$/,
+        loader: 'babel',
+        exclude: /node_modules/,
+        query: {
+          presets: ['react']
+        }
+      },
       { test: /\.css$/, loaders: ['style', 'css'] },
       {
         test: /\.scss$/,
