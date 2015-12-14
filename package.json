@@ -31,8 +31,8 @@
   },
   "homepage": "https://github.com/daviferreira/react-sanfona",
   "peerDependencies": {
-    "react": "^0.14.2",
-    "react-dom": "^0.14.2"
+    "react": "^0.14.3",
+    "react-dom": "^0.14.3"
   },
   "dependencies": {
     "classnames": "2.2.0",
