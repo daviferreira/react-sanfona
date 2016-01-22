@@ -113,5 +113,5 @@ export default class AccordionItem extends Component {
 AccordionItem.propTypes = {
   expanded: PropTypes.bool,
   onClick: PropTypes.func,
-  title: PropTypes.string
+  title: PropTypes.oneOfType([PropTypes.string, PropTypes.node])
 };
