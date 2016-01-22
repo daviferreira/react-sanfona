@@ -1,6 +1,4 @@
 'use strict';
 
-import Accordion from './Accordion';
-import AccordionItem from './AccordionItem';
-
-export default { Accordion, AccordionItem };
+export Accordion from './Accordion';
+export AccordionItem from './AccordionItem';
