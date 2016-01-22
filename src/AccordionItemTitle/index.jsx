@@ -26,6 +26,6 @@ export default class AccordionItemTitle extends Component {
 
 AccordionItemTitle.propTypes = {
   onClick: PropTypes.func,
-  title: PropTypes.string,
+  title: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   uuid: PropTypes.string
 };
