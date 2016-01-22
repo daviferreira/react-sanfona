@@ -8,7 +8,7 @@
     "bundle-dist": "webpack --config webpack.config.dist.js",
     "bundle-modules": "rm -rf dist-modules/* --force && ./node_modules/.bin/babel src --loose --out-dir dist-modules",
     "demo": "webpack-dev-server --config webpack.config.demo.js",
-    "lint": "eslint ./src",
+    "lint": "./node_modules/.bin/eslint ./src",
     "test": "npm run lint && mocha -R spec --compilers jsx:./test/compiler ./src/**/test.jsx"
   },
   "repository": {
