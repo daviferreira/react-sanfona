@@ -76,9 +76,12 @@ export default class AccordionItem extends Component {
     var props = {
       className: className([
         'react-sanfona-item',
-        { 'react-sanfona-item-expanded': this.props.expanded }
+        this.props.className,
+        { 'react-sanfona-item-expanded': this.props.expanded },
+        { [this.props.expandedClassName]: this.props.expanded }
       ]),
-      role: 'tabpanel'
+      role: 'tabpanel',
+      style: this.props.style
     };
 
     if (this.props.expanded) {
@@ -94,11 +97,13 @@ export default class AccordionItem extends Component {
     return (
       <div {...this.getProps()} ref="item">
         <AccordionItemTitle
+          className={this.props.titleClassName}
           title={this.props.title}
           onClick={this.props.onClick}
           titleColor= {this.props.titleColor}
           uuid={this.uuid} />
         <AccordionItemBody maxHeight={this.state.maxHeight}
+          className={this.props.bodyClassName}
           overflow={this.state.overflow}
           ref="body"
           uuid={this.uuid}>
@@ -111,7 +116,12 @@ export default class AccordionItem extends Component {
 }
 
 AccordionItem.propTypes = {
+  bodyClassName: PropTypes.string,
+  className: PropTypes.string,
   expanded: PropTypes.bool,
   onClick: PropTypes.func,
-  title: PropTypes.string
+  title: PropTypes.string,
+  expandedClassName: PropTypes.string,
+  style: PropTypes.object,
+  titleClassName: PropTypes.string
 };

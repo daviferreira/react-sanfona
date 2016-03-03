@@ -1,5 +1,6 @@
 'use strict';
 
+import className from 'classnames';
 import React, { Component, PropTypes } from 'react';
 
 export default class AccordionItemBody extends Component {
@@ -13,7 +14,7 @@ export default class AccordionItemBody extends Component {
 
     return (
       <div aria-labelledby={`react-safona-item-title-${ this.props.uuid }`}
-        className="react-sanfona-item-body"
+        className={className('react-sanfona-item-body', this.props.className)}
         id={`react-safona-item-body-${ this.props.uuid }`}
         style={style}>
         <div className="react-sanfona-item-body-wrapper">
@@ -26,6 +27,7 @@ export default class AccordionItemBody extends Component {
 }
 
 AccordionItemBody.propTypes = {
+  className: PropTypes.string,
   maxHeight: PropTypes.oneOfType([
       React.PropTypes.string,
       React.PropTypes.number
