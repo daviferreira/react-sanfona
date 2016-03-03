@@ -33,7 +33,23 @@ export default class AccordionItem extends Component {
   }
 
   allowOverflow() {
-    this.setState({ overflow: 'visible' });
+    this.setState({
+      maxHeight: 'none',
+      overflow: 'visible'
+    });
+  }
+
+  updateState(node) {
+    if (!this.props.expanded) {
+      this.setState({
+        maxHeight: node.scrollHeight + 'px'
+      });
+    }
+
+    setTimeout(() => this.setState({
+      maxHeight: this.props.expanded ? node.scrollHeight + 'px' : 0,
+      overflow: 'hidden'
+    }), 0);
   }
 
   setMaxHeight() {
@@ -41,13 +57,11 @@ export default class AccordionItem extends Component {
     var images = bodyNode.querySelectorAll('img');
 
     if (images.length > 0) {
-      return this.preloadImages(bodyNode, images);
+      this.preloadImages(bodyNode, images);
+      return;
     }
 
-    this.setState({
-      maxHeight: this.props.expanded ? bodyNode.scrollHeight + 'px' : 0,
-      overflow: 'hidden'
-    });
+    this.updateState(bodyNode);
   }
 
   // Wait for images to load before calculating maxHeight
@@ -58,10 +72,7 @@ export default class AccordionItem extends Component {
       imagesLoaded++;
 
       if (imagesLoaded === images.length) {
-        this.setState({
-          maxHeight: this.props.expanded ? node.scrollHeight + 'px' : 0,
-          overflow: 'hidden'
-        });
+        this.updateState(node);
       }
     };
 
