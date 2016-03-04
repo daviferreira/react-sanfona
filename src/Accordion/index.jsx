@@ -1,5 +1,6 @@
 'use strict';
 
+import className from 'classnames';
 import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 
@@ -69,7 +70,9 @@ export default class Accordion extends Component {
 
   render() {
     return (
-      <div className="react-sanfona" role="tablist">
+      <div className={className('react-sanfona', this.props.className)}
+        role="tablist"
+        style={this.props.style}>
         {this.renderItems()}
       </div>
     );
@@ -87,5 +90,7 @@ Accordion.propTypes = {
   activeItems: PropTypes.oneOfType([
     PropTypes.number,
     PropTypes.array
-  ])
+  ]),
+  className: PropTypes.string,
+  style: PropTypes.object
 };

@@ -1,5 +1,6 @@
 'use strict';
 
+import className from 'classnames';
 import React, { Component, PropTypes } from 'react';
 
 export default class AccordionItemTitle extends Component {
@@ -13,7 +14,7 @@ export default class AccordionItemTitle extends Component {
 
     return (
       <h3 aria-controls={`react-sanfona-item-body-${ this.props.uuid }`}
-        className="react-sanfona-item-title"
+        className={className('react-sanfona-item-title', this.props.className)}
         id={`react-safona-item-title-${ this.props.uuid }`}
         onClick={this.props.onClick}
         style={style}>
@@ -25,6 +26,7 @@ export default class AccordionItemTitle extends Component {
 }
 
 AccordionItemTitle.propTypes = {
+  className: PropTypes.string,
   onClick: PropTypes.func,
   title: PropTypes.string,
   uuid: PropTypes.string
