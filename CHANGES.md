@@ -1,3 +1,10 @@
+0.0.9 / 2016-03-05
+==================
+
+* Unset max-height once animation has finished, to allow content size changes
+* Allow custom class and style props
+
+
 0.0.8 / 2015-11-06
 ==================
 
