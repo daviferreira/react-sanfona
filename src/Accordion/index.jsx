@@ -58,6 +58,7 @@ export default class Accordion extends Component {
 
     if (!Array.isArray(this.props.children)) {
       const expanded = !this.props.disabled && this.state.activeItems.indexOf(0) !== -1;
+
       return React.cloneElement(this.props.children, {
         expanded: expanded,
         key: 0,
