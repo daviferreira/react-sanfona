@@ -56,6 +56,17 @@ export default class Accordion extends Component {
       return null;
     }
 
+    if (!Array.isArray(this.props.children)) {
+      const expanded = !this.props.disabled && this.state.activeItems.indexOf(0) !== -1;
+
+      return React.cloneElement(this.props.children, {
+        expanded: expanded,
+        key: 0,
+        onClick: this.handleClick.bind(this, 0, this.props.children.props.onClick),
+        ref: `item-${ 0 }`
+      });
+    }
+
     return this.props.children.map((item, index) => {
       const expanded = this.state.activeItems.indexOf(index) !== -1;
 
