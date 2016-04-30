@@ -1,3 +1,10 @@
+0.0.11 / 2016-04-30
+===================
+
+* Upgrade to React 0.15.2
+* Check if this.props.children is an array
+
+
 0.0.10 / 2016-03-31
 ===================
 

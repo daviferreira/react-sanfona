@@ -3,4 +3,4 @@ npm-debug.log
 *.swp
 .DS_Store
 **/*-bundle.*.js
-demo/bundle.js
+demo/bundle.*

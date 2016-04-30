@@ -88,6 +88,17 @@ var Accordion = function (_Component) {
         return null;
       }
 
+      if (!Array.isArray(this.props.children)) {
+        var expanded = !this.props.disabled && this.state.activeItems.indexOf(0) !== -1;
+
+        return _react2.default.cloneElement(this.props.children, {
+          expanded: expanded,
+          key: 0,
+          onClick: this.handleClick.bind(this, 0, this.props.children.props.onClick),
+          ref: 'item-' + 0
+        });
+      }
+
       return this.props.children.map(function (item, index) {
         var expanded = _this3.state.activeItems.indexOf(index) !== -1;
 
