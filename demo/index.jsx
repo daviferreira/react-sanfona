@@ -76,6 +76,27 @@ class Demo extends React.Component {
           })}
         </Accordion>
 
+        <h2>onChange example</h2>
+
+        <p id="changes"></p>
+        <Accordion
+          allowMultiple={true}
+          activeItems={2}
+          onChange={newState =>
+            document.getElementById('changes').innerHTML = `Active: ${newState.activeItems}`
+          }
+        >
+          {[1, 2, 3, 4, 5].map((item) => {
+            return (
+              <AccordionItem title={`Item ${ item }`} key={item}>
+                <div>
+                  {`Item ${ item } content`}
+                </div>
+              </AccordionItem>
+            );
+          })}
+        </Accordion>
+
       </div>
     );
   }
