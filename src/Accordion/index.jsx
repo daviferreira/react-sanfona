@@ -48,6 +48,10 @@ export default class Accordion extends Component {
       newState.activeItems = [index];
     }
 
+    if (this.props.onChange) {
+      this.props.onChange(newState);
+    }
+
     this.setState(newState);
   }
 
@@ -103,5 +107,6 @@ Accordion.propTypes = {
     PropTypes.array
   ]),
   className: PropTypes.string,
+  onChange: PropTypes.func,
   style: PropTypes.object
 };
