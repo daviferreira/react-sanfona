@@ -25,7 +25,7 @@ npm install react-sanfona
 Then:
 
 ```javascript
-require('react-sanfona');
+import { Accordion, AccordionItem } from 'react-sanfona';
 
 …
 
