@@ -6,8 +6,7 @@ require('./demo.scss');
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import Accordion from '../src/Accordion';
-import AccordionItem from '../src/AccordionItem';
+import { Accordion, AccordionItem } from '../src';
 
 class Demo extends React.Component {
 

@@ -4,9 +4,12 @@
     "browser": true,
     "es6": true
   },
-  "ecmaFeatures": {
-    "modules": true,
-    "jsx": true
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "sourceType": "module"
   },
   "rules": {
     "curly": 0,
@@ -20,7 +23,7 @@
     "no-nested-ternary": 2,
     "no-use-before-define": [2, "nofunc"],
     "quotes": [2, "single"],
-    "space-after-keywords": [2, "always"],
+    "keyword-spacing": 2,
     "space-before-blocks": [2, "always"],
     "space-before-function-paren": [2, "never"],
     "space-in-parens": [2, "never"],
