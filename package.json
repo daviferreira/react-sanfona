@@ -9,7 +9,8 @@
     "bundle-modules": "rm -rf dist-modules/* --force && babel src --loose --out-dir dist-modules",
     "demo": "webpack-dev-server --config webpack.config.demo.js",
     "lint": "eslint ./src",
-    "test": "npm run lint && mocha -R spec --compilers jsx:./test/compiler ./src/**/test.jsx"
+    "test": "npm run lint && mocha -R spec --compilers jsx:./test/compiler ./src/**/test.jsx",
+    "preversion": "npm run bundle-dist && npm run bundle-modules && git add dist dist-modules"
   },
   "repository": {
     "type": "git",
