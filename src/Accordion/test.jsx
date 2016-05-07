@@ -55,19 +55,19 @@ describe('Accordion Test Case', () => {
       expect(items[1].props.expanded, 'to be true');
     });
 
-    it('should accept multiple selected indexes', () => {
+    it('should accept a string as active item prop', () => {
       const tree = sd.shallowRender(
-        <Accordion activeItems={[0, 1]}>
-          <AccordionItem title="First" />
-          <AccordionItem title="Second" />
+        <Accordion activeItems={'second'}>
+          <AccordionItem title="First" slug='first' />
+          <AccordionItem title="Second" slug='second' />
         </Accordion>
-      );
+      )
 
       vdom = tree.getRenderOutput();
 
       items = tree.props.children;
 
-      expect(items[0].props.expanded, 'to be true');
+      expect(items[0].props.expanded, 'to be false');
       expect(items[1].props.expanded, 'to be true');
     });
 
@@ -87,8 +87,9 @@ describe('Accordion Test Case', () => {
 
       expect(instance.state.activeItems, 'to equal', [0]);
     });
-
   });
+
+  // todo: should init with only one activeItem when allowMultiple is false
 
   describe('allowMultiple', () => {
 
@@ -111,6 +112,38 @@ describe('Accordion Test Case', () => {
 
       vdom = tree.getRenderOutput();
       items = vdom.props.children;
+
+      expect(items[0].props.expanded, 'to be true');
+      expect(items[1].props.expanded, 'to be true');
+    });
+
+    it('should default to first active item if allowMultiple is false', () => {
+      const tree = sd.shallowRender(
+        <Accordion activeItems={[0, 1]}>
+          <AccordionItem title="First" />
+          <AccordionItem title="Second" />
+        </Accordion>
+      );
+
+      vdom = tree.getRenderOutput();
+
+      items = tree.props.children;
+
+      expect(items[0].props.expanded, 'to be true');
+      expect(items[1].props.expanded, 'to be false');
+    });
+
+    it('should allow multiple selected indexes of different types', () => {
+      const tree = sd.shallowRender(
+        <Accordion activeItems={[0, 'second']} allowMultiple>
+          <AccordionItem title="First" />
+          <AccordionItem title="Second" slug="second" />
+        </Accordion>
+      );
+
+      vdom = tree.getRenderOutput();
+
+      items = tree.props.children;
 
       expect(items[0].props.expanded, 'to be true');
       expect(items[1].props.expanded, 'to be true');

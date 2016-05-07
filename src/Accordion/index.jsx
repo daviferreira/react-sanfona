@@ -10,8 +10,13 @@ export default class Accordion extends Component {
 
   constructor(props) {
     super(props);
+    let activeItems = arrayify(props.activeItems);
+
+    // can't have multiple active items, just use the first one
+    if (!props.allowMultiple) activeItems = [activeItems[0]]
+
     this.state = {
-      activeItems: arrayify(props.activeItems)
+      activeItems
     };
   }
 
@@ -20,14 +25,6 @@ export default class Accordion extends Component {
       if (this.refs[`item-${ index }`]) {
         this.refs[`item-${ index }`].allowOverflow();
       }
-    });
-
-    // allow overflow for absolute positioned elements inside
-    // the item body, but only after animation is complete
-    ReactDOM.findDOMNode(this).addEventListener('transitionend', () => {
-      this.state.activeItems.forEach((index) => {
-        this.refs[`item-${ index }`].allowOverflow();
-      });
     });
   }
 
@@ -61,13 +58,14 @@ export default class Accordion extends Component {
 
     const children = arrayify(this.props.children);
     return children.map((item, index) => {
-      const expanded = this.state.activeItems.indexOf(index) !== -1;
+      const key = item.props.slug || index;
+      const expanded = this.state.activeItems.indexOf(key) !== -1;
 
       return React.cloneElement(item, {
         expanded: expanded,
-        key: index,
-        onClick: this.handleClick.bind(this, index),
-        ref: `item-${ index }`
+        key: key,
+        onClick: this.handleClick.bind(this, key),
+        ref: `item-${ key }`
       });
     });
   }
