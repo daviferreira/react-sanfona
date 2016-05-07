@@ -89,8 +89,6 @@ describe('Accordion Test Case', () => {
     });
   });
 
-  // todo: should init with only one activeItem when allowMultiple is false
-
   describe('allowMultiple', () => {
 
     it('should allow multiple expanded items', () => {
