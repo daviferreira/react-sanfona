@@ -77,6 +77,10 @@ var Accordion = function (_Component) {
         newState.activeItems = [index];
       }
 
+      if (this.props.onChange) {
+        this.props.onChange(newState);
+      }
+
       this.setState(newState);
     }
   }, {
@@ -138,5 +142,6 @@ Accordion.propTypes = {
   allowMultiple: _react.PropTypes.bool,
   activeItems: _react.PropTypes.oneOfType([_react.PropTypes.number, _react.PropTypes.array]),
   className: _react.PropTypes.string,
+  onChange: _react.PropTypes.func,
   style: _react.PropTypes.object
 };

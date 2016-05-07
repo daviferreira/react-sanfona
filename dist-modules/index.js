@@ -3,15 +3,17 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.AccordionItem = exports.Accordion = undefined;
 
-var _Accordion = require('./Accordion');
+var _Accordion2 = require('./Accordion');
 
-var _Accordion2 = _interopRequireDefault(_Accordion);
+var _Accordion3 = _interopRequireDefault(_Accordion2);
 
-var _AccordionItem = require('./AccordionItem');
+var _AccordionItem2 = require('./AccordionItem');
 
-var _AccordionItem2 = _interopRequireDefault(_AccordionItem);
+var _AccordionItem3 = _interopRequireDefault(_AccordionItem2);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = { Accordion: _Accordion2.default, AccordionItem: _AccordionItem2.default };
+exports.Accordion = _Accordion3.default;
+exports.AccordionItem = _AccordionItem3.default;
