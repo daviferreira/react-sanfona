@@ -106,6 +106,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+	var arrayify = function arrayify(obj) {
+	  return [].concat(obj);
+	};
+
 	var Accordion = function (_Component) {
 	  _inherits(Accordion, _Component);
 
@@ -114,9 +118,14 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Accordion).call(this, props));
 
-	    var activeItems = !Array.isArray(props.activeItems) ? [props.activeItems] : props.activeItems;
+	    var activeItems = arrayify(props.activeItems);
 
-	    _this.state = { activeItems: activeItems };
+	    // can't have multiple active items, just use the first one
+	    if (!props.allowMultiple) activeItems = [activeItems[0]];
+
+	    _this.state = {
+	      activeItems: activeItems
+	    };
 	    return _this;
 	  }
 
@@ -129,14 +138,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	        if (_this2.refs['item-' + index]) {
 	          _this2.refs['item-' + index].allowOverflow();
 	        }
-	      });
-
-	      // allow overflow for absolute positioned elements inside
-	      // the item body, but only after animation is complete
-	      _reactDom2.default.findDOMNode(this).addEventListener('transitionend', function () {
-	        _this2.state.activeItems.forEach(function (index) {
-	          _this2.refs['item-' + index].allowOverflow();
-	        });
 	      });
 	    }
 	  }, {
@@ -172,25 +173,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	        return null;
 	      }
 
-	      if (!Array.isArray(this.props.children)) {
-	        var expanded = !this.props.disabled && this.state.activeItems.indexOf(0) !== -1;
-
-	        return _react2.default.cloneElement(this.props.children, {
-	          expanded: expanded,
-	          key: 0,
-	          onClick: this.handleClick.bind(this, 0, this.props.children.props.onClick),
-	          ref: 'item-' + 0
-	        });
-	      }
-
-	      return this.props.children.map(function (item, index) {
-	        var expanded = _this3.state.activeItems.indexOf(index) !== -1;
+	      var children = arrayify(this.props.children);
+	      return children.map(function (item, index) {
+	        var key = item.props.slug || index;
+	        var expanded = _this3.state.activeItems.indexOf(key) !== -1;
 
 	        return _react2.default.cloneElement(item, {
 	          expanded: expanded,
-	          key: index,
-	          onClick: _this3.handleClick.bind(_this3, index),
-	          ref: 'item-' + index
+	          key: key,
+	          onClick: _this3.handleClick.bind(_this3, key),
+	          ref: 'item-' + key
 	        });
 	      });
 	    }
@@ -19736,7 +19728,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
+	      var _this2 = this;
+
 	      this.setMaxHeight();
+	      // allow overflow for absolute positioned elements inside
+	      // the item body, but only after animation is complete
+	      _reactDom2.default.findDOMNode(this).addEventListener('transitionend', function () {
+	        if (_this2.props.expanded) _this2.allowOverflow();
+	      });
 	    }
 	  }, {
 	    key: 'componentDidUpdate',
@@ -19756,7 +19755,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: 'updateState',
 	    value: function updateState(node) {
-	      var _this2 = this;
+	      var _this3 = this;
 
 	      if (!this.props.expanded) {
 	        this.setState({
@@ -19765,8 +19764,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	      }
 
 	      setTimeout(function () {
-	        return _this2.setState({
-	          maxHeight: _this2.props.expanded ? node.scrollHeight + 'px' : 0,
+	        return _this3.setState({
+	          maxHeight: _this3.props.expanded ? node.scrollHeight + 'px' : 0,
 	          overflow: 'hidden'
 	        });
 	      }, 0);
@@ -19790,7 +19789,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: 'preloadImages',
 	    value: function preloadImages(node, images) {
-	      var _this3 = this;
+	      var _this4 = this;
 
 	      var imagesLoaded = 0;
 
@@ -19798,7 +19797,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        imagesLoaded++;
 
 	        if (imagesLoaded === images.length) {
-	          _this3.updateState(node);
+	          _this4.updateState(node);
 	        }
 	      };
 

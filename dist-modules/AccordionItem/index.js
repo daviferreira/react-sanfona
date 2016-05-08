@@ -65,7 +65,14 @@ var AccordionItem = function (_Component) {
   }, {
     key: 'componentDidMount',
     value: function componentDidMount() {
+      var _this2 = this;
+
       this.setMaxHeight();
+      // allow overflow for absolute positioned elements inside
+      // the item body, but only after animation is complete
+      _reactDom2.default.findDOMNode(this).addEventListener('transitionend', function () {
+        if (_this2.props.expanded) _this2.allowOverflow();
+      });
     }
   }, {
     key: 'componentDidUpdate',
@@ -85,7 +92,7 @@ var AccordionItem = function (_Component) {
   }, {
     key: 'updateState',
     value: function updateState(node) {
-      var _this2 = this;
+      var _this3 = this;
 
       if (!this.props.expanded) {
         this.setState({
@@ -94,8 +101,8 @@ var AccordionItem = function (_Component) {
       }
 
       setTimeout(function () {
-        return _this2.setState({
-          maxHeight: _this2.props.expanded ? node.scrollHeight + 'px' : 0,
+        return _this3.setState({
+          maxHeight: _this3.props.expanded ? node.scrollHeight + 'px' : 0,
           overflow: 'hidden'
         });
       }, 0);
@@ -119,7 +126,7 @@ var AccordionItem = function (_Component) {
   }, {
     key: 'preloadImages',
     value: function preloadImages(node, images) {
-      var _this3 = this;
+      var _this4 = this;
 
       var imagesLoaded = 0;
 
@@ -127,7 +134,7 @@ var AccordionItem = function (_Component) {
         imagesLoaded++;
 
         if (imagesLoaded === images.length) {
-          _this3.updateState(node);
+          _this4.updateState(node);
         }
       };
 

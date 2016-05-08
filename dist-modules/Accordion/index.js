@@ -26,6 +26,10 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+var arrayify = function arrayify(obj) {
+  return [].concat(obj);
+};
+
 var Accordion = function (_Component) {
   _inherits(Accordion, _Component);
 
@@ -34,9 +38,14 @@ var Accordion = function (_Component) {
 
     var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Accordion).call(this, props));
 
-    var activeItems = !Array.isArray(props.activeItems) ? [props.activeItems] : props.activeItems;
+    var activeItems = arrayify(props.activeItems);
 
-    _this.state = { activeItems: activeItems };
+    // can't have multiple active items, just use the first one
+    if (!props.allowMultiple) activeItems = [activeItems[0]];
+
+    _this.state = {
+      activeItems: activeItems
+    };
     return _this;
   }
 
@@ -49,14 +58,6 @@ var Accordion = function (_Component) {
         if (_this2.refs['item-' + index]) {
           _this2.refs['item-' + index].allowOverflow();
         }
-      });
-
-      // allow overflow for absolute positioned elements inside
-      // the item body, but only after animation is complete
-      _reactDom2.default.findDOMNode(this).addEventListener('transitionend', function () {
-        _this2.state.activeItems.forEach(function (index) {
-          _this2.refs['item-' + index].allowOverflow();
-        });
       });
     }
   }, {
@@ -92,25 +93,16 @@ var Accordion = function (_Component) {
         return null;
       }
 
-      if (!Array.isArray(this.props.children)) {
-        var expanded = !this.props.disabled && this.state.activeItems.indexOf(0) !== -1;
-
-        return _react2.default.cloneElement(this.props.children, {
-          expanded: expanded,
-          key: 0,
-          onClick: this.handleClick.bind(this, 0, this.props.children.props.onClick),
-          ref: 'item-' + 0
-        });
-      }
-
-      return this.props.children.map(function (item, index) {
-        var expanded = _this3.state.activeItems.indexOf(index) !== -1;
+      var children = arrayify(this.props.children);
+      return children.map(function (item, index) {
+        var key = item.props.slug || index;
+        var expanded = _this3.state.activeItems.indexOf(key) !== -1;
 
         return _react2.default.cloneElement(item, {
           expanded: expanded,
-          key: index,
-          onClick: _this3.handleClick.bind(_this3, index),
-          ref: 'item-' + index
+          key: key,
+          onClick: _this3.handleClick.bind(_this3, key),
+          ref: 'item-' + key
         });
       });
     }

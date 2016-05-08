@@ -75,19 +75,19 @@ describe('Accordion Test Case', function () {
       (0, _unexpected2.default)(items[1].props.expanded, 'to be true');
     });
 
-    it('should accept multiple selected indexes', function () {
+    it('should accept a string as active item prop', function () {
       var tree = _skinDeep2.default.shallowRender(_react2.default.createElement(
         _index2.default,
-        { activeItems: [0, 1] },
-        _react2.default.createElement(_AccordionItem2.default, { title: 'First' }),
-        _react2.default.createElement(_AccordionItem2.default, { title: 'Second' })
+        { activeItems: 'second' },
+        _react2.default.createElement(_AccordionItem2.default, { title: 'First', slug: 'first' }),
+        _react2.default.createElement(_AccordionItem2.default, { title: 'Second', slug: 'second' })
       ));
 
       vdom = tree.getRenderOutput();
 
       items = tree.props.children;
 
-      (0, _unexpected2.default)(items[0].props.expanded, 'to be true');
+      (0, _unexpected2.default)(items[0].props.expanded, 'to be false');
       (0, _unexpected2.default)(items[1].props.expanded, 'to be true');
     });
 
@@ -130,6 +130,38 @@ describe('Accordion Test Case', function () {
 
       vdom = tree.getRenderOutput();
       items = vdom.props.children;
+
+      (0, _unexpected2.default)(items[0].props.expanded, 'to be true');
+      (0, _unexpected2.default)(items[1].props.expanded, 'to be true');
+    });
+
+    it('should default to first active item if allowMultiple is false', function () {
+      var tree = _skinDeep2.default.shallowRender(_react2.default.createElement(
+        _index2.default,
+        { activeItems: [0, 1] },
+        _react2.default.createElement(_AccordionItem2.default, { title: 'First' }),
+        _react2.default.createElement(_AccordionItem2.default, { title: 'Second' })
+      ));
+
+      vdom = tree.getRenderOutput();
+
+      items = tree.props.children;
+
+      (0, _unexpected2.default)(items[0].props.expanded, 'to be true');
+      (0, _unexpected2.default)(items[1].props.expanded, 'to be false');
+    });
+
+    it('should allow multiple selected indexes of different types', function () {
+      var tree = _skinDeep2.default.shallowRender(_react2.default.createElement(
+        _index2.default,
+        { activeItems: [0, 'second'], allowMultiple: true },
+        _react2.default.createElement(_AccordionItem2.default, { title: 'First' }),
+        _react2.default.createElement(_AccordionItem2.default, { title: 'Second', slug: 'second' })
+      ));
+
+      vdom = tree.getRenderOutput();
+
+      items = tree.props.children;
 
       (0, _unexpected2.default)(items[0].props.expanded, 'to be true');
       (0, _unexpected2.default)(items[1].props.expanded, 'to be true');
