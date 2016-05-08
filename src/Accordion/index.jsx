@@ -4,16 +4,20 @@ import className from 'classnames';
 import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 
+const arrayify = obj => [].concat(obj);
+
 export default class Accordion extends Component {
 
   constructor(props) {
     super(props);
+    let activeItems = arrayify(props.activeItems);
 
-    let activeItems = !Array.isArray(props.activeItems) ?
-                      [props.activeItems] :
-                      props.activeItems;
+    // can't have multiple active items, just use the first one
+    if (!props.allowMultiple) activeItems = [activeItems[0]]
 
-    this.state = { activeItems: activeItems };
+    this.state = {
+      activeItems
+    };
   }
 
   componentDidMount() {
@@ -21,14 +25,6 @@ export default class Accordion extends Component {
       if (this.refs[`item-${ index }`]) {
         this.refs[`item-${ index }`].allowOverflow();
       }
-    });
-
-    // allow overflow for absolute positioned elements inside
-    // the item body, but only after animation is complete
-    ReactDOM.findDOMNode(this).addEventListener('transitionend', () => {
-      this.state.activeItems.forEach((index) => {
-        this.refs[`item-${ index }`].allowOverflow();
-      });
     });
   }
 
@@ -60,25 +56,16 @@ export default class Accordion extends Component {
       return null;
     }
 
-    if (!Array.isArray(this.props.children)) {
-      const expanded = !this.props.disabled && this.state.activeItems.indexOf(0) !== -1;
-
-      return React.cloneElement(this.props.children, {
-        expanded: expanded,
-        key: 0,
-        onClick: this.handleClick.bind(this, 0, this.props.children.props.onClick),
-        ref: `item-${ 0 }`
-      });
-    }
-
-    return this.props.children.map((item, index) => {
-      const expanded = this.state.activeItems.indexOf(index) !== -1;
+    const children = arrayify(this.props.children);
+    return children.map((item, index) => {
+      const key = item.props.slug || index;
+      const expanded = this.state.activeItems.indexOf(key) !== -1;
 
       return React.cloneElement(item, {
         expanded: expanded,
-        key: index,
-        onClick: this.handleClick.bind(this, index),
-        ref: `item-${ index }`
+        key: key,
+        onClick: this.handleClick.bind(this, key),
+        ref: `item-${ key }`
       });
     });
   }

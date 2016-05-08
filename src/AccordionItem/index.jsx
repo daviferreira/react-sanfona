@@ -24,6 +24,11 @@ export default class AccordionItem extends Component {
 
   componentDidMount() {
     this.setMaxHeight();
+    // allow overflow for absolute positioned elements inside
+    // the item body, but only after animation is complete
+    ReactDOM.findDOMNode(this).addEventListener('transitionend', () => {
+      if (this.props.expanded) this.allowOverflow();
+    });
   }
 
   componentDidUpdate(prevProps) {
