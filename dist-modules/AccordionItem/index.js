@@ -67,7 +67,6 @@ var AccordionItem = function (_Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
-      this.setMaxHeight();
       // allow overflow for absolute positioned elements inside
       // the item body, but only after animation is complete
       _reactDom2.default.findDOMNode(this).addEventListener('transitionend', function () {
@@ -148,7 +147,7 @@ var AccordionItem = function (_Component) {
     key: 'getProps',
     value: function getProps() {
       var props = {
-        className: (0, _classnames2.default)(['react-sanfona-item', this.props.className, { 'react-sanfona-item-expanded': this.props.expanded }, _defineProperty({}, this.props.expandedClassName, this.props.expanded)]),
+        className: (0, _classnames2.default)('react-sanfona-item', this.props.className, { 'react-sanfona-item-expanded': this.props.expanded }, this.props.expandedClassName && _defineProperty({}, this.props.expandedClassName, this.props.expanded)),
         role: 'tabpanel',
         style: this.props.style
       };
