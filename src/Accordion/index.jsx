@@ -20,14 +20,6 @@ export default class Accordion extends Component {
     };
   }
 
-  componentDidMount() {
-    this.state.activeItems.forEach((index) => {
-      if (this.refs[`item-${ index }`]) {
-        this.refs[`item-${ index }`].allowOverflow();
-      }
-    });
-  }
-
   handleClick(index) {
     let newState = {};
 
