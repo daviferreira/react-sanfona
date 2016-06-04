@@ -9,7 +9,7 @@ export default class AccordionItemBody extends Component {
     var style = {
       maxHeight: this.props.maxHeight,
       overflow: this.props.overflow,
-      transition: 'max-height .3s ease'
+      transition: `max-height ${this.props.duration}ms ease`
     };
 
     return (
@@ -32,6 +32,7 @@ AccordionItemBody.propTypes = {
       React.PropTypes.string,
       React.PropTypes.number
   ]),
+  duration: PropTypes.number,
   overflow: PropTypes.string,
   uuid: PropTypes.string
 };

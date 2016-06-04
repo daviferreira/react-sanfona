@@ -14,7 +14,8 @@ export default class AccordionItem extends Component {
     super(props);
     this.state = {
       maxHeight: props.expanded ? 'none' : 0,
-      overflow: props.expanded ? 'visible' : 'hidden'
+      overflow: props.expanded ? 'visible' : 'hidden',
+      duration: 300
     };
   }
 
@@ -22,61 +23,67 @@ export default class AccordionItem extends Component {
     this.uuid = uuid.v4();
   }
 
-  componentDidMount() {
-    // allow overflow for absolute positioned elements inside
-    // the item body, but only after animation is complete
-    ReactDOM.findDOMNode(this).addEventListener('transitionend', () => {
-      if (this.props.expanded) this.allowOverflow();
-    });
-  }
-
   componentDidUpdate(prevProps) {
     if (prevProps.expanded !== this.props.expanded) {
-      this.setMaxHeight();
+      if (this.props.expanded) {
+        this.maybeExpand();
+      } else {
+        this.handleCollapse();
+      }
     }
   }
 
-  allowOverflow() {
+  startTransition() {
     this.setState({
-      maxHeight: 'none',
-      overflow: 'visible'
-    });
-  }
-
-  updateState(node) {
-    if (!this.props.expanded) {
-      this.setState({
-        maxHeight: node.scrollHeight + 'px'
-      });
-    }
-
-    setTimeout(() => this.setState({
-      maxHeight: this.props.expanded ? node.scrollHeight + 'px' : 0,
+      maxHeight: this.maxHeight,
       overflow: 'hidden'
-    }), 0);
+    });
+    clearTimeout(this.timeout);
   }
 
-  setMaxHeight() {
-    var bodyNode = ReactDOM.findDOMNode(this.refs.body);
-    var images = bodyNode.querySelectorAll('img');
+  maybeExpand() {
+    const bodyNode = ReactDOM.findDOMNode(this.refs.body);
+    const images = bodyNode.querySelectorAll('img');
 
     if (images.length > 0) {
       this.preloadImages(bodyNode, images);
       return;
     }
 
-    this.updateState(bodyNode);
+    this.handleExpand();
+  }
+
+  handleExpand() {
+    this.startTransition();
+    this.timeout = setTimeout(() => this.setState({
+      maxHeight: 'none',
+      overflow: 'visible'
+    }), this.state.duration);
+  }
+
+  handleCollapse() {
+    this.startTransition();
+    this.timeout = setTimeout(() => {
+      this.setState({
+        maxHeight: 0,
+        overflow: 'hidden'
+      });
+    }, 0);
+  }
+
+  get maxHeight() {
+    const body = ReactDOM.findDOMNode(this.refs.body);
+    return `${body.scrollHeight}px`;
   }
 
   // Wait for images to load before calculating maxHeight
-  preloadImages(node, images) {
+  preloadImages(node, images = []) {
     var imagesLoaded = 0;
-
     var imgLoaded = () => {
       imagesLoaded++;
 
       if (imagesLoaded === images.length) {
-        this.updateState(node);
+        this.handleExpand();
       }
     };
 
@@ -117,7 +124,9 @@ export default class AccordionItem extends Component {
           onClick={this.props.onClick}
           titleColor= {this.props.titleColor}
           uuid={this.uuid} />
-        <AccordionItemBody maxHeight={this.state.maxHeight}
+        <AccordionItemBody
+          maxHeight={this.state.maxHeight}
+          duration={this.state.duration}
           className={this.props.bodyClassName}
           overflow={this.state.overflow}
           ref="body"
