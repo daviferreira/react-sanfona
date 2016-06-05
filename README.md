@@ -103,6 +103,7 @@ Then:
 * **allowMultiple:** allow multiple items to be open at the same time (default: false)
 * **activeItems:** receives either an array of indexes or a single index. Each index corresponds to the item order, starting from 0. Ex: activeItems={0}, activeItems=[0, 1, 2]
 * **onChange:** function with the new state as an argument
+* **onClick:** function with item key as argument. Overrides default click handler, so activeItems props are respected
 
 #### AccordionItem
 * **title:** Text to display in header
