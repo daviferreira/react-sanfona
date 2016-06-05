@@ -7,8 +7,21 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import { Accordion, AccordionItem } from '../src';
+import { updateItems } from '../src/Accordion';
 
 class Demo extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      activeItems: []
+    }
+  }
+
+  handleClick(index) {
+    this.setState({
+      activeItems: updateItems(index, this.state.activeItems, true)
+    });
+  }
 
   render() {
     return (
@@ -69,6 +82,21 @@ class Demo extends React.Component {
                 <div>
                   {`Item ${ item } content`}
                   <div className="tooltip">{`Tooltip ${ item } content`}</div>
+                </div>
+              </AccordionItem>
+            );
+          })}
+        </Accordion>
+
+        <h2>Custom onClick</h2>
+
+        <Accordion onClick={this.handleClick.bind(this)} activeItems={this.state.activeItems}>
+          {[1, 2, 3, 4, 5].map((item) => {
+            return (
+              <AccordionItem title={`Item ${ item }`} slug={item} key={item}>
+                <div>
+                  {`Item ${ item } content`}
+                  {item === 3 ? <p><img src="https://cloud.githubusercontent.com/assets/38787/8015584/2883817e-0bda-11e5-9662-b7daf40e8c27.gif" /></p> : null}
                 </div>
               </AccordionItem>
             );
