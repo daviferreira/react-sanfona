@@ -61,6 +61,10 @@ export default class Accordion extends Component {
         expanded = this.props.activeItems.indexOf(key) !== -1;
       }
 
+      if (item.props.onClick) {
+        onClick = item.props.onClick;
+      }
+
       return React.cloneElement(item, {
         expanded: expanded,
         key: key,

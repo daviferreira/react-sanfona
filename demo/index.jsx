@@ -89,11 +89,16 @@ class Demo extends React.Component {
         </Accordion>
 
         <h2>Custom onClick</h2>
+        <p>Passing an onClick to an Accordion overrides the default behaviour. This allows you to handle activeItems outside the componet (e.g. in parent state). You can also pass separate onClick handlers to individual AccordionItems.</p>
 
         <Accordion onClick={this.handleClick.bind(this)} activeItems={this.state.activeItems}>
-          {[1, 2, 3, 4, 5].map((item) => {
+          {[1, 'with different onClick handler', 3, 4, 5].map((item) => {
+            let customOnClick;
+            if (item.length) {
+              customOnClick = {onClick: () => console.log(`clicked item ${item}`)}
+            }
             return (
-              <AccordionItem title={`Item ${ item }`} slug={item} key={item}>
+              <AccordionItem title={`Item ${ item }`} slug={item} key={item} {...customOnClick}>
                 <div>
                   {`Item ${ item } content`}
                   {item === 3 ? <p><img src="https://cloud.githubusercontent.com/assets/38787/8015584/2883817e-0bda-11e5-9662-b7daf40e8c27.gif" /></p> : null}
