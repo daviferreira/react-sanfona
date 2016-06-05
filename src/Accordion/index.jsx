@@ -6,6 +6,19 @@ import ReactDOM from 'react-dom';
 
 const arrayify = obj => [].concat(obj);
 
+export function updateItems(index, activeItems, allowMultiple) {
+  let newActiveItems = activeItems.slice(0);
+  const position = activeItems.indexOf(index);
+  if (position !== -1) {
+    newActiveItems.splice(position, 1);
+  } else if (allowMultiple) {
+    newActiveItems.push(index);
+  } else {
+    newActiveItems = [index];
+  }
+  return newActiveItems;
+}
+
 export default class Accordion extends Component {
 
   constructor(props) {
@@ -23,19 +36,8 @@ export default class Accordion extends Component {
   handleClick(index) {
     let newState = {};
 
-    // clone active items state array
-    newState.activeItems = this.state.activeItems.slice(0);
-
-    const position = newState.activeItems.indexOf(index);
-
-    if (position !== -1) {
-      newState.activeItems.splice(position, 1);
-    } else if (this.props.allowMultiple) {
-      newState.activeItems.push(index);
-    } else {
-      newState.activeItems = [index];
-    }
-
+    newState.activeItems = updateItems(index, this.state.activeItems, this.props.allowMultiple);
+    
     if (this.props.onChange) {
       this.props.onChange(newState);
     }
