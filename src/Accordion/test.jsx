@@ -1,9 +1,8 @@
-'use strict';
-
 import expect from 'unexpected';
 import React from 'react';
 import sd from 'skin-deep';
 import TestUtils from 'react-addons-test-utils';
+import { shallow } from 'enzyme';
 
 import Accordion from './index';
 import AccordionItem from '../AccordionItem';
@@ -11,32 +10,28 @@ import AccordionItem from '../AccordionItem';
 describe('Accordion Test Case', () => {
   let vdom, instance, items;
 
-  it('should render', () => {
-    const tree = sd.shallowRender(<Accordion />);
-
-    instance = tree.getMountedInstance();
-    vdom = tree.getRenderOutput();
-
-    expect(instance, 'to be defined');
-    expect(vdom, 'to be defined');
+  it('should render children', () => {
+    const item = shallow(
+      <Accordion>
+        <AccordionItem title="First" />
+        <AccordionItem title="Second" />
+      </Accordion>
+    );
+    expect(item.props().children.length, 'to equal', 2);
   });
 
   describe('activeItems', () => {
 
     it('should select the first item as default', () => {
-      const tree = sd.shallowRender(
+      const item = shallow(
         <Accordion>
           <AccordionItem title="First" />
           <AccordionItem title="Second" />
         </Accordion>
       );
 
-      vdom = tree.getRenderOutput();
-
-      items = vdom.props.children;
-
-      expect(items[0].props.expanded, 'to be true');
-      expect(items[1].props.expanded, 'to be false');
+      expect(item.find(AccordionItem).at(0).prop('expanded'), 'to be true');
+      expect(item.find(AccordionItem).at(1).prop('expanded'), 'to be false');
     });
 
     it('should accept a activeItems prop', () => {
@@ -179,4 +174,25 @@ describe('Accordion Test Case', () => {
 
   });
 
+  describe('onClick for Accordion', () => {
+    it('should override default onClick', () => {
+      const item = shallow(
+        <Accordion activeItems={[]} onClick={() => {return}}>
+          <AccordionItem title="First" />
+          <AccordionItem title="Second" />
+        </Accordion>
+      );
+
+      items = item.props().children;
+
+      expect(items[0].props.expanded, 'to be false');
+      expect(items[1].props.expanded, 'to be false');
+
+      instance.handleClick(0);
+
+      expect(items[0].props.expanded, 'to be false');
+      expect(items[1].props.expanded, 'to be false');
+
+    });
+  });
 });
