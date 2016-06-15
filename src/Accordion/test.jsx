@@ -3,6 +3,7 @@ import React from 'react';
 import sd from 'skin-deep';
 import TestUtils from 'react-addons-test-utils';
 import { shallow } from 'enzyme';
+import sinon from 'sinon';
 
 import Accordion from './index';
 import AccordionItem from '../AccordionItem';
@@ -174,25 +175,54 @@ describe('Accordion Test Case', () => {
 
   });
 
-  describe('onClick for Accordion', () => {
+  describe('Accordion onClick', () => {
     it('should override default onClick', () => {
       const item = shallow(
-        <Accordion activeItems={[]} onClick={() => {return}}>
+        <Accordion activeItems={[]} onClick={() => {}}>
           <AccordionItem title="First" />
           <AccordionItem title="Second" />
         </Accordion>
       );
 
-      items = item.props().children;
+      let firstItem = item.find(AccordionItem).at(0);
+      let secondItem = item.find(AccordionItem).at(1)
 
-      expect(items[0].props.expanded, 'to be false');
-      expect(items[1].props.expanded, 'to be false');
+      expect(firstItem.prop('expanded'), 'to be false');
+      expect(secondItem.prop('expanded'), 'to be false');
 
-      instance.handleClick(0);
+      firstItem.simulate('click');
 
-      expect(items[0].props.expanded, 'to be false');
-      expect(items[1].props.expanded, 'to be false');
+      // call item.update() to wait for async event
+      firstItem = item.update().find(AccordionItem).at(0);
+      secondItem = item.update().find(AccordionItem).at(1);
 
+      expect(firstItem.prop('expanded'), 'to be false');
+      expect(secondItem.prop('expanded'), 'to be false');
+    });
+  });
+
+  describe('AccordionItem onClick', () => {
+    it('should be called when clicking AccordionItem', () => {
+      const accordionOnClick = sinon.stub().returns(1);
+      const itemOnClick = sinon.stub().returns(1);
+
+      const item = shallow(
+        <Accordion activeItems={[]} onClick={accordionOnClick}>
+          <AccordionItem title="First" onClick={itemOnClick}/>
+        </Accordion>
+      );
+
+      let firstItem = item.find(AccordionItem).at(0);
+
+      expect(firstItem.prop('expanded'), 'to be false');
+
+      firstItem.simulate('click');
+
+      firstItem = item.update().find(AccordionItem).at(0);
+
+      expect(firstItem.prop('expanded'), 'to be false');
+      expect(accordionOnClick.callCount, 'to equal', 0);
+      expect(itemOnClick.callCount, 'to equal', 1);
     });
   });
 });
