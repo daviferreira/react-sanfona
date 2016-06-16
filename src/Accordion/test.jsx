@@ -16,11 +16,10 @@ describe('Accordion Test Case', () => {
         <AccordionItem title="Second" />
       </Accordion>
     );
-    expect(item.props().children.length, 'to equal', 2);
+    expect(item.children().length, 'to equal', 2);
   });
 
   describe('activeItems', () => {
-
     it('should select the first item as default', () => {
       const item = shallow(
         <Accordion>
@@ -56,8 +55,27 @@ describe('Accordion Test Case', () => {
       expect(item.childAt(0).prop('expanded'), 'to be false');
       expect(item.childAt(1).prop('expanded'), 'to be true');
     });
+  });
 
-    it('should keep only one activeItem when allowMultiple is false', () => {
+  describe('allowMultiple false', () => {
+    // disabled by default
+    it('should not allow multiple by default', () => {
+
+    });
+
+    it('should default to first active item if given multiple', () => {
+      const item = shallow(
+        <Accordion activeItems={[0, 1]}>
+          <AccordionItem title="First" />
+          <AccordionItem title="Second" />
+        </Accordion>
+      );
+
+      expect(item.childAt(0).props().expanded, 'to be true');
+      expect(item.childAt(1).props().expanded, 'to be false');
+    });
+
+    it('should update activeItem', () => {
       const item = shallow(
         <Accordion activeItems={1}>
           <AccordionItem title="First" />
@@ -67,9 +85,7 @@ describe('Accordion Test Case', () => {
 
       // todo: findWhere or something
       expect(item.state().activeItems, 'to equal', [1]);
-
       item.childAt(0).simulate('click');
-
       expect(item.update().state().activeItems, 'to equal', [0]);
     });
   });
@@ -91,18 +107,6 @@ describe('Accordion Test Case', () => {
 
       expect(item.update().childAt(0).prop('expanded'), 'to be true');
       expect(item.update().childAt(1).prop('expanded'), 'to be true');
-    });
-
-    it('should default to first active item if allowMultiple is false', () => {
-      const item = shallow(
-        <Accordion activeItems={[0, 1]}>
-          <AccordionItem title="First" />
-          <AccordionItem title="Second" />
-        </Accordion>
-      );
-
-      expect(item.childAt(0).props().expanded, 'to be true');
-      expect(item.childAt(1).props().expanded, 'to be false');
     });
 
     it('should allow multiple selected indexes of different types', () => {
@@ -145,34 +149,51 @@ describe('Accordion Test Case', () => {
 
   });
 
-  describe('Accordion onClick', () => {
-    it('should override default onClick', () => {
-      const item = shallow(
-        <Accordion activeItems={[]} onClick={() => {}}>
+  describe('external state', () => {
+    let item;
+    let onClick;
+    let firstChild;
+    let secondChild;
+
+    beforeEach(() => {
+      onClick = sinon.stub();
+      item = shallow(
+        <Accordion activeItems={[]} onClick={onClick}>
           <AccordionItem title="First" />
           <AccordionItem title="Second" />
         </Accordion>
       );
 
-      let firstItem = item.find(AccordionItem).at(0);
-      let secondItem = item.find(AccordionItem).at(1)
+      firstChild = item.find(AccordionItem).at(0);
+      secondChild = item.find(AccordionItem).at(1);
+    });
 
-      expect(firstItem.prop('expanded'), 'to be false');
-      expect(secondItem.prop('expanded'), 'to be false');
+    it('should respect activeItems prop', () => {
+      expect(firstChild.prop('expanded'), 'to be false');
+      expect(secondChild.prop('expanded'), 'to be false');
+      item = shallow(
+        <Accordion activeItems={[0, 1]} onClick={onClick}>
+          <AccordionItem title="First" />
+          <AccordionItem title="Second" />
+        </Accordion>
+      );
+      expect(item.update().childAt(0).prop('expanded'), 'to be true');
+      expect(item.update().childAt(1).prop('expanded'), 'to be true');
+    });
 
-      firstItem.simulate('click');
+    it('should override default onClick', () => {
+      firstChild.simulate('click');
 
       // call item.update() to wait for async event
-      firstItem = item.update().childAt(0);
-      secondItem = item.update().childAt(1);
+      firstChild = item.update().childAt(0);
+      secondChild = item.update().childAt(1);
 
-      expect(firstItem.prop('expanded'), 'to be false');
-      expect(secondItem.prop('expanded'), 'to be false');
+      expect(firstChild.prop('expanded'), 'to be false');
+      expect(secondChild.prop('expanded'), 'to be false');
+      expect(onClick.callCount, 'to equal', 1);
     });
-  });
 
-  describe('AccordionItem onClick', () => {
-    it('should be called when clicking AccordionItem', () => {
+    it('should allow overriding item onClick', () => {
       const accordionOnClick = sinon.stub().returns(1);
       const itemOnClick = sinon.stub().returns(1);
 
@@ -182,15 +203,15 @@ describe('Accordion Test Case', () => {
         </Accordion>
       );
 
-      let firstItem = item.find(AccordionItem).at(0);
+      let firstChild = item.find(AccordionItem).at(0);
 
-      expect(firstItem.prop('expanded'), 'to be false');
+      expect(firstChild.prop('expanded'), 'to be false');
 
-      firstItem.simulate('click');
+      firstChild.simulate('click');
 
-      firstItem = item.update().find(AccordionItem).at(0);
+      firstChild = item.update().find(AccordionItem).at(0);
 
-      expect(firstItem.prop('expanded'), 'to be false');
+      expect(firstChild.prop('expanded'), 'to be false');
       expect(accordionOnClick.callCount, 'to equal', 0);
       expect(itemOnClick.callCount, 'to equal', 1);
     });
