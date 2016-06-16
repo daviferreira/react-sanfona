@@ -10,6 +10,7 @@
     "demo": "webpack-dev-server --config webpack.config.demo.js",
     "lint": "eslint ./src",
     "test": "npm run lint && mocha -R spec --compilers jsx:./test/compiler ./src/**/test.jsx",
+    "test:watch": "mocha -w -R spec --compilers jsx:./test/compiler ./src/**/test.jsx",
     "preversion": "npm run bundle-dist && npm run bundle-modules && git add dist dist-modules"
   },
   "repository": {
@@ -49,6 +50,7 @@
     "babel-preset-react": "6.1.18",
     "babel-preset-stage-0": "6.1.18",
     "css-loader": "0.23.0",
+    "enzyme": "2.3.0",
     "eslint": "2.9.0",
     "eslint-plugin-react": "5.0.1",
     "mocha": "2.3.4",
