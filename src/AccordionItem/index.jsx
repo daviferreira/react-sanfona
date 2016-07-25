@@ -144,7 +144,10 @@ AccordionItem.propTypes = {
   className: PropTypes.string,
   expanded: PropTypes.bool,
   onClick: PropTypes.func,
-  title: PropTypes.string,
+  title: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.node,
+  ]),
   expandedClassName: PropTypes.string,
   style: PropTypes.object,
   titleClassName: PropTypes.string
