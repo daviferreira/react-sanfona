@@ -179,4 +179,103 @@ describe('Accordion Test Case', () => {
 
   });
 
+  describe('openNextAccordionItem', () => {
+
+    it('should open next accordion item', () => {
+      const tree = sd.shallowRender(
+        <Accordion openNextAccordionItem>
+          <AccordionItem title="First" />
+          <AccordionItem title="Second" />
+        </Accordion>
+      );
+
+      instance = tree.getMountedInstance();
+      vdom = tree.getRenderOutput();
+      items = vdom.props.children;
+
+      expect(items[0].props.expanded, 'to be true');
+      expect(items[1].props.expanded, 'to be false');
+
+      instance.handleClick(0);
+
+      vdom = tree.getRenderOutput();
+      items = vdom.props.children;
+
+      expect(items[0].props.expanded, 'to be false');
+      expect(items[1].props.expanded, 'to be true');
+    });
+
+    it('should close last item and not open another accordion item', () => {
+      const tree = sd.shallowRender(
+        <Accordion openNextAccordionItem activeItems={[1]}>
+          <AccordionItem title="First" />
+          <AccordionItem title="Second" />
+        </Accordion>
+      );
+
+      instance = tree.getMountedInstance();
+      vdom = tree.getRenderOutput();
+      items = vdom.props.children;
+
+      expect(items[0].props.expanded, 'to be false');
+      expect(items[1].props.expanded, 'to be true');
+
+      instance.handleClick(1);
+
+      vdom = tree.getRenderOutput();
+      items = vdom.props.children;
+
+      expect(items[0].props.expanded, 'to be false');
+      expect(items[1].props.expanded, 'to be false');
+    });
+
+    it('should open multiple if allowMultiple present', () => {
+      const tree = sd.shallowRender(
+        <Accordion openNextAccordionItem allowMultiple>
+          <AccordionItem title="First" />
+          <AccordionItem title="Second" />
+          <AccordionItem title="Third" />
+        </Accordion>
+      );
+
+      instance = tree.getMountedInstance();
+      vdom = tree.getRenderOutput();
+      items = vdom.props.children;
+
+      expect(items[0].props.expanded, 'to be true');
+      expect(items[1].props.expanded, 'to be false');
+      expect(items[2].props.expanded, 'to be false');
+
+      instance.handleClick(1);
+      instance.handleClick(2);
+
+      vdom = tree.getRenderOutput();
+      items = vdom.props.children;
+
+      expect(items[0].props.expanded, 'to be true');
+      expect(items[1].props.expanded, 'to be true');
+      expect(items[2].props.expanded, 'to be true');
+    });
+
+    it('should override slug property and assign key to index', () => {
+      const tree = sd.shallowRender(
+        <Accordion openNextAccordionItem>
+          <AccordionItem title="First" slug='first' />
+          <AccordionItem title="Second" slug='second' />
+        </Accordion>
+      );
+
+      instance = tree.getMountedInstance();
+
+      instance.handleClick(0);
+
+      vdom = tree.getRenderOutput();
+      items = vdom.props.children;
+
+      expect(items[0].props.expanded, 'to be false');
+      expect(items[1].props.expanded, 'to be true');
+    });
+
+  });
+
 });
