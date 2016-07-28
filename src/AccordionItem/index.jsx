@@ -54,20 +54,36 @@ export default class AccordionItem extends Component {
   }
 
   handleExpand() {
+    const { onExpand } = this.props;
+
     this.startTransition();
-    this.timeout = setTimeout(() => this.setState({
-      maxHeight: 'none',
-      overflow: 'visible'
-    }), this.state.duration);
+    this.timeout = setTimeout(() => {
+      this.setState({
+        maxHeight: 'none',
+        overflow: 'visible'
+      });
+
+      if(onExpand) {
+        onExpand();
+      }
+
+    }, this.state.duration);
   }
 
   handleCollapse() {
+    const { onClose } = this.props;
+
     this.startTransition();
     this.timeout = setTimeout(() => {
       this.setState({
         maxHeight: 0,
         overflow: 'hidden'
       });
+
+      if(onClose) {
+        onClose();
+      }
+
     }, 0);
   }
 
