@@ -5,6 +5,9 @@ import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 
 const arrayify = obj => [].concat(obj);
+const dedupeArr = arr => arr.filter((item, index, inputArray) => {
+  return inputArray.indexOf(item) === index;
+});
 
 export default class Accordion extends Component {
 
@@ -30,6 +33,10 @@ export default class Accordion extends Component {
 
     if (position !== -1) {
       newState.activeItems.splice(position, 1);
+
+      if(this.props.openNextAccordionItem) {
+        newState.activeItems.push(index + 1);
+      }
     } else if (this.props.allowMultiple) {
       newState.activeItems.push(index);
     } else {
@@ -40,6 +47,8 @@ export default class Accordion extends Component {
       this.props.onChange(newState);
     }
 
+    // removes duplicate items in activeitems array    
+    newState.activeItems = dedupeArr(newState.activeItems);
     this.setState(newState);
   }
 
