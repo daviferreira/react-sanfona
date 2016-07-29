@@ -101,7 +101,7 @@ Then:
 
 #### Accordion
 | Property | Type | Description | Default |
-|:---|:---|:---|
+|:---|:---|:---|:---|
 | allowMultiple | `Boolean` | Allow multiple items to be open at the same time. | `false` |
 | activeItems | `Array` | Receives either an array of indexes or a single index. Each index corresponds to the item order, starting from 0. Ex: activeItems={0}, activeItems=[0, 1, 2] | `[0]` |
 | openNextAccordionItem | `Boolean` | Opens the next accordion item after the previous one is closed. Defaults first one as active and applies for each accordion item except the last one. Not compatible when passing in a custom slug | `false` |
@@ -111,7 +111,7 @@ Then:
 
 #### AccordionItem
 | Property | Type | Description | Default |
-|:---|:---|:---|
+|:---|:---|:---|:---|
 | title | `String` | Text to display in header. | `null` |
 | slug | `String/Number` | Key used in activeItems lookup | `null` |
 | expanded | `Boolean` | If item body should be expanded or not | `false` |
