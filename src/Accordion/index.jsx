@@ -5,6 +5,8 @@ import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 
 const arrayify = obj => [].concat(obj);
+
+// removes duplicate from array
 const dedupeArr = arr => arr.filter((item, index, inputArray) => {
   return inputArray.indexOf(item) === index;
 });
