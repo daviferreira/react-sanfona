@@ -123,7 +123,7 @@ Then:
 | titleClassName | `String` | Custom classname applied to accordion item header text | `null` |
 
 ## Styling with classnames
-| Classname | Target |
+| Classname | Targets |
 |:---|:---|
 | `react-sanfona`| Accordion container |
 | `react-sanfona-item` | AccordionItem container |
