@@ -6,6 +6,11 @@ import ReactDOM from 'react-dom';
 
 const arrayify = obj => [].concat(obj);
 
+// removes duplicate from array
+const dedupeArr = arr => arr.filter((item, index, inputArray) => {
+  return inputArray.indexOf(item) === index;
+});
+
 export default class Accordion extends Component {
 
   constructor(props) {
@@ -30,6 +35,10 @@ export default class Accordion extends Component {
 
     if (position !== -1) {
       newState.activeItems.splice(position, 1);
+
+      if(this.props.openNextAccordionItem && index !== this.props.children.length - 1) {
+        newState.activeItems.push(index + 1);
+      }
     } else if (this.props.allowMultiple) {
       newState.activeItems.push(index);
     } else {
@@ -40,6 +49,8 @@ export default class Accordion extends Component {
       this.props.onChange(newState);
     }
 
+    // removes duplicate items in activeItems array
+    newState.activeItems = dedupeArr(newState.activeItems);
     this.setState(newState);
   }
 
@@ -50,7 +61,7 @@ export default class Accordion extends Component {
 
     const children = arrayify(this.props.children);
     return children.map((item, index) => {
-      const key = item.props.slug || index;
+      const key = this.props.openNextAccordionItem ? index : (item.props.slug || index);
       const expanded = this.state.activeItems.indexOf(key) !== -1;
 
       return React.cloneElement(item, {

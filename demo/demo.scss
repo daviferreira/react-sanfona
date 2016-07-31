@@ -52,6 +52,12 @@ body {
   &-expanded &-title {
     background-color: $primary-color;
     color: #fff;
+
+    .title-done-btn {
+        display: inline-block;
+        float: right;
+        color: #000;
+    }
   }
 
   &-body-wrapper {
@@ -67,6 +73,10 @@ body {
   img {
     display: block;
     max-width: 100%;
+  }
+
+  .title-done-btn {
+      display: none;
   }
 
 }
