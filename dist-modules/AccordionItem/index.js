@@ -52,7 +52,8 @@ var AccordionItem = function (_Component) {
 
     _this.state = {
       maxHeight: props.expanded ? 'none' : 0,
-      overflow: props.expanded ? 'visible' : 'hidden'
+      overflow: props.expanded ? 'visible' : 'hidden',
+      duration: 300
     };
     return _this;
   }
@@ -63,52 +64,28 @@ var AccordionItem = function (_Component) {
       this.uuid = _uuid2.default.v4();
     }
   }, {
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      var _this2 = this;
-
-      // allow overflow for absolute positioned elements inside
-      // the item body, but only after animation is complete
-      _reactDom2.default.findDOMNode(this).addEventListener('transitionend', function () {
-        if (_this2.props.expanded) _this2.allowOverflow();
-      });
-    }
-  }, {
     key: 'componentDidUpdate',
     value: function componentDidUpdate(prevProps) {
       if (prevProps.expanded !== this.props.expanded) {
-        this.setMaxHeight();
+        if (this.props.expanded) {
+          this.maybeExpand();
+        } else {
+          this.handleCollapse();
+        }
       }
     }
   }, {
-    key: 'allowOverflow',
-    value: function allowOverflow() {
+    key: 'startTransition',
+    value: function startTransition() {
       this.setState({
-        maxHeight: 'none',
-        overflow: 'visible'
+        maxHeight: this.maxHeight,
+        overflow: 'hidden'
       });
+      clearTimeout(this.timeout);
     }
   }, {
-    key: 'updateState',
-    value: function updateState(node) {
-      var _this3 = this;
-
-      if (!this.props.expanded) {
-        this.setState({
-          maxHeight: node.scrollHeight + 'px'
-        });
-      }
-
-      setTimeout(function () {
-        return _this3.setState({
-          maxHeight: _this3.props.expanded ? node.scrollHeight + 'px' : 0,
-          overflow: 'hidden'
-        });
-      }, 0);
-    }
-  }, {
-    key: 'setMaxHeight',
-    value: function setMaxHeight() {
+    key: 'maybeExpand',
+    value: function maybeExpand() {
       var bodyNode = _reactDom2.default.findDOMNode(this.refs.body);
       var images = bodyNode.querySelectorAll('img');
 
@@ -117,23 +94,64 @@ var AccordionItem = function (_Component) {
         return;
       }
 
-      this.updateState(bodyNode);
+      this.handleExpand();
     }
+  }, {
+    key: 'handleExpand',
+    value: function handleExpand() {
+      var _this2 = this;
 
-    // Wait for images to load before calculating maxHeight
+      var onExpand = this.props.onExpand;
 
+
+      this.startTransition();
+      this.timeout = setTimeout(function () {
+        _this2.setState({
+          maxHeight: 'none',
+          overflow: 'visible'
+        });
+
+        if (onExpand) {
+          onExpand();
+        }
+      }, this.state.duration);
+    }
+  }, {
+    key: 'handleCollapse',
+    value: function handleCollapse() {
+      var _this3 = this;
+
+      var onClose = this.props.onClose;
+
+
+      this.startTransition();
+      this.timeout = setTimeout(function () {
+        _this3.setState({
+          maxHeight: 0,
+          overflow: 'hidden'
+        });
+
+        if (onClose) {
+          onClose();
+        }
+      }, 0);
+    }
   }, {
     key: 'preloadImages',
-    value: function preloadImages(node, images) {
+
+
+    // Wait for images to load before calculating maxHeight
+    value: function preloadImages(node) {
       var _this4 = this;
 
-      var imagesLoaded = 0;
+      var images = arguments.length <= 1 || arguments[1] === undefined ? [] : arguments[1];
 
+      var imagesLoaded = 0;
       var imgLoaded = function imgLoaded() {
         imagesLoaded++;
 
         if (imagesLoaded === images.length) {
-          _this4.updateState(node);
+          _this4.handleExpand();
         }
       };
 
@@ -174,7 +192,9 @@ var AccordionItem = function (_Component) {
           uuid: this.uuid }),
         _react2.default.createElement(
           _AccordionItemBody2.default,
-          { maxHeight: this.state.maxHeight,
+          {
+            maxHeight: this.state.maxHeight,
+            duration: this.state.duration,
             className: this.props.bodyClassName,
             overflow: this.state.overflow,
             ref: 'body',
@@ -182,6 +202,12 @@ var AccordionItem = function (_Component) {
           this.props.children
         )
       );
+    }
+  }, {
+    key: 'maxHeight',
+    get: function get() {
+      var body = _reactDom2.default.findDOMNode(this.refs.body);
+      return body.scrollHeight + 'px';
     }
   }]);
 

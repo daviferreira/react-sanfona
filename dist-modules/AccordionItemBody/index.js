@@ -37,7 +37,7 @@ var AccordionItemBody = function (_Component) {
       var style = {
         maxHeight: this.props.maxHeight,
         overflow: this.props.overflow,
-        transition: 'max-height .3s ease'
+        transition: 'max-height ' + this.props.duration + 'ms ease'
       };
 
       return _react2.default.createElement(
@@ -64,6 +64,7 @@ exports.default = AccordionItemBody;
 AccordionItemBody.propTypes = {
   className: _react.PropTypes.string,
   maxHeight: _react.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.number]),
+  duration: _react.PropTypes.number,
   overflow: _react.PropTypes.string,
   uuid: _react.PropTypes.string
 };

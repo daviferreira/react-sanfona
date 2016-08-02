@@ -197,4 +197,102 @@ describe('Accordion Test Case', function () {
       (0, _unexpected2.default)(instance.state.activeItems, 'to equal', [1, 0]);
     });
   });
+
+  describe('openNextAccordionItem', function () {
+
+    it('should open next accordion item', function () {
+      var tree = _skinDeep2.default.shallowRender(_react2.default.createElement(
+        _index2.default,
+        { openNextAccordionItem: true },
+        _react2.default.createElement(_AccordionItem2.default, { title: 'First' }),
+        _react2.default.createElement(_AccordionItem2.default, { title: 'Second' })
+      ));
+
+      instance = tree.getMountedInstance();
+      vdom = tree.getRenderOutput();
+      items = vdom.props.children;
+
+      (0, _unexpected2.default)(items[0].props.expanded, 'to be true');
+      (0, _unexpected2.default)(items[1].props.expanded, 'to be false');
+
+      instance.handleClick(0);
+
+      vdom = tree.getRenderOutput();
+      items = vdom.props.children;
+
+      (0, _unexpected2.default)(items[0].props.expanded, 'to be false');
+      (0, _unexpected2.default)(items[1].props.expanded, 'to be true');
+    });
+
+    it('should close last item and not open another accordion item', function () {
+      var tree = _skinDeep2.default.shallowRender(_react2.default.createElement(
+        _index2.default,
+        { openNextAccordionItem: true, activeItems: [1] },
+        _react2.default.createElement(_AccordionItem2.default, { title: 'First' }),
+        _react2.default.createElement(_AccordionItem2.default, { title: 'Second' })
+      ));
+
+      instance = tree.getMountedInstance();
+      vdom = tree.getRenderOutput();
+      items = vdom.props.children;
+
+      (0, _unexpected2.default)(items[0].props.expanded, 'to be false');
+      (0, _unexpected2.default)(items[1].props.expanded, 'to be true');
+
+      instance.handleClick(1);
+
+      vdom = tree.getRenderOutput();
+      items = vdom.props.children;
+
+      (0, _unexpected2.default)(items[0].props.expanded, 'to be false');
+      (0, _unexpected2.default)(items[1].props.expanded, 'to be false');
+    });
+
+    it('should open multiple if allowMultiple present', function () {
+      var tree = _skinDeep2.default.shallowRender(_react2.default.createElement(
+        _index2.default,
+        { openNextAccordionItem: true, allowMultiple: true },
+        _react2.default.createElement(_AccordionItem2.default, { title: 'First' }),
+        _react2.default.createElement(_AccordionItem2.default, { title: 'Second' }),
+        _react2.default.createElement(_AccordionItem2.default, { title: 'Third' })
+      ));
+
+      instance = tree.getMountedInstance();
+      vdom = tree.getRenderOutput();
+      items = vdom.props.children;
+
+      (0, _unexpected2.default)(items[0].props.expanded, 'to be true');
+      (0, _unexpected2.default)(items[1].props.expanded, 'to be false');
+      (0, _unexpected2.default)(items[2].props.expanded, 'to be false');
+
+      instance.handleClick(1);
+      instance.handleClick(2);
+
+      vdom = tree.getRenderOutput();
+      items = vdom.props.children;
+
+      (0, _unexpected2.default)(items[0].props.expanded, 'to be true');
+      (0, _unexpected2.default)(items[1].props.expanded, 'to be true');
+      (0, _unexpected2.default)(items[2].props.expanded, 'to be true');
+    });
+
+    it('should override slug property and assign key to index', function () {
+      var tree = _skinDeep2.default.shallowRender(_react2.default.createElement(
+        _index2.default,
+        { openNextAccordionItem: true },
+        _react2.default.createElement(_AccordionItem2.default, { title: 'First', slug: 'first' }),
+        _react2.default.createElement(_AccordionItem2.default, { title: 'Second', slug: 'second' })
+      ));
+
+      instance = tree.getMountedInstance();
+
+      instance.handleClick(0);
+
+      vdom = tree.getRenderOutput();
+      items = vdom.props.children;
+
+      (0, _unexpected2.default)(items[0].props.expanded, 'to be false');
+      (0, _unexpected2.default)(items[1].props.expanded, 'to be true');
+    });
+  });
 });

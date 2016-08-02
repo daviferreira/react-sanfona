@@ -30,6 +30,13 @@ var arrayify = function arrayify(obj) {
   return [].concat(obj);
 };
 
+// removes duplicate from array
+var dedupeArr = function dedupeArr(arr) {
+  return arr.filter(function (item, index, inputArray) {
+    return inputArray.indexOf(item) === index;
+  });
+};
+
 var Accordion = function (_Component) {
   _inherits(Accordion, _Component);
 
@@ -50,17 +57,6 @@ var Accordion = function (_Component) {
   }
 
   _createClass(Accordion, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      var _this2 = this;
-
-      this.state.activeItems.forEach(function (index) {
-        if (_this2.refs['item-' + index]) {
-          _this2.refs['item-' + index].allowOverflow();
-        }
-      });
-    }
-  }, {
     key: 'handleClick',
     value: function handleClick(index) {
       var newState = {};
@@ -72,6 +68,10 @@ var Accordion = function (_Component) {
 
       if (position !== -1) {
         newState.activeItems.splice(position, 1);
+
+        if (this.props.openNextAccordionItem && index !== this.props.children.length - 1) {
+          newState.activeItems.push(index + 1);
+        }
       } else if (this.props.allowMultiple) {
         newState.activeItems.push(index);
       } else {
@@ -82,12 +82,14 @@ var Accordion = function (_Component) {
         this.props.onChange(newState);
       }
 
+      // removes duplicate items in activeItems array
+      newState.activeItems = dedupeArr(newState.activeItems);
       this.setState(newState);
     }
   }, {
     key: 'renderItems',
     value: function renderItems() {
-      var _this3 = this;
+      var _this2 = this;
 
       if (!this.props.children) {
         return null;
@@ -95,13 +97,13 @@ var Accordion = function (_Component) {
 
       var children = arrayify(this.props.children);
       return children.map(function (item, index) {
-        var key = item.props.slug || index;
-        var expanded = _this3.state.activeItems.indexOf(key) !== -1;
+        var key = _this2.props.openNextAccordionItem ? index : item.props.slug || index;
+        var expanded = _this2.state.activeItems.indexOf(key) !== -1;
 
         return _react2.default.cloneElement(item, {
           expanded: expanded,
           key: key,
-          onClick: _this3.handleClick.bind(_this3, key),
+          onClick: _this2.handleClick.bind(_this2, key),
           ref: 'item-' + key
         });
       });
