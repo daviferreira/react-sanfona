@@ -514,7 +514,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  className: _react.PropTypes.string,
 	  expanded: _react.PropTypes.bool,
 	  onClick: _react.PropTypes.func,
-	  title: _react.PropTypes.string,
+	  title: _react.PropTypes.oneOfType([_react.PropTypes.string, _react.PropTypes.node]),
 	  expandedClassName: _react.PropTypes.string,
 	  style: _react.PropTypes.object,
 	  titleClassName: _react.PropTypes.string
@@ -832,6 +832,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	  value: true
 	});
 
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _classnames = __webpack_require__(2);
@@ -868,6 +870,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	        color: this.props.titleColor
 	      };
 
+	      var title = this.props.title;
+
+
+	      if ((typeof title === 'undefined' ? 'undefined' : _typeof(title)) === 'object') {
+	        return _react2.default.cloneElement(title, {
+	          onClick: this.props.onClick,
+	          id: 'react-safona-item-title-' + this.props.uuid,
+	          'aria-controls': 'react-sanfona-item-body-' + this.props.uuid
+	        });
+	      }
+
 	      return _react2.default.createElement(
 	        'h3',
 	        { 'aria-controls': 'react-sanfona-item-body-' + this.props.uuid,
@@ -875,7 +888,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          id: 'react-safona-item-title-' + this.props.uuid,
 	          onClick: this.props.onClick,
 	          style: style },
-	        this.props.title
+	        title
 	      );
 	    }
 	  }]);
@@ -889,7 +902,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	AccordionItemTitle.propTypes = {
 	  className: _react.PropTypes.string,
 	  onClick: _react.PropTypes.func,
-	  title: _react.PropTypes.string,
+	  title: _react.PropTypes.oneOfType([_react.PropTypes.string, _react.PropTypes.node]),
 	  uuid: _react.PropTypes.string
 	};
 

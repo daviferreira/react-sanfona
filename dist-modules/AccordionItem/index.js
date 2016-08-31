@@ -222,7 +222,7 @@ AccordionItem.propTypes = {
   className: _react.PropTypes.string,
   expanded: _react.PropTypes.bool,
   onClick: _react.PropTypes.func,
-  title: _react.PropTypes.string,
+  title: _react.PropTypes.oneOfType([_react.PropTypes.string, _react.PropTypes.node]),
   expandedClassName: _react.PropTypes.string,
   style: _react.PropTypes.object,
   titleClassName: _react.PropTypes.string
