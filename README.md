@@ -115,8 +115,8 @@ Then:
 | title | `String` | Text to display in header. | `null` |
 | slug | `String/Number` | Key used in activeItems lookup | `null` |
 | expanded | `Boolean` | If item body should be expanded or not | `false` |
-| onExpanded | `Function` | Callback for when item is expanded | `null` |
-| onClosed | `Function` | Callback for when item closes | `null` |
+| onExpand | `Function` | Callback for when item is expanded | `null` |
+| onClose | `Function` | Callback for when item closes | `null` |
 | className | `String` | Custom classname applied to root item div | `null` |
 | bodyClassName | `String` | Custom classname applied to the accordion item body | `null` |
 | expandedClassName | `String` | Custom classname applied when accordion is expanded | `null` |
