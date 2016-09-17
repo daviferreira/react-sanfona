@@ -54,7 +54,7 @@ export default class AccordionItem extends Component {
   }
 
   handleExpand() {
-    const { onExpand } = this.props;
+    const { onExpanded } = this.props;
 
     this.startTransition();
     this.timeout = setTimeout(() => {
@@ -63,15 +63,15 @@ export default class AccordionItem extends Component {
         overflow: 'visible'
       });
 
-      if(onExpand) {
-        onExpand();
+      if(onExpanded) {
+        onExpanded();
       }
 
     }, this.state.duration);
   }
 
   handleCollapse() {
-    const { onClose } = this.props;
+    const { onClosed } = this.props;
 
     this.startTransition();
     this.timeout = setTimeout(() => {
@@ -80,8 +80,8 @@ export default class AccordionItem extends Component {
         overflow: 'hidden'
       });
 
-      if(onClose) {
-        onClose();
+      if(onClosed) {
+        onClosed();
       }
 
     }, 0);
