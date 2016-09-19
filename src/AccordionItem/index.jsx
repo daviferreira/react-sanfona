@@ -121,7 +121,7 @@ export default class AccordionItem extends Component {
       className: className(
         'react-sanfona-item',
         this.props.className,
-        { 'react-sanfona-item-expanded': this.props.expanded },
+        { 'react-sanfona-item-expanded': (this.props.expanded && !this.props.disabled ) },
         this.props.expandedClassName && { [this.props.expandedClassName]: this.props.expanded },
         { 'react-sanfona-item-disabled': this.props.disabled },
         this.props.disabledClassName && { [this.props.disabledClassName]: this.props.disabled },

@@ -55,6 +55,22 @@ describe('Accordion Test Case', () => {
       expect(items[1].props.expanded, 'to be true');
     });
 
+    it('should ignore a activeItems prop when AccordionItem disabled', () => {
+      const tree = sd.shallowRender(
+        <Accordion activeItems={1}>
+          <AccordionItem title="First" />
+          <AccordionItem title="Second" disabled={true} />
+        </Accordion>
+      );
+
+      vdom = tree.getRenderOutput();
+
+      items = tree.props.children;
+
+      expect(items[0].props.expanded, 'to be false');
+      expect(items[1].props.expanded, 'to be false');
+    });
+
     it('should accept a string as active item prop', () => {
       const tree = sd.shallowRender(
         <Accordion activeItems={'second'}>
