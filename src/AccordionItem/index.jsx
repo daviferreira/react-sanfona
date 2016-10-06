@@ -42,6 +42,12 @@ export default class AccordionItem extends Component {
   }
 
   maybeExpand() {
+    const { disabled } = this.props;
+
+    if(disabled) {
+      return;
+    }
+
     const bodyNode = ReactDOM.findDOMNode(this.refs.body);
     const images = bodyNode.querySelectorAll('img');
 
@@ -115,8 +121,10 @@ export default class AccordionItem extends Component {
       className: className(
         'react-sanfona-item',
         this.props.className,
-        { 'react-sanfona-item-expanded': this.props.expanded },
-        this.props.expandedClassName && { [this.props.expandedClassName]: this.props.expanded }
+        { 'react-sanfona-item-expanded': (this.props.expanded && !this.props.disabled ) },
+        this.props.expandedClassName && { [this.props.expandedClassName]: this.props.expanded },
+        { 'react-sanfona-item-disabled': this.props.disabled },
+        this.props.disabledClassName && { [this.props.disabledClassName]: this.props.disabled },
       ),
       role: 'tabpanel',
       style: this.props.style
@@ -137,7 +145,7 @@ export default class AccordionItem extends Component {
         <AccordionItemTitle
           className={this.props.titleClassName}
           title={this.props.title}
-          onClick={this.props.onClick}
+          onClick={this.props.disabled ? null : this.props.onClick}
           titleColor= {this.props.titleColor}
           uuid={this.uuid} />
         <AccordionItemBody
@@ -166,5 +174,7 @@ AccordionItem.propTypes = {
   ]),
   expandedClassName: PropTypes.string,
   style: PropTypes.object,
-  titleClassName: PropTypes.string
+  titleClassName: PropTypes.string,
+  disabled: PropTypes.bool,
+  disabledClassName: PropTypes.string,
 };

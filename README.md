@@ -121,6 +121,8 @@ Then:
 | bodyClassName | `String` | Custom classname applied to the accordion item body | `null` |
 | expandedClassName | `String` | Custom classname applied when accordion is expanded | `null` |
 | titleClassName | `String` | Custom classname applied to accordion item header text | `null` |
+| disabled | `Boolean` | If item should be expanded or not | `false` |
+| disabledClassName | `String` | Custom classname applied to accordion item header text when item is disabled | `null` |
 
 ## Styling with classnames
 | Classname | Targets |
@@ -131,6 +133,7 @@ Then:
 | `react-sanfona-item-title` | AccordionItem header text |
 | `react-sanfona-item-body` | AccordionItem body container |
 | `react-sanfona-item-body-wrapper` | AccordionItem body children wrapper |
+| `react-sanfona-item-disabled` | AccordionItem is disabled |
 
 
 ## development
