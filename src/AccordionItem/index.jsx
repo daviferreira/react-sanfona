@@ -65,7 +65,7 @@ export default class AccordionItem extends Component {
     this.startTransition();
     this.timeout = setTimeout(() => {
       this.setState({
-        maxHeight: 'none',
+        maxHeight: this.maxHeight,
         overflow: 'visible'
       });
 
