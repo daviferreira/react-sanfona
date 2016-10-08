@@ -127,6 +127,7 @@ export default class AccordionItem extends Component {
         this.props.disabledClassName && { [this.props.disabledClassName]: this.props.disabled },
       ),
       role: 'tabpanel',
+      tabIndex: '0',
       style: this.props.style
     };
 
@@ -139,9 +140,17 @@ export default class AccordionItem extends Component {
     return props;
   }
 
+  handleKeyDown(e) {
+    if (e.keyCode === 13) {
+      if (typeof this.props.onKeyDown === 'function') {
+          this.props.onKeyDown();
+      }
+    }
+  }
+
   render() {
     return (
-      <div {...this.getProps()} ref="item">
+      <div {...this.getProps()} ref="item" onKeyDown={this.handleKeyDown.bind(this)}>
         <AccordionItemTitle
           className={this.props.titleClassName}
           title={this.props.title}
@@ -168,6 +177,8 @@ AccordionItem.propTypes = {
   className: PropTypes.string,
   expanded: PropTypes.bool,
   onClick: PropTypes.func,
+  onKeyDown: PropTypes.func,
+  onFocus: PropTypes.func,
   title: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.node,

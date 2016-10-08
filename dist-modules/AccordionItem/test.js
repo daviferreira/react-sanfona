@@ -71,4 +71,25 @@ describe('AccordionItem Test Case', function () {
       (0, _unexpected2.default)(vdom.props['aria-hidden'], 'to be true');
     });
   });
+
+  describe('disabled mode', function () {
+
+    it('should be false by default', function () {
+      var tree = _skinDeep2.default.shallowRender(_react2.default.createElement(_index2.default, null));
+      vdom = tree.getRenderOutput();
+      (0, _unexpected2.default)(vdom.props['disabled'], 'to be undefined');
+    });
+
+    it('should have react-sanfona-item-disabled className when disabled', function () {
+      var tree = _skinDeep2.default.shallowRender(_react2.default.createElement(_index2.default, { disabled: true }));
+      vdom = tree.getRenderOutput();
+      (0, _unexpected2.default)(vdom.props['className'], 'to be', 'react-sanfona-item react-sanfona-item-disabled');
+    });
+
+    it('should have a custom className when provided', function () {
+      var tree = _skinDeep2.default.shallowRender(_react2.default.createElement(_index2.default, { disabled: true, disabledClassName: 'customDisabled' }));
+      vdom = tree.getRenderOutput();
+      (0, _unexpected2.default)(vdom.props['className'], 'to be', 'react-sanfona-item react-sanfona-item-disabled customDisabled');
+    });
+  });
 });
