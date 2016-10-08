@@ -43,7 +43,7 @@ var Accordion = function (_Component) {
   function Accordion(props) {
     _classCallCheck(this, Accordion);
 
-    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Accordion).call(this, props));
+    var _this = _possibleConstructorReturn(this, (Accordion.__proto__ || Object.getPrototypeOf(Accordion)).call(this, props));
 
     var activeItems = arrayify(props.activeItems);
 
@@ -98,12 +98,13 @@ var Accordion = function (_Component) {
       var children = arrayify(this.props.children);
       return children.map(function (item, index) {
         var key = _this2.props.openNextAccordionItem ? index : item.props.slug || index;
-        var expanded = _this2.state.activeItems.indexOf(key) !== -1;
+        var expanded = _this2.state.activeItems.indexOf(key) !== -1 && !item.props.disabled;
 
         return _react2.default.cloneElement(item, {
           expanded: expanded,
           key: key,
           onClick: _this2.handleClick.bind(_this2, key),
+          onKeyDown: _this2.handleClick.bind(_this2, key),
           ref: 'item-' + key
         });
       });

@@ -59,7 +59,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.AccordionItem = exports.Accordion = undefined;
+	exports.AccordionItemBody = exports.AccordionItemTitle = exports.AccordionItem = exports.Accordion = undefined;
 
 	var _Accordion2 = __webpack_require__(1);
 
@@ -69,10 +69,20 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _AccordionItem3 = _interopRequireDefault(_AccordionItem2);
 
+	var _AccordionItemTitle2 = __webpack_require__(9);
+
+	var _AccordionItemTitle3 = _interopRequireDefault(_AccordionItemTitle2);
+
+	var _AccordionItemBody2 = __webpack_require__(8);
+
+	var _AccordionItemBody3 = _interopRequireDefault(_AccordionItemBody2);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	exports.Accordion = _Accordion3.default;
 	exports.AccordionItem = _AccordionItem3.default;
+	exports.AccordionItemTitle = _AccordionItemTitle3.default;
+	exports.AccordionItemBody = _AccordionItemBody3.default;
 
 /***/ },
 /* 1 */
@@ -123,7 +133,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  function Accordion(props) {
 	    _classCallCheck(this, Accordion);
 
-	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Accordion).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (Accordion.__proto__ || Object.getPrototypeOf(Accordion)).call(this, props));
 
 	    var activeItems = arrayify(props.activeItems);
 
@@ -178,12 +188,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var children = arrayify(this.props.children);
 	      return children.map(function (item, index) {
 	        var key = _this2.props.openNextAccordionItem ? index : item.props.slug || index;
-	        var expanded = _this2.state.activeItems.indexOf(key) !== -1;
+	        var expanded = _this2.state.activeItems.indexOf(key) !== -1 && !item.props.disabled;
 
 	        return _react2.default.cloneElement(item, {
 	          expanded: expanded,
 	          key: key,
 	          onClick: _this2.handleClick.bind(_this2, key),
+	          onKeyDown: _this2.handleClick.bind(_this2, key),
 	          ref: 'item-' + key
 	        });
 	      });
@@ -340,7 +351,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  function AccordionItem(props) {
 	    _classCallCheck(this, AccordionItem);
 
-	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AccordionItem).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (AccordionItem.__proto__ || Object.getPrototypeOf(AccordionItem)).call(this, props));
 
 	    _this.state = {
 	      maxHeight: props.expanded ? 'none' : 0,
@@ -378,6 +389,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: 'maybeExpand',
 	    value: function maybeExpand() {
+	      var disabled = this.props.disabled;
+
+
+	      if (disabled) {
+	        return;
+	      }
+
 	      var bodyNode = _reactDom2.default.findDOMNode(this.refs.body);
 	      var images = bodyNode.querySelectorAll('img');
 
@@ -436,7 +454,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    value: function preloadImages(node) {
 	      var _this4 = this;
 
-	      var images = arguments.length <= 1 || arguments[1] === undefined ? [] : arguments[1];
+	      var images = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
 
 	      var imagesLoaded = 0;
 	      var imgLoaded = function imgLoaded() {
@@ -457,8 +475,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    key: 'getProps',
 	    value: function getProps() {
 	      var props = {
-	        className: (0, _classnames2.default)('react-sanfona-item', this.props.className, { 'react-sanfona-item-expanded': this.props.expanded }, this.props.expandedClassName && _defineProperty({}, this.props.expandedClassName, this.props.expanded)),
+	        className: (0, _classnames2.default)('react-sanfona-item', this.props.className, { 'react-sanfona-item-expanded': this.props.expanded && !this.props.disabled }, this.props.expandedClassName && _defineProperty({}, this.props.expandedClassName, this.props.expanded), { 'react-sanfona-item-disabled': this.props.disabled }, this.props.disabledClassName && _defineProperty({}, this.props.disabledClassName, this.props.disabled)),
 	        role: 'tabpanel',
+	        tabIndex: '0',
 	        style: this.props.style
 	      };
 
@@ -471,15 +490,24 @@ return /******/ (function(modules) { // webpackBootstrap
 	      return props;
 	    }
 	  }, {
+	    key: 'handleKeyDown',
+	    value: function handleKeyDown(e) {
+	      if (e.keyCode === 13) {
+	        if (typeof this.props.onKeyDown === 'function') {
+	          this.props.onKeyDown();
+	        }
+	      }
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
-	        _extends({}, this.getProps(), { ref: 'item' }),
+	        _extends({}, this.getProps(), { ref: 'item', onKeyDown: this.handleKeyDown.bind(this) }),
 	        _react2.default.createElement(_AccordionItemTitle2.default, {
 	          className: this.props.titleClassName,
 	          title: this.props.title,
-	          onClick: this.props.onClick,
+	          onClick: this.props.disabled ? null : this.props.onClick,
 	          titleColor: this.props.titleColor,
 	          uuid: this.uuid }),
 	        _react2.default.createElement(
@@ -514,10 +542,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	  className: _react.PropTypes.string,
 	  expanded: _react.PropTypes.bool,
 	  onClick: _react.PropTypes.func,
+	  onKeyDown: _react.PropTypes.func,
+	  onFocus: _react.PropTypes.func,
 	  title: _react.PropTypes.oneOfType([_react.PropTypes.string, _react.PropTypes.node]),
 	  expandedClassName: _react.PropTypes.string,
 	  style: _react.PropTypes.object,
-	  titleClassName: _react.PropTypes.string
+	  titleClassName: _react.PropTypes.string,
+	  disabled: _react.PropTypes.bool,
+	  disabledClassName: _react.PropTypes.string
 	};
 
 /***/ },
@@ -781,7 +813,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  function AccordionItemBody() {
 	    _classCallCheck(this, AccordionItemBody);
 
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(AccordionItemBody).apply(this, arguments));
+	    return _possibleConstructorReturn(this, (AccordionItemBody.__proto__ || Object.getPrototypeOf(AccordionItemBody)).apply(this, arguments));
 	  }
 
 	  _createClass(AccordionItemBody, [{
@@ -832,7 +864,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  value: true
 	});
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -858,7 +890,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  function AccordionItemTitle() {
 	    _classCallCheck(this, AccordionItemTitle);
 
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(AccordionItemTitle).apply(this, arguments));
+	    return _possibleConstructorReturn(this, (AccordionItemTitle.__proto__ || Object.getPrototypeOf(AccordionItemTitle)).apply(this, arguments));
 	  }
 
 	  _createClass(AccordionItemTitle, [{

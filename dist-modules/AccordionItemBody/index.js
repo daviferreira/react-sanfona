@@ -28,7 +28,7 @@ var AccordionItemBody = function (_Component) {
   function AccordionItemBody() {
     _classCallCheck(this, AccordionItemBody);
 
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(AccordionItemBody).apply(this, arguments));
+    return _possibleConstructorReturn(this, (AccordionItemBody.__proto__ || Object.getPrototypeOf(AccordionItemBody)).apply(this, arguments));
   }
 
   _createClass(AccordionItemBody, [{
