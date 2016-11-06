@@ -23,7 +23,7 @@ export default class Accordion extends Component {
     this.updateActiveItems(nextProps);
   }
 
-  updateActiveItems(props){
+  updateActiveItems(props) {
     let activeItems = arrayify(props.activeItems);
 
     // can't have multiple active items, just use the first one
