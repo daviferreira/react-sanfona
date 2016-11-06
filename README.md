@@ -112,7 +112,7 @@ Then:
 #### AccordionItem
 | Property | Type | Description | Default |
 |:---|:---|:---|:---|
-| title | `String` | Text to display in header. | `null` |
+| title | `String`/ `Object` | Text or Object to display in header. | `null` |
 | slug | `String/Number` | Key used in activeItems lookup | `null` |
 | expanded | `Boolean` | If item body should be expanded or not | `false` |
 | onExpand | `Function` | Callback for when item is expanded | `null` |
