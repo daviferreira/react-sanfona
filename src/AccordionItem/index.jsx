@@ -60,7 +60,7 @@ export default class AccordionItem extends Component {
   }
 
   handleExpand() {
-    const { onExpand } = this.props;
+    const { onExpand, slug } = this.props;
 
     this.startTransition();
     this.timeout = setTimeout(() => {
@@ -70,7 +70,7 @@ export default class AccordionItem extends Component {
       });
 
       if(onExpand) {
-        onExpand();
+        slug ? onExpand(slug) : onExpand();
       }
 
     }, this.state.duration);
