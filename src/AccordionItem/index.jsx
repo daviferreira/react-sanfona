@@ -28,7 +28,7 @@ export default class AccordionItem extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { expanded, disabled } = this.props;
+    const { expanded, disabled, children } = this.props;
 
     if (prevProps.expanded !== expanded) {
       if (disabled) return;
@@ -38,6 +38,8 @@ export default class AccordionItem extends Component {
       } else {
         this.handleCollapse();
       }
+    } else if(prevProps.children !== children) {
+      this.setMaxHeight();
     }
   }
 
