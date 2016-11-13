@@ -34,6 +34,16 @@ describe('AccordionItem Test Case', () => {
     expect(instance.uuid, 'not to equal', anotherInstance.uuid);
   });
 
+  it('should allow custom uuid', () => {
+    const tree = sd.shallowRender(<AccordionItem uuid="first item" />);
+    const treeAlt = sd.shallowRender(<AccordionItem uuid="second item" />);
+
+    instance = tree.getMountedInstance();
+    let anotherInstance = treeAlt.getMountedInstance();
+
+    expect(instance.uuid, 'to equal', "first item");
+  });
+
   describe('aria', () => {
 
     it('should set aria-expanded to true when expanded prop is true', () => {

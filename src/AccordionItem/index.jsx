@@ -20,7 +20,7 @@ export default class AccordionItem extends Component {
   }
 
   componentWillMount() {
-    this.uuid = uuid.v4();
+    this.uuid = this.props.uuid || uuid.v4();
   }
 
   componentDidUpdate(prevProps) {
@@ -177,4 +177,5 @@ AccordionItem.propTypes = {
   titleClassName: PropTypes.string,
   disabled: PropTypes.bool,
   disabledClassName: PropTypes.string,
+  uuid: PropTypes.string
 };
