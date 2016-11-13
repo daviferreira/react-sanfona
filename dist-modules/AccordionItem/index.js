@@ -59,8 +59,8 @@ var AccordionItem = function (_Component) {
   }
 
   _createClass(AccordionItem, [{
-    key: 'componentWillMount',
-    value: function componentWillMount() {
+    key: 'componentDidMount',
+    value: function componentDidMount() {
       this.uuid = _uuid2.default.v4();
     }
   }, {

@@ -19,7 +19,7 @@ export default class AccordionItem extends Component {
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.uuid = uuid.v4();
   }
 

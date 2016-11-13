@@ -362,8 +362,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 
 	  _createClass(AccordionItem, [{
-	    key: 'componentWillMount',
-	    value: function componentWillMount() {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
 	      this.uuid = _uuid2.default.v4();
 	    }
 	  }, {
