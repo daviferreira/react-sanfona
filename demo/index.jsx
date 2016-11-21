@@ -111,6 +111,22 @@ class Demo extends React.Component {
           })}
         </Accordion>
 
+        <h2>customTitle (not clickable ) example</h2>
+
+        <Accordion
+          allowMultiple={true}
+          activeItems={2}
+        >
+          {[1, 2, 3, 4, 5].map((item) => {
+            return (
+              <AccordionItem title={`Item ${ item }`} customTitle={`  Not Clickable customTitle`}key={item}>
+                <div>
+                  {`Item ${ item } content`}
+                </div>
+              </AccordionItem>
+            );
+          })}
+        </Accordion>
       </div>
     );
   }

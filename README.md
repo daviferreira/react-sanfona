@@ -113,6 +113,7 @@ Then:
 | Property | Type | Description | Default |
 |:---|:---|:---|:---|
 | title | `String`/ `Object` | Text or Object to display in header. | `null` |
+| customTitle | `String`/ `Object` | Text or Object to display in header which is not clickable. | `null` |
 | slug | `String/Number` | Key used in activeItems lookup | `null` |
 | expanded | `Boolean` | If item body should be expanded or not | `false` |
 | onExpand | `Function` | Callback for when item is expanded | `null` |
