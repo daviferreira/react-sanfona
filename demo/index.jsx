@@ -60,18 +60,12 @@ class Demo extends React.Component {
           })}
         </Accordion>
 
-        <h2>Open next accordion item</h2>
+        <h2>Open next accordion item when previous one closes</h2>
 
         <Accordion openNextAccordionItem>
           {[1, 2, 3, 4, 5].map((item) => {
-            const title = (
-                <span>
-                    <span>{`Item ${ item }`}</span>
-                    <span className='title-done-btn'><button>Done</button></span>
-                </span>
-            );
             return (
-              <AccordionItem title={title} key={item}>
+              <AccordionItem title={`Item ${ item}`} key={item}>
                 <div>
                   {`Item ${ item } content`}
                   {item === 3 ? <p><img src="http://i.giphy.com/nIMpbXH2WfYRi.gif" /></p> : null}

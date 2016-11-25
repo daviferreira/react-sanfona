@@ -15,6 +15,15 @@ export default class Accordion extends Component {
 
   constructor(props) {
     super(props);
+    this.updateActiveItems = this.updateActiveItems.bind(this);
+    this.updateActiveItems(props);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.updateActiveItems(nextProps);
+  }
+
+  updateActiveItems(props) {
     let activeItems = arrayify(props.activeItems);
 
     // can't have multiple active items, just use the first one
