@@ -20,10 +20,6 @@ var _reactDom = require('react-dom');
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _uuid = require('uuid');
-
-var _uuid2 = _interopRequireDefault(_uuid);
-
 var _AccordionItemBody = require('../AccordionItemBody');
 
 var _AccordionItemBody2 = _interopRequireDefault(_AccordionItemBody);
@@ -41,6 +37,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+// import uuid from 'uuid';
 
 var AccordionItem = function (_Component) {
   _inherits(AccordionItem, _Component);
@@ -61,7 +58,7 @@ var AccordionItem = function (_Component) {
   _createClass(AccordionItem, [{
     key: 'componentWillMount',
     value: function componentWillMount() {
-      this.uuid = _uuid2.default.v4();
+      // this.uuid = uuid.v4();
     }
   }, {
     key: 'componentDidUpdate',
@@ -108,7 +105,9 @@ var AccordionItem = function (_Component) {
     value: function handleExpand() {
       var _this2 = this;
 
-      var onExpand = this.props.onExpand;
+      var _props = this.props;
+      var onExpand = _props.onExpand;
+      var slug = _props.slug;
 
 
       this.startTransition();
@@ -119,7 +118,7 @@ var AccordionItem = function (_Component) {
         });
 
         if (onExpand) {
-          onExpand();
+          slug ? onExpand(slug) : onExpand();
         }
       }, this.state.duration);
     }
@@ -206,7 +205,7 @@ var AccordionItem = function (_Component) {
           title: this.props.title,
           onClick: this.props.disabled ? null : this.props.onClick,
           titleColor: this.props.titleColor,
-          uuid: this.uuid }),
+          uuid: this.props.title.toLowerCase().replace(/\s/g, '-') + '-' + this.props.index }),
         _react2.default.createElement(
           _AccordionItemBody2.default,
           {
@@ -215,7 +214,7 @@ var AccordionItem = function (_Component) {
             className: this.props.bodyClassName,
             overflow: this.state.overflow,
             ref: 'body',
-            uuid: this.uuid },
+            uuid: this.props.title.toLowerCase().replace(/\s/g, '-') + '-' + this.props.index },
           this.props.children
         )
       );

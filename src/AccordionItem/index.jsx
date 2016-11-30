@@ -3,7 +3,7 @@
 import className from 'classnames';
 import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
-import uuid from 'uuid';
+// import uuid from 'uuid';
 
 import AccordionItemBody from '../AccordionItemBody';
 import AccordionItemTitle from '../AccordionItemTitle';
@@ -20,7 +20,7 @@ export default class AccordionItem extends Component {
   }
 
   componentWillMount() {
-    this.uuid = uuid.v4();
+    // this.uuid = uuid.v4();
   }
 
   componentDidUpdate(prevProps) {
@@ -156,14 +156,14 @@ export default class AccordionItem extends Component {
           title={this.props.title}
           onClick={this.props.disabled ? null : this.props.onClick}
           titleColor= {this.props.titleColor}
-          uuid={this.uuid} />
+          uuid={`${this.props.title.toLowerCase().replace(/\s/g, '-')}-${this.props.index}`} />
         <AccordionItemBody
           maxHeight={this.state.maxHeight}
           duration={this.state.duration}
           className={this.props.bodyClassName}
           overflow={this.state.overflow}
           ref="body"
-          uuid={this.uuid}>
+          uuid={`${this.props.title.toLowerCase().replace(/\s/g, '-')}-${this.props.index}`}>
           {this.props.children}
         </AccordionItemBody>
       </div>
