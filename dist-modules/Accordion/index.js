@@ -43,20 +43,31 @@ var Accordion = function (_Component) {
   function Accordion(props) {
     _classCallCheck(this, Accordion);
 
-    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Accordion).call(this, props));
+    var _this = _possibleConstructorReturn(this, (Accordion.__proto__ || Object.getPrototypeOf(Accordion)).call(this, props));
 
-    var activeItems = arrayify(props.activeItems);
-
-    // can't have multiple active items, just use the first one
-    if (!props.allowMultiple) activeItems = [activeItems[0]];
-
-    _this.state = {
-      activeItems: activeItems
-    };
+    _this.updateActiveItems = _this.updateActiveItems.bind(_this);
+    _this.updateActiveItems(props);
     return _this;
   }
 
   _createClass(Accordion, [{
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(nextProps) {
+      this.updateActiveItems(nextProps);
+    }
+  }, {
+    key: 'updateActiveItems',
+    value: function updateActiveItems(props) {
+      var activeItems = arrayify(props.activeItems);
+
+      // can't have multiple active items, just use the first one
+      if (!props.allowMultiple) activeItems = [activeItems[0]];
+
+      this.state = {
+        activeItems: activeItems
+      };
+    }
+  }, {
     key: 'handleClick',
     value: function handleClick(index) {
       var newState = {};
@@ -98,13 +109,15 @@ var Accordion = function (_Component) {
       var children = arrayify(this.props.children);
       return children.map(function (item, index) {
         var key = _this2.props.openNextAccordionItem ? index : item.props.slug || index;
-        var expanded = _this2.state.activeItems.indexOf(key) !== -1;
+        var expanded = _this2.state.activeItems.indexOf(key) !== -1 && !item.props.disabled;
 
         return _react2.default.cloneElement(item, {
           expanded: expanded,
           key: key,
           onClick: _this2.handleClick.bind(_this2, key),
-          ref: 'item-' + key
+          onKeyDown: _this2.handleClick.bind(_this2, key),
+          ref: 'item-' + key,
+          index: index
         });
       });
     }

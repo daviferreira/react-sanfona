@@ -77,7 +77,9 @@ export default class Accordion extends Component {
         expanded: expanded,
         key: key,
         onClick: this.handleClick.bind(this, key),
-        ref: `item-${ key }`
+        onKeyDown: this.handleClick.bind(this, key),
+        ref: `item-${ key }`,
+        index: index
       });
     });
   }

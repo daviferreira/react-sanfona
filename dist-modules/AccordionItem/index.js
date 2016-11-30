@@ -20,10 +20,6 @@ var _reactDom = require('react-dom');
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _uuid = require('uuid');
-
-var _uuid2 = _interopRequireDefault(_uuid);
-
 var _AccordionItemBody = require('../AccordionItemBody');
 
 var _AccordionItemBody2 = _interopRequireDefault(_AccordionItemBody);
@@ -41,6 +37,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+// import uuid from 'uuid';
 
 var AccordionItem = function (_Component) {
   _inherits(AccordionItem, _Component);
@@ -48,7 +45,7 @@ var AccordionItem = function (_Component) {
   function AccordionItem(props) {
     _classCallCheck(this, AccordionItem);
 
-    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AccordionItem).call(this, props));
+    var _this = _possibleConstructorReturn(this, (AccordionItem.__proto__ || Object.getPrototypeOf(AccordionItem)).call(this, props));
 
     _this.state = {
       maxHeight: props.expanded ? 'none' : 0,
@@ -61,7 +58,7 @@ var AccordionItem = function (_Component) {
   _createClass(AccordionItem, [{
     key: 'componentWillMount',
     value: function componentWillMount() {
-      this.uuid = _uuid2.default.v4();
+      // this.uuid = uuid.v4();
     }
   }, {
     key: 'componentDidUpdate',
@@ -86,6 +83,13 @@ var AccordionItem = function (_Component) {
   }, {
     key: 'maybeExpand',
     value: function maybeExpand() {
+      var disabled = this.props.disabled;
+
+
+      if (disabled) {
+        return;
+      }
+
       var bodyNode = _reactDom2.default.findDOMNode(this.refs.body);
       var images = bodyNode.querySelectorAll('img');
 
@@ -101,7 +105,9 @@ var AccordionItem = function (_Component) {
     value: function handleExpand() {
       var _this2 = this;
 
-      var onExpand = this.props.onExpand;
+      var _props = this.props;
+      var onExpand = _props.onExpand;
+      var slug = _props.slug;
 
 
       this.startTransition();
@@ -112,7 +118,7 @@ var AccordionItem = function (_Component) {
         });
 
         if (onExpand) {
-          onExpand();
+          slug ? onExpand(slug) : onExpand();
         }
       }, this.state.duration);
     }
@@ -144,7 +150,7 @@ var AccordionItem = function (_Component) {
     value: function preloadImages(node) {
       var _this4 = this;
 
-      var images = arguments.length <= 1 || arguments[1] === undefined ? [] : arguments[1];
+      var images = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
 
       var imagesLoaded = 0;
       var imgLoaded = function imgLoaded() {
@@ -165,8 +171,9 @@ var AccordionItem = function (_Component) {
     key: 'getProps',
     value: function getProps() {
       var props = {
-        className: (0, _classnames2.default)('react-sanfona-item', this.props.className, { 'react-sanfona-item-expanded': this.props.expanded }, this.props.expandedClassName && _defineProperty({}, this.props.expandedClassName, this.props.expanded)),
+        className: (0, _classnames2.default)('react-sanfona-item', this.props.className, { 'react-sanfona-item-expanded': this.props.expanded && !this.props.disabled }, this.props.expandedClassName && _defineProperty({}, this.props.expandedClassName, this.props.expanded), { 'react-sanfona-item-disabled': this.props.disabled }, this.props.disabledClassName && _defineProperty({}, this.props.disabledClassName, this.props.disabled)),
         role: 'tabpanel',
+        tabIndex: '0',
         style: this.props.style
       };
 
@@ -179,17 +186,26 @@ var AccordionItem = function (_Component) {
       return props;
     }
   }, {
+    key: 'handleKeyDown',
+    value: function handleKeyDown(e) {
+      if (e.keyCode === 13) {
+        if (typeof this.props.onKeyDown === 'function') {
+          this.props.onKeyDown();
+        }
+      }
+    }
+  }, {
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
         'div',
-        _extends({}, this.getProps(), { ref: 'item' }),
+        _extends({}, this.getProps(), { ref: 'item', onKeyDown: this.handleKeyDown.bind(this) }),
         _react2.default.createElement(_AccordionItemTitle2.default, {
           className: this.props.titleClassName,
           title: this.props.title,
-          onClick: this.props.onClick,
+          onClick: this.props.disabled ? null : this.props.onClick,
           titleColor: this.props.titleColor,
-          uuid: this.uuid }),
+          uuid: this.props.title.toLowerCase().replace(/\s/g, '-') + '-' + this.props.index }),
         _react2.default.createElement(
           _AccordionItemBody2.default,
           {
@@ -198,7 +214,7 @@ var AccordionItem = function (_Component) {
             className: this.props.bodyClassName,
             overflow: this.state.overflow,
             ref: 'body',
-            uuid: this.uuid },
+            uuid: this.props.title.toLowerCase().replace(/\s/g, '-') + '-' + this.props.index },
           this.props.children
         )
       );
@@ -222,8 +238,12 @@ AccordionItem.propTypes = {
   className: _react.PropTypes.string,
   expanded: _react.PropTypes.bool,
   onClick: _react.PropTypes.func,
+  onKeyDown: _react.PropTypes.func,
+  onFocus: _react.PropTypes.func,
   title: _react.PropTypes.oneOfType([_react.PropTypes.string, _react.PropTypes.node]),
   expandedClassName: _react.PropTypes.string,
   style: _react.PropTypes.object,
-  titleClassName: _react.PropTypes.string
+  titleClassName: _react.PropTypes.string,
+  disabled: _react.PropTypes.bool,
+  disabledClassName: _react.PropTypes.string
 };
