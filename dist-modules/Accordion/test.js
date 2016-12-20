@@ -75,6 +75,22 @@ describe('Accordion Test Case', function () {
       (0, _unexpected2.default)(items[1].props.expanded, 'to be true');
     });
 
+    it('should ignore a activeItems prop when AccordionItem disabled', function () {
+      var tree = _skinDeep2.default.shallowRender(_react2.default.createElement(
+        _index2.default,
+        { activeItems: 1 },
+        _react2.default.createElement(_AccordionItem2.default, { title: 'First' }),
+        _react2.default.createElement(_AccordionItem2.default, { title: 'Second', disabled: true })
+      ));
+
+      vdom = tree.getRenderOutput();
+
+      items = tree.props.children;
+
+      (0, _unexpected2.default)(items[0].props.expanded, 'to be false');
+      (0, _unexpected2.default)(items[1].props.expanded, 'to be false');
+    });
+
     it('should accept a string as active item prop', function () {
       var tree = _skinDeep2.default.shallowRender(_react2.default.createElement(
         _index2.default,
