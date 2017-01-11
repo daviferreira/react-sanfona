@@ -59,7 +59,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.AccordionItem = exports.Accordion = undefined;
+	exports.AccordionItemBody = exports.AccordionItemTitle = exports.AccordionItem = exports.Accordion = undefined;
 
 	var _Accordion2 = __webpack_require__(1);
 
@@ -69,10 +69,20 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _AccordionItem3 = _interopRequireDefault(_AccordionItem2);
 
+	var _AccordionItemTitle2 = __webpack_require__(9);
+
+	var _AccordionItemTitle3 = _interopRequireDefault(_AccordionItemTitle2);
+
+	var _AccordionItemBody2 = __webpack_require__(8);
+
+	var _AccordionItemBody3 = _interopRequireDefault(_AccordionItemBody2);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	exports.Accordion = _Accordion3.default;
 	exports.AccordionItem = _AccordionItem3.default;
+	exports.AccordionItemTitle = _AccordionItemTitle3.default;
+	exports.AccordionItemBody = _AccordionItemBody3.default;
 
 /***/ },
 /* 1 */
@@ -125,18 +135,29 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Accordion).call(this, props));
 
-	    var activeItems = arrayify(props.activeItems);
-
-	    // can't have multiple active items, just use the first one
-	    if (!props.allowMultiple) activeItems = [activeItems[0]];
-
-	    _this.state = {
-	      activeItems: activeItems
-	    };
+	    _this.updateActiveItems = _this.updateActiveItems.bind(_this);
+	    _this.updateActiveItems(props);
 	    return _this;
 	  }
 
 	  _createClass(Accordion, [{
+	    key: 'componentWillReceiveProps',
+	    value: function componentWillReceiveProps(nextProps) {
+	      this.updateActiveItems(nextProps);
+	    }
+	  }, {
+	    key: 'updateActiveItems',
+	    value: function updateActiveItems(props) {
+	      var activeItems = arrayify(props.activeItems);
+
+	      // can't have multiple active items, just use the first one
+	      if (!props.allowMultiple) activeItems = [activeItems[0]];
+
+	      this.state = {
+	        activeItems: activeItems
+	      };
+	    }
+	  }, {
 	    key: 'handleClick',
 	    value: function handleClick(index) {
 	      var newState = {};
@@ -178,7 +199,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var children = arrayify(this.props.children);
 	      return children.map(function (item, index) {
 	        var key = _this2.props.openNextAccordionItem ? index : item.props.slug || index;
-	        var expanded = _this2.state.activeItems.indexOf(key) !== -1;
+	        var expanded = _this2.state.activeItems.indexOf(key) !== -1 && !item.props.disabled;
 
 	        return _react2.default.cloneElement(item, {
 	          expanded: expanded,
@@ -353,7 +374,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  _createClass(AccordionItem, [{
 	    key: 'componentWillMount',
 	    value: function componentWillMount() {
-	      this.uuid = _uuid2.default.v4();
+	      this.uuid = this.props.uuid || _uuid2.default.v4();
 	    }
 	  }, {
 	    key: 'componentDidUpdate',
@@ -378,6 +399,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: 'maybeExpand',
 	    value: function maybeExpand() {
+	      var disabled = this.props.disabled;
+
+
+	      if (disabled) {
+	        return;
+	      }
+
 	      var bodyNode = _reactDom2.default.findDOMNode(this.refs.body);
 	      var images = bodyNode.querySelectorAll('img');
 
@@ -393,7 +421,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    value: function handleExpand() {
 	      var _this2 = this;
 
-	      var onExpand = this.props.onExpand;
+	      var _props = this.props;
+	      var onExpand = _props.onExpand;
+	      var slug = _props.slug;
 
 
 	      this.startTransition();
@@ -404,7 +434,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        });
 
 	        if (onExpand) {
-	          onExpand();
+	          slug ? onExpand(slug) : onExpand();
 	        }
 	      }, this.state.duration);
 	    }
@@ -457,7 +487,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    key: 'getProps',
 	    value: function getProps() {
 	      var props = {
-	        className: (0, _classnames2.default)('react-sanfona-item', this.props.className, { 'react-sanfona-item-expanded': this.props.expanded }, this.props.expandedClassName && _defineProperty({}, this.props.expandedClassName, this.props.expanded)),
+	        className: (0, _classnames2.default)('react-sanfona-item', this.props.className, { 'react-sanfona-item-expanded': this.props.expanded && !this.props.disabled }, this.props.expandedClassName && _defineProperty({}, this.props.expandedClassName, this.props.expanded), { 'react-sanfona-item-disabled': this.props.disabled }, this.props.disabledClassName && _defineProperty({}, this.props.disabledClassName, this.props.disabled)),
 	        role: 'tabpanel',
 	        style: this.props.style
 	      };
@@ -479,7 +509,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        _react2.default.createElement(_AccordionItemTitle2.default, {
 	          className: this.props.titleClassName,
 	          title: this.props.title,
-	          onClick: this.props.onClick,
+	          onClick: this.props.disabled ? null : this.props.onClick,
 	          titleColor: this.props.titleColor,
 	          uuid: this.uuid }),
 	        _react2.default.createElement(
@@ -517,7 +547,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	  title: _react.PropTypes.oneOfType([_react.PropTypes.string, _react.PropTypes.node]),
 	  expandedClassName: _react.PropTypes.string,
 	  style: _react.PropTypes.object,
-	  titleClassName: _react.PropTypes.string
+	  titleClassName: _react.PropTypes.string,
+	  disabled: _react.PropTypes.bool,
+	  disabledClassName: _react.PropTypes.string,
+	  uuid: _react.PropTypes.string
 	};
 
 /***/ },
