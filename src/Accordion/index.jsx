@@ -68,7 +68,7 @@ export default class Accordion extends Component {
       return null;
     }
 
-    const children = arrayify(this.props.children);
+    const children = arrayify(this.props.children).filter(c => c);
     return children.map((item, index) => {
       const key = this.props.openNextAccordionItem ? index : (item.props.slug || index);
       const expanded = (this.state.activeItems.indexOf(key) !== -1) && (!item.props.disabled);
