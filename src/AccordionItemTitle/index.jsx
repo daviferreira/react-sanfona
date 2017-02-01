@@ -23,7 +23,7 @@ export default class AccordionItemTitle extends Component {
     }
 
     return (
-      <h3
+      <this.props.rootTag
         aria-controls={`react-sanfona-item-body-${this.props.uuid}`}
         className={className('react-sanfona-item-title', this.props.className)}
         id={`react-safona-item-title-${this.props.uuid}`}
@@ -31,9 +31,13 @@ export default class AccordionItemTitle extends Component {
         style={style}
       >
         {title}
-      </h3>
+      </this.props.rootTag>
     );
   }
+}
+
+AccordionItemTitle.defaultProps = {
+  rootTag: 'h3'
 }
 
 AccordionItemTitle.propTypes = {
@@ -41,4 +45,5 @@ AccordionItemTitle.propTypes = {
   onClick: PropTypes.func,
   title: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   uuid: PropTypes.string,
+  rootTag: PropTypes.string,
 };

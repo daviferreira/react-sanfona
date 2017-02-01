@@ -19,6 +19,18 @@ describe('Accordion Test Case', () => {
 
     expect(instance, 'to be defined');
     expect(vdom, 'to be defined');
+    expect(vdom.type, 'to be', 'div');
+  });
+
+  it('should render with a custom tag', () => {
+    const tree = sd.shallowRender(<Accordion rootTag="ul" />);
+
+    instance = tree.getMountedInstance();
+    vdom = tree.getRenderOutput();
+
+    expect(instance, 'to be defined');
+    expect(vdom, 'to be defined');
+    expect(vdom.type, 'to be', 'ul');
   });
 
   describe('activeItems', () => {
