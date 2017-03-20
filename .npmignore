@@ -4,7 +4,8 @@ npm-debug.log
 .DS_Store
 **/*-bundle.*.js
 demo
-dist
-webpack.config.demo.js
+webpack.config.*.js
 bower.json
+.*
+test*
 
