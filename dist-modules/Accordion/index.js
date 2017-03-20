@@ -106,7 +106,9 @@ var Accordion = function (_Component) {
         return null;
       }
 
-      var children = arrayify(this.props.children);
+      var children = arrayify(this.props.children).filter(function (c) {
+        return c;
+      });
       return children.map(function (item, index) {
         var key = _this2.props.openNextAccordionItem ? index : item.props.slug || index;
         var expanded = _this2.state.activeItems.indexOf(key) !== -1 && !item.props.disabled;
