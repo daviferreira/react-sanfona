@@ -14,20 +14,20 @@ module.exports = {
     loaders: [
       {
         test: /\.jsx?$/,
-        loader: 'babel',
+        loader: 'babel-loader',
         exclude: /node_modules/,
         query: {
           presets: ['react']
         }
       },
-      { test: /\.css$/, loaders: ['style', 'css'] },
+      { test: /\.css$/, loaders: ['style-loader', 'css-loader'] },
       {
         test: /\.scss$/,
         loaders: [
-          'style',
-          'css',
-          'autoprefixer?browsers=last 2 version',
-          'sass?outputStyle=expanded&includePaths[]=' +
+          'style-loader',
+          'css-loader',
+          'autoprefixer-loader?browsers=last 2 version',
+          'sass-loader?outputStyle=expanded&includePaths[]=' +
           (path.resolve(__dirname, './src'))
         ]
       }
@@ -39,7 +39,7 @@ module.exports = {
   },
 
   resolve: {
-    extensions: ['', '.jsx', '.js']
+    extensions: ['.jsx', '.js']
   },
 
   plugins: [
