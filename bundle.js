@@ -59,7 +59,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "0313e7dc3abdf2c2dd9d"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "6c00ab4bb6de04bde37a"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotMainModule = true; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -10882,7 +10882,7 @@ var Demo = function (_React$Component) {
                 item === 3 ? _react2.default.createElement(
                   'p',
                   null,
-                  _react2.default.createElement('img', { src: 'http://i.giphy.com/nIMpbXH2WfYRi.gif' })
+                  _react2.default.createElement('img', { src: 'https://i.giphy.com/nIMpbXH2WfYRi.gif' })
                 ) : null
               )
             );
@@ -10907,7 +10907,7 @@ var Demo = function (_React$Component) {
                 item === 3 ? _react2.default.createElement(
                   'p',
                   null,
-                  _react2.default.createElement('img', { src: 'http://i.giphy.com/nIMpbXH2WfYRi.gif' })
+                  _react2.default.createElement('img', { src: 'https://i.giphy.com/nIMpbXH2WfYRi.gif' })
                 ) : null
               )
             );
@@ -10932,7 +10932,7 @@ var Demo = function (_React$Component) {
                 item === 3 ? _react2.default.createElement(
                   'p',
                   null,
-                  _react2.default.createElement('img', { src: 'http://i.giphy.com/nIMpbXH2WfYRi.gif' })
+                  _react2.default.createElement('img', { src: 'https://i.giphy.com/nIMpbXH2WfYRi.gif' })
                 ) : null
               )
             );
