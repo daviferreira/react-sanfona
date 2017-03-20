@@ -38,7 +38,7 @@ class Demo extends React.Component {
               <AccordionItem title={`Item ${ item }`} key={item}>
                 <div>
                   {`Item ${ item } content`}
-                  {item === 3 ? <p><img src="http://i.giphy.com/nIMpbXH2WfYRi.gif" /></p> : null}
+                  {item === 3 ? <p><img src="https://i.giphy.com/nIMpbXH2WfYRi.gif" /></p> : null}
                 </div>
               </AccordionItem>
             );
@@ -53,7 +53,7 @@ class Demo extends React.Component {
               <AccordionItem title={`Item ${ item }`} key={item}>
                 <div>
                   {`Item ${ item } content`}
-                  {item === 3 ? <p><img src="http://i.giphy.com/nIMpbXH2WfYRi.gif" /></p> : null}
+                  {item === 3 ? <p><img src="https://i.giphy.com/nIMpbXH2WfYRi.gif" /></p> : null}
                 </div>
               </AccordionItem>
             );
@@ -68,7 +68,7 @@ class Demo extends React.Component {
               <AccordionItem title={`Item ${ item}`} key={item}>
                 <div>
                   {`Item ${ item } content`}
-                  {item === 3 ? <p><img src="http://i.giphy.com/nIMpbXH2WfYRi.gif" /></p> : null}
+                  {item === 3 ? <p><img src="https://i.giphy.com/nIMpbXH2WfYRi.gif" /></p> : null}
                 </div>
               </AccordionItem>
             );
