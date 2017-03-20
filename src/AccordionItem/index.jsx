@@ -23,79 +23,58 @@ export default class AccordionItem extends Component {
     this.uuid = this.props.uuid || uuid.v4();
   }
 
+  componentDidMount() {
+    this.setMaxHeight();
+  }
+
   componentDidUpdate(prevProps) {
-    if (prevProps.expanded !== this.props.expanded) {
-      if (this.props.expanded) {
-        this.maybeExpand();
+    const { expanded, disabled, children } = this.props;
+
+    if (prevProps.expanded !== expanded) {
+      if (disabled) return;
+
+      if (expanded) {
+        this.handleExpand();
       } else {
         this.handleCollapse();
       }
+    } else if(prevProps.children !== children) {
+      this.setMaxHeight();
     }
-  }
-
-  startTransition() {
-    this.setState({
-      maxHeight: this.maxHeight,
-      overflow: 'hidden'
-    });
-    clearTimeout(this.timeout);
-  }
-
-  maybeExpand() {
-    const { disabled } = this.props;
-
-    if(disabled) {
-      return;
-    }
-
-    const bodyNode = ReactDOM.findDOMNode(this.refs.body);
-    const images = bodyNode.querySelectorAll('img');
-
-    if (images.length > 0) {
-      this.preloadImages(bodyNode, images);
-      return;
-    }
-
-    this.handleExpand();
   }
 
   handleExpand() {
     const { onExpand, slug } = this.props;
 
-    this.startTransition();
-    this.timeout = setTimeout(() => {
-      this.setState({
-        maxHeight: 'none',
-        overflow: 'visible'
-      });
+    this.setMaxHeight();
 
-      if(onExpand) {
-        slug ? onExpand(slug) : onExpand();
-      }
-
-    }, this.state.duration);
+    if(onExpand) {
+      slug ? onExpand(slug) : onExpand();
+    }
   }
 
   handleCollapse() {
-    const { onClose } = this.props;
+    const { onClose, slug } = this.props;
 
-    this.startTransition();
-    this.timeout = setTimeout(() => {
-      this.setState({
-        maxHeight: 0,
-        overflow: 'hidden'
-      });
+    this.setMaxHeight();
 
-      if(onClose) {
-        onClose();
-      }
-
-    }, 0);
+    if(onClose) {
+      slug ? onClose(slug) : onClose();
+    }
   }
 
-  get maxHeight() {
-    const body = ReactDOM.findDOMNode(this.refs.body);
-    return `${body.scrollHeight}px`;
+  setMaxHeight() {
+    var bodyNode = ReactDOM.findDOMNode(this.refs.body);
+    var images = bodyNode.querySelectorAll('img');
+
+    if (images.length > 0) {
+      return this.preloadImages(bodyNode, images);
+    }
+
+    this.setState({
+      maxHeight: this.props.expanded ? bodyNode.scrollHeight + 'px' : 0,
+      overflow: 'hidden'
+    });
   }
 
   // Wait for images to load before calculating maxHeight
@@ -105,7 +84,10 @@ export default class AccordionItem extends Component {
       imagesLoaded++;
 
       if (imagesLoaded === images.length) {
-        this.handleExpand();
+        this.setState({
+          maxHeight: this.props.expanded ? node.scrollHeight + 'px' : 0,
+          overflow: 'hidden'
+        });
       }
     };
 
@@ -121,7 +103,7 @@ export default class AccordionItem extends Component {
       className: className(
         'react-sanfona-item',
         this.props.className,
-        { 'react-sanfona-item-expanded': (this.props.expanded && !this.props.disabled ) },
+        { 'react-sanfona-item-expanded': (this.props.expanded && !this.props.disabled)},
         this.props.expandedClassName && { [this.props.expandedClassName]: this.props.expanded },
         { 'react-sanfona-item-disabled': this.props.disabled },
         this.props.disabledClassName && { [this.props.disabledClassName]: this.props.disabled },
