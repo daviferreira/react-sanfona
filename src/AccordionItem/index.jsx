@@ -73,7 +73,7 @@ export default class AccordionItem extends Component {
 
     this.setState({
       maxHeight: this.props.expanded ? bodyNode.scrollHeight + 'px' : 0,
-      overflow: 'hidden'
+      overflow: this.props.expanded ? 'visible' : 'hidden',
     });
   }
 
