@@ -1,0 +1,89 @@
+{
+  "name": "daviferreira/react-sanfona",
+  "version": "0.1.4",
+  "libraries": {
+    "xv": "^1.1.25"
+  },
+  "title": "",
+  "branch": "",
+  "style": {
+    "name": "Williamsburg",
+    "componentSet": {
+      "nav": "nav/BasicNav",
+      "header": "header/LightBannerHeader",
+      "article": "article/ReaderArticle",
+      "footer": "footer/BasicFooter"
+    },
+    "fontFamily": "Montserrat, sans-serif",
+    "heading": {
+      "fontWeight": 600,
+      "letterSpacing": "0.1em"
+    },
+    "colors": {
+      "text": "#346",
+      "background": "#fff",
+      "primary": "#0099e0",
+      "secondary": "#ab61ff",
+      "highlight": "#f7b",
+      "muted": "#fffab3",
+      "border": "#ccd"
+    }
+  },
+  "content": [
+    {
+      "component": "nav",
+      "links": [
+        {
+          "href": "https://daviferreira.github.io/react-sanfona",
+          "text": "Home"
+        },
+        {
+          "href": "https://github.com/daviferreira/react-sanfona",
+          "text": "GitHub"
+        },
+        {
+          "href": "https://npmjs.com/package/react-sanfona",
+          "text": "npm"
+        }
+      ]
+    },
+    {
+      "component": "header",
+      "heading": "react-sanfona",
+      "subhead": "Accessible react accordion component",
+      "children": [
+        {
+          "component": "ui/TweetButton",
+          "text": "react-sanfona: Accessible react accordion component",
+          "url": "https://daviferreira.github.io/react-sanfona"
+        },
+        {
+          "component": "ui/GithubButton",
+          "user": "daviferreira",
+          "repo": "react-sanfona"
+        }
+      ],
+      "text": "v0.2.1"
+    },
+    {
+      "component": "article",
+      "metadata": {
+        "source": "github.readme"
+      },
+      "html": "\n<p><a href=\"https://nodei.co/npm/react-sanfona.png?downloads=true\"><img src=\"https://nodei.co/npm/react-sanfona.png?downloads=true\"></a></p>\n<p><a href=\"https://travis-ci.org/daviferreira/react-sanfona\"><img src=\"https://travis-ci.org/daviferreira/react-sanfona.png?branch=master\"></a>\n<a href=\"https://david-dm.org/daviferreira/react-sanfona\"><img src=\"https://david-dm.org/daviferreira/react-sanfona.png\"></a>\n<a href=\"https://david-dm.org/daviferreira/react-sanfona#info=devDependencies\"><img src=\"https://david-dm.org/daviferreira/react-sanfona/dev-status.png\"></a></p>\n<p>React accordion component</p>\n<p><img src=\"https://cloud.githubusercontent.com/assets/38787/8015584/2883817e-0bda-11e5-9662-b7daf40e8c27.gif\"></p>\n<h2>Usage</h2>\n<h3>CommonJS</h3>\n<p>Install via NPM:</p>\n<pre>npm <span class=\"hljs-keyword\">install</span> react-sanfona</pre><p>Then:</p>\n<pre><span class=\"hljs-keyword\">import</span> { Accordion, AccordionItem } <span class=\"hljs-keyword\">from</span> <span class=\"hljs-string\">&apos;react-sanfona&apos;</span>;\n\n&#x2026;\n\n    render: <span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span> (<span class=\"hljs-params\"></span>) </span>{\n        <span class=\"hljs-keyword\">return</span> (\n            <span class=\"xml\"><span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">Accordion</span>&gt;</span>\n                {[1, 2, 3, 4, 5].map((item) =&gt; {\n                    return (\n                        <span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">AccordionItem</span> <span class=\"hljs-attr\">title</span>=<span class=\"hljs-string\">{</span>`<span class=\"hljs-attr\">Item</span> ${ <span class=\"hljs-attr\">item</span> }`} <span class=\"hljs-attr\">slug</span>=<span class=\"hljs-string\">{item}</span> <span class=\"hljs-attr\">key</span>=<span class=\"hljs-string\">{item}</span>&gt;</span>\n                            <span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">div</span>&gt;</span>\n                                {`Item ${ item } content`}\n                                {item === 3 ? <span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">p</span>&gt;</span><span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">img</span> <span class=\"hljs-attr\">src</span>=<span class=\"hljs-string\">&quot;https://cloud.githubusercontent.com/assets/38787/8015584/2883817e-0bda-11e5-9662-b7daf40e8c27.gif&quot;</span> /&gt;</span><span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">p</span>&gt;</span> : null}\n                            <span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">div</span>&gt;</span>\n                        <span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">AccordionItem</span>&gt;</span>\n                    );\n                })}\n            <span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">Accordion</span>&gt;</span>\n        );\n    }\n\n&#x2026;</span></pre><h3>Browser</h3>\n<p>Download or install via bower:</p>\n<pre><span class=\"hljs-keyword\">bower </span><span class=\"hljs-keyword\">install </span>react-sanfona</pre><p>Then:</p>\n<pre><span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">script</span> <span class=\"hljs-attr\">src</span>=<span class=\"hljs-string\">&quot;https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.7.7/babel.min.js&quot;</span> <span class=\"hljs-attr\">type</span>=<span class=\"hljs-string\">&quot;text/javascript&quot;</span> <span class=\"hljs-attr\">charset</span>=<span class=\"hljs-string\">&quot;utf-8&quot;</span>&gt;</span><span class=\"undefined\"></span><span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">script</span>&gt;</span>\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">script</span> <span class=\"hljs-attr\">src</span>=<span class=\"hljs-string\">&quot;https://cdnjs.cloudflare.com/ajax/libs/react/15.0.2/react.min.js&quot;</span>&gt;</span><span class=\"undefined\"></span><span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">script</span>&gt;</span>\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">script</span> <span class=\"hljs-attr\">src</span>=<span class=\"hljs-string\">&quot;https://cdnjs.cloudflare.com/ajax/libs/react/15.0.2/react-dom.min.js&quot;</span>&gt;</span><span class=\"undefined\"></span><span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">script</span>&gt;</span>\n<span class=\"hljs-tag\">&lt;<span class=\"hljs-name\">script</span> <span class=\"hljs-attr\">src</span>=<span class=\"hljs-string\">&quot;react-sanfona/dist/react-sanfona.js&quot;</span> <span class=\"hljs-attr\">type</span>=<span class=\"hljs-string\">&quot;text/javascript&quot;</span> <span class=\"hljs-attr\">charset</span>=<span class=\"hljs-string\">&quot;utf-8&quot;</span>&gt;</span><span class=\"undefined\"></span><span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">script</span>&gt;</span></pre><pre>&lt;script type=<span class=\"hljs-string\">&quot;text/javascript&quot;</span>&gt;\n    <span class=\"hljs-keyword\">var</span> input = <span class=\"hljs-string\">`\n        var Accordion = ReactSanfona.default.Accordion;\n        var AccordionItem = ReactSanfona.default.AccordionItem;\n\n        ReactDOM.render(\n            &lt;Accordion&gt;\n              {[1, 2, 3, 4, 5].map(function (item) {\n                return (\n                  &lt;AccordionItem title={&apos;Item&apos; + item} key={item} titleColor=&quot;blue&quot;&gt;\n                    &lt;div&gt;\n                      {&apos;Item &apos; +  item + &apos; content&apos;}\n                      {item === 3 ? &lt;p&gt;&lt;img src=&quot;https://cloud.githubusercontent.com/assets/38787/8015584/2883817e-0bda-11e5-9662-b7daf40e8c27.gif&quot; /&gt;&lt;/p&gt; : null}\n                    &lt;/div&gt;\n                  &lt;/AccordionItem&gt;\n                );\n              })}\n            &lt;/Accordion&gt;,\n            document.getElementById(&apos;demo&apos;)\n        );\n    `</span>\n\n    <span class=\"hljs-keyword\">var</span> output = Babel.transform(input, { <span class=\"hljs-attr\">presets</span>: [<span class=\"hljs-string\">&apos;es2015&apos;</span>, <span class=\"hljs-string\">&apos;react&apos;</span>] }).code;\n    <span class=\"hljs-keyword\">var</span> script = <span class=\"hljs-built_in\">document</span>.createElement(<span class=\"hljs-string\">&apos;script&apos;</span>);\n    script.innerHTML = output;\n    <span class=\"hljs-built_in\">document</span>.body.appendChild(script);\n<span class=\"xml\"><span class=\"hljs-tag\">&lt;/<span class=\"hljs-name\">script</span>&gt;</span></span></pre><h2>options / PropTypes</h2>\n<h4>Accordion</h4>\n<table>\n<thead>\n<tr>\n<th>Property</th>\n<th>Type</th>\n<th>Description</th>\n<th>Default</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>allowMultiple</td>\n<td><code>Boolean</code></td>\n<td>Allow multiple items to be open at the same time.</td>\n<td><code>false</code></td>\n</tr>\n<tr>\n<td>activeItems</td>\n<td><code>Array</code></td>\n<td>Receives either an array of indexes or a single index. Each index corresponds to the item order, starting from 0. Ex: activeItems={0}, activeItems=[0, 1, 2]</td>\n<td><code>[0]</code></td>\n</tr>\n<tr>\n<td>openNextAccordionItem</td>\n<td><code>Boolean</code></td>\n<td>Opens the next accordion item after the previous one is closed. Defaults first one as active and applies for each accordion item except the last one. Not compatible when passing in a custom slug</td>\n<td><code>false</code></td>\n</tr>\n<tr>\n<td>className</td>\n<td><code>String</code></td>\n<td>Custom classname applied to root div</td>\n<td><code>null</code></td>\n</tr>\n<tr>\n<td>style</td>\n<td><code>Object</code></td>\n<td>Inline styles applied to root div</td>\n<td><code>null</code></td>\n</tr>\n<tr>\n<td>onChange</td>\n<td><code>Function</code></td>\n<td>Triggered when component updates and passes new state as an argument</td>\n<td><code>null</code></td>\n</tr>\n</tbody>\n</table>\n<h4>AccordionItem</h4>\n<table>\n<thead>\n<tr>\n<th>Property</th>\n<th>Type</th>\n<th>Description</th>\n<th>Default</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>title</td>\n<td><code>String</code>/ <code>Object</code></td>\n<td>Text or Object to display in header.</td>\n<td><code>null</code></td>\n</tr>\n<tr>\n<td>slug</td>\n<td><code>String/Number</code></td>\n<td>Key used in activeItems lookup</td>\n<td><code>null</code></td>\n</tr>\n<tr>\n<td>expanded</td>\n<td><code>Boolean</code></td>\n<td>If item body should be expanded or not</td>\n<td><code>false</code></td>\n</tr>\n<tr>\n<td>onExpand</td>\n<td><code>Function</code></td>\n<td>Callback for when item is expanded</td>\n<td><code>null</code></td>\n</tr>\n<tr>\n<td>onClose</td>\n<td><code>Function</code></td>\n<td>Callback for when item closes</td>\n<td><code>null</code></td>\n</tr>\n<tr>\n<td>className</td>\n<td><code>String</code></td>\n<td>Custom classname applied to root item div</td>\n<td><code>null</code></td>\n</tr>\n<tr>\n<td>bodyClassName</td>\n<td><code>String</code></td>\n<td>Custom classname applied to the accordion item body</td>\n<td><code>null</code></td>\n</tr>\n<tr>\n<td>expandedClassName</td>\n<td><code>String</code></td>\n<td>Custom classname applied when accordion is expanded</td>\n<td><code>null</code></td>\n</tr>\n<tr>\n<td>titleClassName</td>\n<td><code>String</code></td>\n<td>Custom classname applied to accordion item header text</td>\n<td><code>null</code></td>\n</tr>\n<tr>\n<td>disabled</td>\n<td><code>Boolean</code></td>\n<td>If item should be expanded or not</td>\n<td><code>false</code></td>\n</tr>\n<tr>\n<td>disabledClassName</td>\n<td><code>String</code></td>\n<td>Custom classname applied to accordion item header text when item is disabled</td>\n<td><code>null</code></td>\n</tr>\n</tbody>\n</table>\n<h2>Styling with classnames</h2>\n<table>\n<thead>\n<tr>\n<th>Classname</th>\n<th>Targets</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td><code>react-sanfona</code></td>\n<td>Accordion container</td>\n</tr>\n<tr>\n<td><code>react-sanfona-item</code></td>\n<td>AccordionItem container</td>\n</tr>\n<tr>\n<td><code>react-sanfona-item-expanded</code></td>\n<td>AccordionItem container when expanded</td>\n</tr>\n<tr>\n<td><code>react-sanfona-item-title</code></td>\n<td>AccordionItem header text</td>\n</tr>\n<tr>\n<td><code>react-sanfona-item-body</code></td>\n<td>AccordionItem body container</td>\n</tr>\n<tr>\n<td><code>react-sanfona-item-body-wrapper</code></td>\n<td>AccordionItem body children wrapper</td>\n</tr>\n<tr>\n<td><code>react-sanfona-item-disabled</code></td>\n<td>AccordionItem is disabled</td>\n</tr>\n</tbody>\n</table>\n<h2>development</h2>\n<pre><span class=\"hljs-built_in\">npm</span> install\n\n<span class=\"hljs-built_in\">npm</span> run demo <span class=\"hljs-regexp\">//</span> served <span class=\"hljs-literal\">on</span> localhost:<span class=\"hljs-number\">8080</span>\n\n<span class=\"hljs-built_in\">npm</span> test</pre>"
+    },
+    {
+      "component": "footer",
+      "links": [
+        {
+          "href": "https://github.com/daviferreira/react-sanfona",
+          "text": "GitHub"
+        },
+        {
+          "href": "https://github.com/daviferreira",
+          "text": "daviferreira"
+        }
+      ]
+    }
+  ]
+}
