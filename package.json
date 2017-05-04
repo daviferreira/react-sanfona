@@ -37,7 +37,8 @@
   },
   "dependencies": {
     "classnames": "2.2.5",
-    "uuid": "3.0.1"
+    "uuid": "3.0.1",
+    "prop-types": "^15.5.8"
   },
   "devDependencies": {
     "autoprefixer": "6.7.7",
