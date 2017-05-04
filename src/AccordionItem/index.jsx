@@ -1,7 +1,8 @@
 'use strict';
 
 import className from 'classnames';
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import uuid from 'uuid';
 
