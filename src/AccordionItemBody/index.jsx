@@ -30,8 +30,8 @@ export default class AccordionItemBody extends Component {
 AccordionItemBody.propTypes = {
   className: PropTypes.string,
   maxHeight: PropTypes.oneOfType([
-      React.PropTypes.string,
-      React.PropTypes.number
+      PropTypes.string,
+      PropTypes.number
   ]),
   duration: PropTypes.number,
   overflow: PropTypes.string,
