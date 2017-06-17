@@ -128,6 +128,7 @@ export default class AccordionItem extends Component {
         <AccordionItemTitle
           className={this.props.titleClassName}
           title={this.props.title}
+          customTitle={this.props.customTitle}
           onClick={this.props.disabled ? null : this.props.onClick}
           titleColor= {this.props.titleColor}
           uuid={this.uuid} />
@@ -152,6 +153,10 @@ AccordionItem.propTypes = {
   expanded: PropTypes.bool,
   onClick: PropTypes.func,
   title: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.node,
+  ]),
+  customTitle: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.node,
   ]),
