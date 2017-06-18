@@ -10,13 +10,12 @@ import AccordionItemBody from '../AccordionItemBody';
 import AccordionItemTitle from '../AccordionItemTitle';
 
 export default class AccordionItem extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
       maxHeight: props.expanded ? 'none' : 0,
       overflow: props.expanded ? 'visible' : 'hidden',
-      duration: 300
+      duration: 300,
     };
   }
 
@@ -39,7 +38,7 @@ export default class AccordionItem extends Component {
       } else {
         this.handleCollapse();
       }
-    } else if(prevProps.children !== children) {
+    } else if (prevProps.children !== children) {
       this.setMaxHeight();
     }
   }
@@ -49,7 +48,7 @@ export default class AccordionItem extends Component {
 
     this.setMaxHeight();
 
-    if(onExpand) {
+    if (onExpand) {
       slug ? onExpand(slug) : onExpand();
     }
   }
@@ -59,7 +58,7 @@ export default class AccordionItem extends Component {
 
     this.setMaxHeight();
 
-    if(onClose) {
+    if (onClose) {
       slug ? onClose(slug) : onClose();
     }
   }
@@ -87,7 +86,7 @@ export default class AccordionItem extends Component {
       if (imagesLoaded === images.length) {
         this.setState({
           maxHeight: this.props.expanded ? node.scrollHeight + 'px' : 0,
-          overflow: 'hidden'
+          overflow: 'hidden',
         });
       }
     };
@@ -104,13 +103,20 @@ export default class AccordionItem extends Component {
       className: className(
         'react-sanfona-item',
         this.props.className,
-        { 'react-sanfona-item-expanded': (this.props.expanded && !this.props.disabled)},
-        this.props.expandedClassName && { [this.props.expandedClassName]: this.props.expanded },
+        {
+          'react-sanfona-item-expanded':
+            this.props.expanded && !this.props.disabled,
+        },
+        this.props.expandedClassName && {
+          [this.props.expandedClassName]: this.props.expanded,
+        },
         { 'react-sanfona-item-disabled': this.props.disabled },
-        this.props.disabledClassName && { [this.props.disabledClassName]: this.props.disabled },
+        this.props.disabledClassName && {
+          [this.props.disabledClassName]: this.props.disabled,
+        }
       ),
       role: 'tabpanel',
-      style: this.props.style
+      style: this.props.style,
     };
 
     if (this.props.expanded) {
@@ -129,21 +135,22 @@ export default class AccordionItem extends Component {
           className={this.props.titleClassName}
           title={this.props.title}
           onClick={this.props.disabled ? null : this.props.onClick}
-          titleColor= {this.props.titleColor}
-          uuid={this.uuid} />
+          titleColor={this.props.titleColor}
+          uuid={this.uuid}
+        />
         <AccordionItemBody
           maxHeight={this.state.maxHeight}
           duration={this.state.duration}
           className={this.props.bodyClassName}
           overflow={this.state.overflow}
           ref="body"
-          uuid={this.uuid}>
+          uuid={this.uuid}
+        >
           {this.props.children}
         </AccordionItemBody>
       </div>
     );
   }
-
 }
 
 AccordionItem.propTypes = {
@@ -151,14 +158,11 @@ AccordionItem.propTypes = {
   className: PropTypes.string,
   expanded: PropTypes.bool,
   onClick: PropTypes.func,
-  title: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.node,
-  ]),
+  title: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   expandedClassName: PropTypes.string,
   style: PropTypes.object,
   titleClassName: PropTypes.string,
   disabled: PropTypes.bool,
   disabledClassName: PropTypes.string,
-  uuid: PropTypes.string
+  uuid: PropTypes.string,
 };
