@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 
 export default class AccordionItemBody extends Component {
   render() {
-    var style = {
+    const style = {
       maxHeight: this.props.maxHeight,
       overflow: this.props.overflow,
       transition: `max-height ${this.props.duration}ms ease`,

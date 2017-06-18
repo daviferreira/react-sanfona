@@ -64,8 +64,8 @@ export default class AccordionItem extends Component {
   }
 
   setMaxHeight() {
-    var bodyNode = ReactDOM.findDOMNode(this.refs.body);
-    var images = bodyNode.querySelectorAll('img');
+    const bodyNode = ReactDOM.findDOMNode(this.refs.body);
+    const images = bodyNode.querySelectorAll('img');
 
     if (images.length > 0) {
       return this.preloadImages(bodyNode, images);
@@ -79,8 +79,8 @@ export default class AccordionItem extends Component {
 
   // Wait for images to load before calculating maxHeight
   preloadImages(node, images = []) {
-    var imagesLoaded = 0;
-    var imgLoaded = () => {
+    let imagesLoaded = 0;
+    const imgLoaded = () => {
       imagesLoaded++;
 
       if (imagesLoaded === images.length) {
@@ -99,7 +99,7 @@ export default class AccordionItem extends Component {
   }
 
   getProps() {
-    var props = {
+    const props = {
       className: className(
         'react-sanfona-item',
         this.props.className,

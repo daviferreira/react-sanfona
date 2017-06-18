@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 
 export default class AccordionItemTitle extends Component {
   render() {
-    var style = {
+    const style = {
       cursor: 'pointer',
       margin: 0,
       color: this.props.titleColor,
