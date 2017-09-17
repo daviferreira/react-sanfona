@@ -110,7 +110,11 @@ Accordion.defaultProps = {
 
 Accordion.propTypes = {
   allowMultiple: PropTypes.bool,
-  activeItems: PropTypes.oneOfType([PropTypes.number, PropTypes.array]),
+  activeItems: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.array,
+    PropTypes.string
+  ]),
   className: PropTypes.string,
   onChange: PropTypes.func,
   style: PropTypes.object,
