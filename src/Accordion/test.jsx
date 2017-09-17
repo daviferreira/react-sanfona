@@ -22,7 +22,6 @@ describe('Accordion Test Case', () => {
   });
 
   describe('activeItems', () => {
-
     it('should select the first item as default', () => {
       const tree = sd.shallowRender(
         <Accordion>
@@ -74,10 +73,10 @@ describe('Accordion Test Case', () => {
     it('should accept a string as active item prop', () => {
       const tree = sd.shallowRender(
         <Accordion activeItems={'second'}>
-          <AccordionItem title="First" slug='first' />
-          <AccordionItem title="Second" slug='second' />
+          <AccordionItem title="First" slug="first" />
+          <AccordionItem title="Second" slug="second" />
         </Accordion>
-      )
+      );
 
       vdom = tree.getRenderOutput();
 
@@ -106,7 +105,6 @@ describe('Accordion Test Case', () => {
   });
 
   describe('allowMultiple', () => {
-
     it('should allow multiple expanded items', () => {
       const tree = sd.shallowRender(
         <Accordion activeItems={1} allowMultiple={true}>
@@ -192,11 +190,9 @@ describe('Accordion Test Case', () => {
 
       expect(instance.state.activeItems, 'to equal', [1, 0]);
     });
-
   });
 
   describe('openNextAccordionItem', () => {
-
     it('should open next accordion item', () => {
       const tree = sd.shallowRender(
         <Accordion openNextAccordionItem>
@@ -276,8 +272,8 @@ describe('Accordion Test Case', () => {
     it('should override slug property and assign key to index', () => {
       const tree = sd.shallowRender(
         <Accordion openNextAccordionItem>
-          <AccordionItem title="First" slug='first' />
-          <AccordionItem title="Second" slug='second' />
+          <AccordionItem title="First" slug="first" />
+          <AccordionItem title="Second" slug="second" />
         </Accordion>
       );
 
@@ -291,7 +287,5 @@ describe('Accordion Test Case', () => {
       expect(items[0].props.expanded, 'to be false');
       expect(items[1].props.expanded, 'to be true');
     });
-
   });
-
 });
