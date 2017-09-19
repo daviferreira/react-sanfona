@@ -22,9 +22,5 @@ module.exports = {
     filename: 'dist/react-sanfona.js',
     libraryTarget: 'umd',
     library: 'ReactSanfona'
-  },
-
-  plugins: [
-    new webpack.optimize.DedupePlugin()
-  ]
+  }
 };
