@@ -34,8 +34,8 @@ AccordionItemBody.defaultProps = {
 AccordionItemBody.propTypes = {
   className: PropTypes.string,
   maxHeight: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number
+    PropTypes.string,
+    PropTypes.number
   ]),
   duration: PropTypes.number,
   overflow: PropTypes.string,

@@ -8,13 +8,13 @@ module.exports = {
   devtool: 'source-map',
 
   entry: {
-    demo: ['webpack/hot/dev-server', './demo/index.jsx']
+    demo: ['webpack/hot/dev-server', './demo/index.js']
   },
 
   module: {
     loaders: [
       {
-        test: /\.jsx?$/,
+        test: /\.js?$/,
         loader: 'babel-loader',
         exclude: /node_modules/,
         options: {
@@ -53,10 +53,6 @@ module.exports = {
 
   output: {
     filename: 'demo/bundle.js'
-  },
-
-  resolve: {
-    extensions: ['.jsx', '.js']
   },
 
   plugins: [

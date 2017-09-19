@@ -3,7 +3,7 @@
 import expect from 'unexpected';
 import React from 'react';
 import sd from 'skin-deep';
-import TestUtils from 'react-addons-test-utils';
+import TestUtils from 'react-dom/test-utils';
 
 import Accordion from './index';
 import AccordionItem from '../AccordionItem';

@@ -6,7 +6,7 @@ module.exports = {
   module: {
     loaders: [
       {
-        test: /\.jsx?$/,
+        test: /\.js?$/,
         loader: 'babel-loader',
         exclude: /node_modules/
       },
@@ -26,9 +26,5 @@ module.exports = {
 
   plugins: [
     new webpack.optimize.DedupePlugin()
-  ],
-
-  resolve: {
-    extensions: ['.jsx', '.js']
-  }
+  ]
 };
