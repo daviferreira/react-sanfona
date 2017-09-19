@@ -22,6 +22,21 @@ describe('AccordionItem Test Case', () => {
 
     expect(instance, 'to be defined');
     expect(vdom, 'to be defined');
+    expect(vdom.type, 'to be', 'div');
+    expect(vdom.props.children[0].props, 'to have property', 'rootTag', 'h3');
+    expect(vdom.props.children[1].props, 'to have property', 'rootTag', 'div');
+  });
+
+  it('should render with custom tags', () => {
+    const tree = sd.shallowRender(<AccordionItem rootTag="li" titleTag="h2" bodyTag="ul" />);
+    instance = tree.getMountedInstance();
+    vdom = tree.getRenderOutput();
+
+    expect(instance, 'to be defined');
+    expect(vdom, 'to be defined');
+    expect(vdom.type, 'to be', 'li');
+    expect(vdom.props.children[0].props, 'to have property', 'rootTag', 'h2');
+    expect(vdom.props.children[1].props, 'to have property', 'rootTag', 'ul');
   });
 
   it('should have an unique id', () => {

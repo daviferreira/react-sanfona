@@ -105,9 +105,10 @@ Then:
 | allowMultiple | `Boolean` | Allow multiple items to be open at the same time. | `false` |
 | activeItems | `Array` | Receives either an array of indexes or a single index. Each index corresponds to the item order, starting from 0. Ex: activeItems={0}, activeItems=[0, 1, 2] | `[0]` |
 | openNextAccordionItem | `Boolean` | Opens the next accordion item after the previous one is closed. Defaults first one as active and applies for each accordion item except the last one. Not compatible when passing in a custom slug | `false` |
-| className | `String` | Custom classname applied to root div | `null` |
-| style | `Object` | Inline styles applied to root div | `null` |
+| className | `String` | Custom classname applied to root element | `null` |
+| style | `Object` | Inline styles applied to root element | `null` |
 | onChange | `Function` | Triggered when component updates and passes new state as an argument | `null` |
+| rootTag | `String` | Custom HTML tag used for root element | `'div'` |
 
 #### AccordionItem
 | Property | Type | Description | Default |
@@ -117,12 +118,15 @@ Then:
 | expanded | `Boolean` | If item body should be expanded or not | `false` |
 | onExpand | `Function` | Callback for when item is expanded | `null` |
 | onClose | `Function` | Callback for when item closes | `null` |
-| className | `String` | Custom classname applied to root item div | `null` |
+| className | `String` | Custom classname applied to root item element | `null` |
 | bodyClassName | `String` | Custom classname applied to the accordion item body | `null` |
 | expandedClassName | `String` | Custom classname applied when accordion is expanded | `null` |
 | titleClassName | `String` | Custom classname applied to accordion item header text | `null` |
 | disabled | `Boolean` | If item should be expanded or not | `false` |
 | disabledClassName | `String` | Custom classname applied to accordion item header text when item is disabled | `null` |
+| rootTag | `String` | Custom HTML tag used for root element | `'div'` |
+| titleTag | `String` | Custom HTML tag used for title element | `'h3'` |
+| bodyTag | `String` | Custom HTML tag used for body element | `'div'` |
 
 ## Styling with classnames
 | Classname | Targets |

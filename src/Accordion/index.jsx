@@ -91,13 +91,13 @@ export default class Accordion extends Component {
 
   render() {
     return (
-      <div
+      <this.props.rootTag
         className={className('react-sanfona', this.props.className)}
         role="tablist"
         style={this.props.style}
       >
         {this.renderItems()}
-      </div>
+      </this.props.rootTag>
     );
   }
 }
@@ -105,6 +105,7 @@ export default class Accordion extends Component {
 Accordion.defaultProps = {
   activeItems: [0],
   allowMultiple: false,
+  rootTag: 'div',
 };
 
 Accordion.propTypes = {
@@ -113,4 +114,5 @@ Accordion.propTypes = {
   className: PropTypes.string,
   onChange: PropTypes.func,
   style: PropTypes.object,
+  rootTag: PropTypes.string,
 };
