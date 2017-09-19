@@ -145,7 +145,7 @@ Then:
 ```
 npm install
 
-npm run demo // served on localhost:8080
+npm start // served on localhost:8080
 
 npm test
 ```
