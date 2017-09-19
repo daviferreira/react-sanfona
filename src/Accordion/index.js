@@ -16,22 +16,14 @@ const dedupeArr = arr =>
 export default class Accordion extends Component {
   constructor(props) {
     super(props);
-    this.updateActiveItems = this.updateActiveItems.bind(this);
-    this.updateActiveItems(props);
-  }
 
-  componentWillReceiveProps(nextProps) {
-    this.updateActiveItems(nextProps);
-  }
-
-  updateActiveItems(props) {
     let activeItems = arrayify(props.activeItems);
 
     // can't have multiple active items, just use the first one
     if (!props.allowMultiple) activeItems = [activeItems[0]];
 
     this.state = {
-      activeItems,
+      activeItems
     };
   }
 
@@ -84,7 +76,7 @@ export default class Accordion extends Component {
         expanded: expanded,
         key: key,
         onClick: this.handleClick.bind(this, key),
-        ref: `item-${key}`,
+        ref: `item-${key}`
       });
     });
   }
@@ -105,7 +97,7 @@ export default class Accordion extends Component {
 Accordion.defaultProps = {
   activeItems: [0],
   allowMultiple: false,
-  rootTag: 'div',
+  rootTag: 'div'
 };
 
 Accordion.propTypes = {
@@ -118,5 +110,5 @@ Accordion.propTypes = {
   className: PropTypes.string,
   onChange: PropTypes.func,
   style: PropTypes.object,
-  rootTag: PropTypes.string,
+  rootTag: PropTypes.string
 };
