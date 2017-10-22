@@ -39,51 +39,47 @@ body {
   margin-bottom: 70px;
 }
 
-.react-sanfona-item {
+.react-sanfona-item-title {
+  background-color: #fafafa;
+  border-top: 1px solid #ccc;
+  color: #333;
+  padding: 20px;
+  text-transform: uppercase;
+  transition: background-color .3s;
+}
 
-  &-title {
-    background-color: #fafafa;
-    border-top: 1px solid #ccc;
-    color: #333;
-    padding: 20px;
-    text-transform: uppercase;
-    transition: background-color .3s;
-  }
+.react-sanfona-item:first-child .react-sanfona-item-title {
+  border-top: none;
+}
 
-  &:first-child &-title {
-    border-top: none;
-  }
-
-  &-expanded &-title {
-    background-color: var(--color-primary);
-    color: #fff;
-
-    .title-done-btn {
-        display: inline-block;
-        float: right;
-        color: #000;
-    }
-  }
-
-  &-body-wrapper {
-    color: #666;
-    padding: 20px;
-    position: relative;
-
-    &:hover .tooltip {
-      opacity: 1;
-    }
-  }
-
-  img {
-    display: block;
-    max-width: 100%;
-  }
+.react-sanfona-item-expanded .react-sanfona-item-title {
+  background-color: var(--color-primary);
+  color: #fff;
 
   .title-done-btn {
-      display: none;
+      display: inline-block;
+      float: right;
+      color: #000;
   }
+}
 
+.react-sanfona-item-body-wrapper {
+  color: #666;
+  padding: 20px;
+  position: relative;
+}
+
+.react-sanfona-item-body-wrapper:hover .tooltip {
+  opacity: 1;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+.title-done-btn {
+    display: none;
 }
 
 .tooltip {

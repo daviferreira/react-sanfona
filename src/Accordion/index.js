@@ -18,7 +18,9 @@ export default class Accordion extends Component {
   constructor(props) {
     super(props);
 
-    this.setActiveItems(props.children, props.allowMultiple);
+    this.state = {
+      activeItems: this.getActiveItems(props.children, props.allowMultiple)
+    };
   }
 
   getChildrenActiveItems(children) {
@@ -33,16 +35,14 @@ export default class Accordion extends Component {
     return activeItems;
   }
 
-  setActiveItems(children, allowMultiple) {
+  getActiveItems(children, allowMultiple) {
     let activeItems = this.getChildrenActiveItems(children);
 
     if (!allowMultiple && activeItems.length > 0) {
       activeItems = activeItems.slice(0, 1);
     }
 
-    this.state = {
-      activeItems
-    };
+    return activeItems;
   }
 
   componentWillReceiveProps({ children, allowMultiple }) {
@@ -52,12 +52,19 @@ export default class Accordion extends Component {
         this.getChildrenActiveItems(children)
       )
     ) {
-      this.setActiveItems(children, allowMultiple);
+      this.setState({
+        activeItems: this.getActiveItems(children, allowMultiple)
+      });
     }
   }
 
   handleClick(index) {
-    const { allowMultiple, children, onChange, openNextAccordionItem } = this.props;
+    const {
+      allowMultiple,
+      children,
+      onChange,
+      openNextAccordionItem
+    } = this.props;
 
     // clone active items state array
     let activeItems = this.state.activeItems.slice(0);

@@ -17,6 +17,7 @@ class Demo extends React.Component {
     };
 
     this.toggleActive = this.toggleActive.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   toggleActive(index) {
@@ -29,6 +30,10 @@ class Demo extends React.Component {
     }
   }
 
+  handleChange({ activeItems }) {
+    this.setState({ activeItems });
+  }
+
   render() {
     return (
       <div className="demo-container">
@@ -36,7 +41,7 @@ class Demo extends React.Component {
 
         <h2>Default settings</h2>
 
-        <Accordion>
+        <Accordion onChange={this.handleChange}>
           {[0, 1, 2, 3, 4].map(item => {
             return (
               <AccordionItem
