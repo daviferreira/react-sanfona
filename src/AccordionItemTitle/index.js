@@ -1,40 +1,40 @@
 'use strict';
 
 import cx from 'classnames';
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
-export default class AccordionItemTitle extends Component {
-  render() {
-    const { className, uuid, onClick, rootTag: Root } = this.props;
+export default function AccordionItemTitle({
+  className,
+  uuid,
+  onClick,
+  rootTag: Root,
+  title
+}) {
+  const style = {
+    cursor: 'pointer',
+    margin: 0
+  };
 
-    const style = {
-      cursor: 'pointer',
-      margin: 0
-    };
-
-    const { title } = this.props;
-
-    if (typeof title === 'object') {
-      return React.cloneElement(title, {
-        onClick,
-        id: `react-safona-item-title-${uuid}`,
-        'aria-controls': `react-sanfona-item-body-${uuid}`
-      });
-    }
-
-    return (
-      <Root
-        aria-controls={`react-sanfona-item-body-${uuid}`}
-        className={cx('react-sanfona-item-title', className)}
-        id={`react-safona-item-title-${uuid}`}
-        onClick={onClick}
-        style={style}
-      >
-        {title}
-      </Root>
-    );
+  if (typeof title === 'object') {
+    return React.cloneElement(title, {
+      onClick,
+      id: `react-safona-item-title-${uuid}`,
+      'aria-controls': `react-sanfona-item-body-${uuid}`
+    });
   }
+
+  return (
+    <Root
+      aria-controls={`react-sanfona-item-body-${uuid}`}
+      className={cx('react-sanfona-item-title', className)}
+      id={`react-safona-item-title-${uuid}`}
+      onClick={onClick}
+      style={style}
+    >
+      {title}
+    </Root>
+  );
 }
 
 AccordionItemTitle.defaultProps = {
