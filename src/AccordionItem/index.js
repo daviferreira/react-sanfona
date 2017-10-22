@@ -14,8 +14,7 @@ export default class AccordionItem extends Component {
     super(props);
     this.state = {
       maxHeight: props.expanded ? 'none' : 0,
-      overflow: props.expanded ? 'visible' : 'hidden',
-      duration: 300,
+      overflow: props.expanded ? 'visible' : 'hidden'
     };
   }
 
@@ -83,7 +82,7 @@ export default class AccordionItem extends Component {
         this.setState({
           overflow: 'visible'
         });
-      }, this.state.duration);
+      }, this.props.duration);
     }
   }
 
@@ -151,7 +150,7 @@ export default class AccordionItem extends Component {
         />
         <AccordionItemBody
           maxHeight={this.state.maxHeight}
-          duration={this.state.duration}
+          duration={this.props.duration}
           className={this.props.bodyClassName}
           overflow={this.state.overflow}
           ref="body"
@@ -168,12 +167,14 @@ export default class AccordionItem extends Component {
 AccordionItem.defaultProps = {
   rootTag: 'div',
   titleTag: 'h3',
-  bodyTag: 'div'
+  bodyTag: 'div',
+  duration: 300
 };
 
 AccordionItem.propTypes = {
   bodyClassName: PropTypes.string,
   className: PropTypes.string,
+  duration: PropTypes.number,
   expanded: PropTypes.bool,
   onClick: PropTypes.func,
   title: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
