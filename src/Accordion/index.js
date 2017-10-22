@@ -5,27 +5,56 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 
+// https://stackoverflow.com/a/22395463/338762
+function isSame(array1, array2) {
+  return (
+    array1.length == array2.length &&
+    array1.every((element, index) => {
+      return element === array2[index];
+    })
+  );
+}
+
 export default class Accordion extends Component {
   constructor(props) {
     super(props);
 
+    this.setActiveItems(props.children, props.allowMultiple);
+  }
+
+  getChildrenActiveItems(children) {
     let activeItems = [];
 
-    if (props.children) {
-      props.children.forEach((children, index) => {
-        if (!children.props.disabled && children.props.expanded) {
-          activeItems.push(index);
-        }
-      });
-
-      if (!props.allowMultiple && activeItems.length > 0) {
-        activeItems = activeItems.slice(0, 1);
+    (children || []).forEach((children, index) => {
+      if (!children.props.disabled && children.props.expanded) {
+        activeItems.push(index);
       }
+    });
+
+    return activeItems;
+  }
+
+  setActiveItems(children, allowMultiple) {
+    let activeItems = this.getChildrenActiveItems(children);
+
+    if (!allowMultiple && activeItems.length > 0) {
+      activeItems = activeItems.slice(0, 1);
     }
 
     this.state = {
       activeItems
     };
+  }
+
+  componentWillReceiveProps({ children, allowMultiple }) {
+    if (
+      !isSame(
+        this.getChildrenActiveItems(this.props.children),
+        this.getChildrenActiveItems(children)
+      )
+    ) {
+      this.setActiveItems(children, allowMultiple);
+    }
   }
 
   handleClick(index) {
@@ -69,13 +98,12 @@ export default class Accordion extends Component {
     const { activeItems } = this.state;
 
     return children.filter(c => c).map((item, index) => {
-      const { props: { disabled } } = item;
-      const expanded = !disabled && activeItems.indexOf(index) !== -1;
+      const { props: { disabled, expanded } } = item;
+      const isExpanded = !disabled && activeItems.indexOf(index) !== -1;
 
       return React.cloneElement(item, {
-        expanded,
+        expanded: isExpanded,
         index,
-        key: index,
         onClick: this.handleClick.bind(this, index),
         ref: `item-${index}`
       });

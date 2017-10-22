@@ -186,5 +186,5 @@ AccordionItem.propTypes = {
   rootTag: PropTypes.string,
   titleTag: PropTypes.string,
   bodyTag: PropTypes.string,
-  index: PropTypes.number.isRequired
+  index: PropTypes.number
 };
