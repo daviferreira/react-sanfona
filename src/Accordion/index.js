@@ -4,6 +4,8 @@ import cx from 'classnames';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import { getChildrenActiveItems, getActiveItems } from './utils';
+
 // https://stackoverflow.com/a/22395463/338762
 function isSame(array1, array2) {
   return (
@@ -19,41 +21,19 @@ export default class Accordion extends Component {
     super(props);
 
     this.state = {
-      activeItems: this.getActiveItems(props.children, props.allowMultiple)
+      activeItems: getActiveItems(props.children, props.allowMultiple)
     };
-  }
-
-  getChildrenActiveItems(children) {
-    let activeItems = [];
-
-    (children || []).forEach((children, index) => {
-      if (!children.props.disabled && children.props.expanded) {
-        activeItems.push(index);
-      }
-    });
-
-    return activeItems;
-  }
-
-  getActiveItems(children, allowMultiple) {
-    let activeItems = this.getChildrenActiveItems(children);
-
-    if (!allowMultiple && activeItems.length > 0) {
-      activeItems = activeItems.slice(0, 1);
-    }
-
-    return activeItems;
   }
 
   componentWillReceiveProps({ children, allowMultiple }) {
     if (
       !isSame(
-        this.getChildrenActiveItems(this.props.children),
-        this.getChildrenActiveItems(children)
+        getChildrenActiveItems(this.props.children),
+        getChildrenActiveItems(children)
       )
     ) {
       this.setState({
-        activeItems: this.getActiveItems(children, allowMultiple)
+        activeItems: getActiveItems(children, allowMultiple)
       });
     }
   }
