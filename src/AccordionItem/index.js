@@ -127,16 +127,17 @@ export default class AccordionItem extends Component {
     } = this.props;
 
     const props = {
+      [`aria-${expanded ? 'expanded' : 'hidden'}`]: true,
       className: cx(
         'react-sanfona-item',
         className,
         {
-          'react-sanfona-item-expanded': expanded && !disabled
+          'react-sanfona-item-expanded': expanded && !disabled,
+          'react-sanfona-item-disabled': disabled
         },
         expandedClassName && {
           [expandedClassName]: expanded
         },
-        { 'react-sanfona-item-disabled': disabled },
         disabledClassName && {
           [disabledClassName]: disabled
         }
@@ -144,12 +145,6 @@ export default class AccordionItem extends Component {
       role: 'tabpanel',
       style
     };
-
-    if (expanded) {
-      props['aria-expanded'] = true;
-    } else {
-      props['aria-hidden'] = true;
-    }
 
     return props;
   }
@@ -175,16 +170,16 @@ export default class AccordionItem extends Component {
       <Root {...this.getProps()} ref="item">
         <AccordionItemTitle
           className={titleClassName}
-          title={title}
           onClick={disabled ? null : onClick}
           rootTag={titleTag}
+          title={title}
           uuid={this.uuid}
         />
         <AccordionItemBody
-          maxHeight={maxHeight}
+          className={bodyClassName}
           duration={duration}
           easing={easing}
-          className={bodyClassName}
+          maxHeight={maxHeight}
           overflow={overflow}
           ref="body"
           rootTag={bodyTag}

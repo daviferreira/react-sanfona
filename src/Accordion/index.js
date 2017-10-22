@@ -109,9 +109,9 @@ export default class Accordion extends Component {
 Accordion.defaultProps = {
   activeItems: [0],
   allowMultiple: false,
-  rootTag: 'div',
   duration: 300,
-  easing: 'ease'
+  easing: 'ease',
+  rootTag: 'div'
 };
 
 Accordion.propTypes = {
