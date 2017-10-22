@@ -9,7 +9,7 @@ export default class AccordionItemTitle extends Component {
     const style = {
       cursor: 'pointer',
       margin: 0,
-      color: this.props.titleColor,
+      color: this.props.titleColor
     };
 
     const { title } = this.props;
@@ -18,7 +18,7 @@ export default class AccordionItemTitle extends Component {
       return React.cloneElement(title, {
         onClick: this.props.onClick,
         id: `react-safona-item-title-${this.props.uuid}`,
-        'aria-controls': `react-sanfona-item-body-${this.props.uuid}`,
+        'aria-controls': `react-sanfona-item-body-${this.props.uuid}`
       });
     }
 
@@ -38,12 +38,12 @@ export default class AccordionItemTitle extends Component {
 
 AccordionItemTitle.defaultProps = {
   rootTag: 'h3'
-}
+};
 
 AccordionItemTitle.propTypes = {
   className: PropTypes.string,
   onClick: PropTypes.func,
   title: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   uuid: PropTypes.string,
-  rootTag: PropTypes.string,
+  rootTag: PropTypes.string
 };
