@@ -51,6 +51,13 @@ export default class AccordionItem extends Component {
     if (onExpand) {
       slug ? onExpand(slug) : onExpand();
     }
+
+    this.timeout = setTimeout(() => {
+      this.setState({
+        maxHeight: 'none',
+        overflow: 'visible'
+      });
+    }, this.duration);
   }
 
   handleCollapse() {
@@ -64,6 +71,8 @@ export default class AccordionItem extends Component {
   }
 
   setMaxHeight() {
+    clearTimeout(this.timeout);
+
     const bodyNode = ReactDOM.findDOMNode(this.refs.body);
     const images = bodyNode.querySelectorAll('img');
 
@@ -73,7 +82,7 @@ export default class AccordionItem extends Component {
 
     this.setState({
       maxHeight: this.props.expanded ? bodyNode.scrollHeight + 'px' : 0,
-      overflow: this.props.expanded ? 'visible' : 'hidden',
+      overflow: 'hidden'
     });
   }
 
