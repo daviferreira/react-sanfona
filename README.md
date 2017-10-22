@@ -50,53 +50,6 @@ import { Accordion, AccordionItem } from 'react-sanfona';
 
 ```
 
-### Browser
-
-Download or install via bower:
-
-```
-bower install react-sanfona
-```
-
-Then:
-
-```html
-<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.7.7/babel.min.js" type="text/javascript" charset="utf-8"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.0.2/react.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.0.2/react-dom.min.js"></script>
-<script src="react-sanfona/dist/react-sanfona.js" type="text/javascript" charset="utf-8"></script>
-```
-
-```javascript
-<script type="text/javascript">
-  var input = `
-    var Accordion = ReactSanfona.default.Accordion;
-    var AccordionItem = ReactSanfona.default.AccordionItem;
-
-    ReactDOM.render(
-        <Accordion>
-          {[1, 2, 3, 4, 5].map(function (item) {
-            return (
-              <AccordionItem title={'Item' + item} expanded={item === 1}>
-                <div>
-                  {'Item ' +  item + ' content'}
-                  {item === 3 ? <p><img src="https://cloud.githubusercontent.com/assets/38787/8015584/2883817e-0bda-11e5-9662-b7daf40e8c27.gif" /></p> : null}
-                </div>
-              </AccordionItem>
-            );
-          })}
-        </Accordion>,
-        document.getElementById('demo')
-    );
-  `
-
-  var output = Babel.transform(input, { presets: ['es2015', 'react'] }).code;
-  var script = document.createElement('script');
-  script.innerHTML = output;
-  document.body.appendChild(script);
-</script>
-```
-
 ## options / PropTypes
 
 #### Accordion
