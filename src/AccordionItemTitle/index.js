@@ -1,37 +1,39 @@
 'use strict';
 
-import className from 'classnames';
+import cx from 'classnames';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 export default class AccordionItemTitle extends Component {
   render() {
+    const { className, uuid, onClick, rootTag: Root, titleColor } = this.props;
+
     const style = {
+      color: titleColor,
       cursor: 'pointer',
-      margin: 0,
-      color: this.props.titleColor
+      margin: 0
     };
 
     const { title } = this.props;
 
     if (typeof title === 'object') {
       return React.cloneElement(title, {
-        onClick: this.props.onClick,
-        id: `react-safona-item-title-${this.props.uuid}`,
-        'aria-controls': `react-sanfona-item-body-${this.props.uuid}`
+        onClick: onClick,
+        id: `react-safona-item-title-${uuid}`,
+        'aria-controls': `react-sanfona-item-body-${uuid}`
       });
     }
 
     return (
-      <this.props.rootTag
-        aria-controls={`react-sanfona-item-body-${this.props.uuid}`}
-        className={className('react-sanfona-item-title', this.props.className)}
-        id={`react-safona-item-title-${this.props.uuid}`}
-        onClick={this.props.onClick}
+      <Root
+        aria-controls={`react-sanfona-item-body-${uuid}`}
+        className={cx('react-sanfona-item-title', className)}
+        id={`react-safona-item-title-${uuid}`}
+        onClick={onClick}
         style={style}
       >
         {title}
-      </this.props.rootTag>
+      </Root>
     );
   }
 }
@@ -43,7 +45,8 @@ AccordionItemTitle.defaultProps = {
 AccordionItemTitle.propTypes = {
   className: PropTypes.string,
   onClick: PropTypes.func,
+  rootTag: PropTypes.string,
   title: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
-  uuid: PropTypes.string,
-  rootTag: PropTypes.string
+  titleColor: PropTypes.string,
+  uuid: PropTypes.string
 };

@@ -3,7 +3,6 @@
 import expect from 'unexpected';
 import React from 'react';
 import sd from 'skin-deep';
-import TestUtils from 'react-dom/test-utils';
 
 import Accordion from './index';
 import AccordionItem from '../AccordionItem';
@@ -54,7 +53,7 @@ describe('Accordion Test Case', () => {
   describe('allowMultiple', () => {
     it('should allow multiple expanded items', () => {
       const tree = sd.shallowRender(
-        <Accordion allowMultiple={true}>
+        <Accordion allowMultiple>
           <AccordionItem title="First" key={1} />
           <AccordionItem title="Second" key={2} expanded />
         </Accordion>
@@ -110,7 +109,7 @@ describe('Accordion Test Case', () => {
 
     it('should save activeItems on state when allowMultiple is true', () => {
       const tree = sd.shallowRender(
-        <Accordion allowMultiple={true}>
+        <Accordion allowMultiple>
           <AccordionItem title="First" key={1} />
           <AccordionItem title="Second" key={2} expanded />
         </Accordion>
@@ -123,7 +122,7 @@ describe('Accordion Test Case', () => {
 
     it('should update activeItems state when clicking on an item', () => {
       const tree = sd.shallowRender(
-        <Accordion allowMultiple={true}>
+        <Accordion allowMultiple>
           <AccordionItem title="First" key={1} />
           <AccordionItem title="Second" key={2} expanded />
         </Accordion>

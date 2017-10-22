@@ -1,32 +1,19 @@
 {
-  "env": {
-    "node": true,
-    "browser": true,
-    "es6": true
-  },
+  "root": true,
   "parser": "babel-eslint",
-  "parserOptions": {
-    "ecmaFeatures": {
-      "jsx": true
-    },
-    "sourceType": "module"
-  },
-  "rules": {
-    "curly": 0,
-    "radix": 2,
-    "wrap-iife": 2,
-    "brace-style": 0,
-    "comma-style": 2,
-    "consistent-this": 0,
-    "indent": [2, 2],
-    "no-lonely-if": 2,
-    "no-nested-ternary": 2,
-    "no-use-before-define": [2, "nofunc"],
-    "quotes": [2, "single"],
-    "keyword-spacing": 2,
-    "space-before-blocks": [2, "always"],
-    "space-before-function-paren": [2, "never"],
-    "space-in-parens": [2, "never"],
-    "space-unary-ops": 2
+  "extends": [
+    "standard",
+    "standard-react",
+    "prettier",
+    "prettier/react"
+  ],
+  "globals": {
+    "afterEach": false,
+    "beforeAll": false,
+    "beforeEach": false,
+    "describe": false,
+    "expect": false,
+    "it": false,
+    "Image": false
   }
 }

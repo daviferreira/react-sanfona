@@ -1,14 +1,13 @@
 'use strict';
 
-import className from 'classnames';
+import cx from 'classnames';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import ReactDOM from 'react-dom';
 
 // https://stackoverflow.com/a/22395463/338762
 function isSame(array1, array2) {
   return (
-    array1.length == array2.length &&
+    array1.length === array2.length &&
     array1.every((element, index) => {
       return element === array2[index];
     })
@@ -58,7 +57,7 @@ export default class Accordion extends Component {
   }
 
   handleClick(index) {
-    const { allowMultiple, children, openNextAccordionItem } = this.props;
+    const { allowMultiple, children, onChange, openNextAccordionItem } = this.props;
 
     // clone active items state array
     let activeItems = this.state.activeItems.slice(0);
@@ -68,7 +67,7 @@ export default class Accordion extends Component {
     if (position !== -1) {
       activeItems.splice(position, 1);
 
-      if (openNextAccordionItem && index !== this.props.children.length - 1) {
+      if (openNextAccordionItem && index !== children.length - 1) {
         activeItems.push(index + 1);
       }
     } else if (allowMultiple) {
@@ -83,13 +82,13 @@ export default class Accordion extends Component {
 
     this.setState(newState);
 
-    if (this.props.onChange) {
-      this.props.onChange(newState);
+    if (onChange) {
+      onChange(newState);
     }
   }
 
   renderItems() {
-    const { children, openNextAccordionItem } = this.props;
+    const { children } = this.props;
 
     if (!children) {
       return null;
@@ -98,7 +97,7 @@ export default class Accordion extends Component {
     const { activeItems } = this.state;
 
     return children.filter(c => c).map((item, index) => {
-      const { props: { disabled, expanded } } = item;
+      const { props: { disabled } } = item;
       const isExpanded = !disabled && activeItems.indexOf(index) !== -1;
 
       return React.cloneElement(item, {
@@ -111,14 +110,16 @@ export default class Accordion extends Component {
   }
 
   render() {
+    const { className, style, rootTag: Root } = this.props;
+
     return (
-      <this.props.rootTag
-        className={className('react-sanfona', this.props.className)}
+      <Root
+        className={cx('react-sanfona', className)}
         role="tablist"
-        style={this.props.style}
+        style={style}
       >
         {this.renderItems()}
-      </this.props.rootTag>
+      </Root>
     );
   }
 }
@@ -131,13 +132,13 @@ Accordion.defaultProps = {
 
 Accordion.propTypes = {
   allowMultiple: PropTypes.bool,
-  activeItems: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.array,
-    PropTypes.string
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node
   ]),
   className: PropTypes.string,
   onChange: PropTypes.func,
+  openNextAccordionItem: PropTypes.bool,
   style: PropTypes.object,
   rootTag: PropTypes.string
 };

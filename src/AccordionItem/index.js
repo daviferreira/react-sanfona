@@ -1,6 +1,6 @@
 'use strict';
 
-import className from 'classnames';
+import cx from 'classnames';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
@@ -42,7 +42,7 @@ export default class AccordionItem extends Component {
     }
   }
 
-  handleExpand() {
+  handleExpand(index) {
     const { onExpand, slug } = this.props;
 
     this.setMaxHeight();
@@ -52,7 +52,7 @@ export default class AccordionItem extends Component {
     }
   }
 
-  handleCollapse() {
+  handleCollapse(index) {
     const { onClose, slug } = this.props;
 
     this.setMaxHeight();
@@ -63,6 +63,8 @@ export default class AccordionItem extends Component {
   }
 
   setMaxHeight() {
+    const { duration, expanded } = this.props;
+
     clearTimeout(this.timeout);
 
     const bodyNode = ReactDOM.findDOMNode(this.refs.body);
@@ -73,28 +75,31 @@ export default class AccordionItem extends Component {
     }
 
     this.setState({
-      maxHeight: this.props.expanded ? bodyNode.scrollHeight + 'px' : 0,
+      maxHeight: expanded ? bodyNode.scrollHeight + 'px' : 0,
       overflow: 'hidden'
     });
 
-    if (this.props.expanded) {
+    if (expanded) {
       this.timeout = setTimeout(() => {
         this.setState({
           overflow: 'visible'
         });
-      }, this.props.duration);
+      }, duration);
     }
   }
 
   // Wait for images to load before calculating maxHeight
   preloadImages(node, images = []) {
+    const { expanded } = this.props;
+
     let imagesLoaded = 0;
+
     const imgLoaded = () => {
       imagesLoaded++;
 
       if (imagesLoaded === images.length) {
         this.setState({
-          maxHeight: this.props.expanded ? node.scrollHeight + 'px' : 0,
+          maxHeight: expanded ? node.scrollHeight + 'px' : 0,
           overflow: 'hidden'
         });
       }
@@ -108,27 +113,35 @@ export default class AccordionItem extends Component {
   }
 
   getProps() {
+    const {
+      className,
+      disabled,
+      disabledClassName,
+      expanded,
+      expandedClassName,
+      style
+    } = this.props;
+
     const props = {
-      className: className(
+      className: cx(
         'react-sanfona-item',
-        this.props.className,
+        className,
         {
-          'react-sanfona-item-expanded':
-            this.props.expanded && !this.props.disabled,
+          'react-sanfona-item-expanded': expanded && !disabled
         },
-        this.props.expandedClassName && {
-          [this.props.expandedClassName]: this.props.expanded,
+        expandedClassName && {
+          [expandedClassName]: expanded
         },
-        { 'react-sanfona-item-disabled': this.props.disabled },
-        this.props.disabledClassName && {
-          [this.props.disabledClassName]: this.props.disabled,
+        { 'react-sanfona-item-disabled': disabled },
+        disabledClassName && {
+          [disabledClassName]: disabled
         }
       ),
       role: 'tabpanel',
-      style: this.props.style,
+      style: style
     };
 
-    if (this.props.expanded) {
+    if (expanded) {
       props['aria-expanded'] = true;
     } else {
       props['aria-hidden'] = true;
@@ -138,29 +151,46 @@ export default class AccordionItem extends Component {
   }
 
   render() {
+    const {
+      bodyClassName,
+      bodyTag,
+      children,
+      disabled,
+      duration,
+      easing,
+      onClick,
+      rootTag: Root,
+      title,
+      titleClassName,
+      titleColor,
+      titleTag
+    } = this.props;
+
+    const { maxHeight, overflow } = this.state;
+
     return (
-      <this.props.rootTag {...this.getProps()} ref="item">
+      <Root {...this.getProps()} ref="item">
         <AccordionItemTitle
-          className={this.props.titleClassName}
-          title={this.props.title}
-          onClick={this.props.disabled ? null : this.props.onClick}
-          titleColor={this.props.titleColor}
-          rootTag={this.props.titleTag}
+          className={titleClassName}
+          title={title}
+          onClick={disabled ? null : onClick}
+          titleColor={titleColor}
+          rootTag={titleTag}
           uuid={this.uuid}
         />
         <AccordionItemBody
-          maxHeight={this.state.maxHeight}
-          duration={this.props.duration}
-          easing={this.props.easing}
-          className={this.props.bodyClassName}
-          overflow={this.state.overflow}
+          maxHeight={maxHeight}
+          duration={duration}
+          easing={easing}
+          className={bodyClassName}
+          overflow={overflow}
           ref="body"
-          rootTag={this.props.bodyTag}
+          rootTag={bodyTag}
           uuid={this.uuid}
         >
-          {this.props.children}
+          {children}
         </AccordionItemBody>
-      </this.props.rootTag>
+      </Root>
     );
   }
 }
@@ -175,20 +205,28 @@ AccordionItem.defaultProps = {
 
 AccordionItem.propTypes = {
   bodyClassName: PropTypes.string,
+  bodyTag: PropTypes.string,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node
+  ]),
   className: PropTypes.string,
-  easing: PropTypes.string,
-  duration: PropTypes.number,
-  expanded: PropTypes.bool,
-  onClick: PropTypes.func,
-  title: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
-  expandedClassName: PropTypes.string,
-  style: PropTypes.object,
-  titleClassName: PropTypes.string,
   disabled: PropTypes.bool,
   disabledClassName: PropTypes.string,
-  uuid: PropTypes.string,
+  duration: PropTypes.number,
+  easing: PropTypes.string,
+  expanded: PropTypes.bool,
+  expandedClassName: PropTypes.string,
+  index: PropTypes.number,
+  onClick: PropTypes.func,
+  onClose: PropTypes.func,
+  onExpand: PropTypes.func,
   rootTag: PropTypes.string,
+  slug: PropTypes.string,
+  style: PropTypes.object,
+  title: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
+  titleClassName: PropTypes.string,
+  titleColor: PropTypes.string,
   titleTag: PropTypes.string,
-  bodyTag: PropTypes.string,
-  index: PropTypes.number
+  uuid: PropTypes.string
 };

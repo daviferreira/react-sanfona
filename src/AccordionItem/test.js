@@ -3,10 +3,7 @@
 import expect from 'unexpected';
 import sd from 'skin-deep';
 import React from 'react';
-import ReactDOM from 'react-dom';
-import TestUtils from 'react-dom/test-utils';
 
-import Accordion from './index';
 import AccordionItem from './index';
 
 describe('AccordionItem Test Case', () => {
@@ -51,14 +48,15 @@ describe('AccordionItem Test Case', () => {
     const treeAlt = sd.shallowRender(<AccordionItem uuid="second item" />);
 
     instance = tree.getMountedInstance();
-    let anotherInstance = treeAlt.getMountedInstance();
+    const anotherInstance = treeAlt.getMountedInstance();
 
     expect(instance.uuid, 'to equal', 'first item');
+    expect(anotherInstance.uuid, 'to equal', 'second item');
   });
 
   describe('aria', () => {
     it('should set aria-expanded to true when expanded prop is true', () => {
-      const tree = sd.shallowRender(<AccordionItem expanded={true} />);
+      const tree = sd.shallowRender(<AccordionItem expanded />);
       vdom = tree.getRenderOutput();
       expect(vdom.props['aria-expanded'], 'to be true');
       expect(vdom.props['aria-hidden'], 'to be undefined');
@@ -80,7 +78,7 @@ describe('AccordionItem Test Case', () => {
     });
 
     it('should have react-sanfona-item-disabled className when disabled', () => {
-      const tree = sd.shallowRender(<AccordionItem disabled={true} />);
+      const tree = sd.shallowRender(<AccordionItem disabled />);
       vdom = tree.getRenderOutput();
       expect(
         vdom.props['className'],
@@ -91,7 +89,7 @@ describe('AccordionItem Test Case', () => {
 
     it('should have a custom className when provided', () => {
       const tree = sd.shallowRender(
-        <AccordionItem disabled={true} disabledClassName="customDisabled" />
+        <AccordionItem disabled disabledClassName="customDisabled" />
       );
       vdom = tree.getRenderOutput();
       expect(
