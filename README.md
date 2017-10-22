@@ -29,15 +29,14 @@ import { Accordion, AccordionItem } from 'react-sanfona';
 
 …
 
-  render: function () {
+  render() {
     return (
       <Accordion>
-        {[1, 2, 3, 4, 5].map((item) => {
+        {[1, 2, 3, 4, 5].map(item => {
           return (
-            <AccordionItem title={`Item ${ item }`} expanded={item === 1}>
+            <AccordionItem title={`Item ${item}`} expanded={item === 1}>
               <div>
-                {`Item ${ item } content`}
-                {item === 3 ? <p><img src="https://cloud.githubusercontent.com/assets/38787/8015584/2883817e-0bda-11e5-9662-b7daf40e8c27.gif" /></p> : null}
+                {`Item ${item} content`}
               </div>
             </AccordionItem>
           );
