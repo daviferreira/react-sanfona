@@ -4,17 +4,7 @@ import cx from 'classnames';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { getChildrenActiveItems, getActiveItems } from './utils';
-
-// https://stackoverflow.com/a/22395463/338762
-function isSame(array1, array2) {
-  return (
-    array1.length === array2.length &&
-    array1.every((element, index) => {
-      return element === array2[index];
-    })
-  );
-}
+import { getChildrenActiveItems, getActiveItems, isSame } from './utils';
 
 export default class Accordion extends Component {
   constructor(props) {
