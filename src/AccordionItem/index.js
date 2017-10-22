@@ -142,7 +142,7 @@ export default class AccordionItem extends Component {
         }
       ),
       role: 'tabpanel',
-      style: style
+      style
     };
 
     if (expanded) {

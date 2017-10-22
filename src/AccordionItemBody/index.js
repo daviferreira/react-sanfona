@@ -18,8 +18,8 @@ export default class AccordionItemBody extends Component {
     } = this.props;
 
     const style = {
-      maxHeight: maxHeight,
-      overflow: overflow,
+      maxHeight,
+      overflow,
       transition: `max-height ${duration}ms ${easing}`
     };
 
