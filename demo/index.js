@@ -19,7 +19,12 @@ class Demo extends React.Component {
         <Accordion>
           {[1, 'two', 3, 'four', 5].map(item => {
             return (
-              <AccordionItem title={`Item ${item}`} slug={item} key={item}>
+              <AccordionItem
+                title={`Item ${item}`}
+                slug={item}
+                key={item}
+                expanded={!isNaN(item)}
+              >
                 <div>
                   {`Item ${item} content`}
                   {item === 3
@@ -35,14 +40,20 @@ class Demo extends React.Component {
 
         <h2>Allow multiple</h2>
 
-        <Accordion allowMultiple={true} activeItems={2}>
+        <Accordion allowMultiple={true}>
           {[1, 2, 3, 4, 5].map(item => {
             return (
-              <AccordionItem title={`Item ${item}`} key={item}>
+              <AccordionItem
+                title={`Item ${item}`}
+                key={item}
+                expanded={item === 2}
+              >
                 <div>
                   {`Item ${item} content`}
                   {item === 3
-                    ? <p><img src="https://i.giphy.com/nIMpbXH2WfYRi.gif" /></p>
+                    ? <p>
+                        <img src="https://i.giphy.com/nIMpbXH2WfYRi.gif" />
+                      </p>
                     : null}
                 </div>
               </AccordionItem>
@@ -52,14 +63,16 @@ class Demo extends React.Component {
 
         <h2>Allow multiple, all active</h2>
 
-        <Accordion allowMultiple={true} activeItems={[0, 1, 2, 3, 4]}>
+        <Accordion allowMultiple={true}>
           {[1, 2, 3, 4, 5].map(item => {
             return (
-              <AccordionItem title={`Item ${item}`} key={item}>
+              <AccordionItem title={`Item ${item}`} key={item} expanded>
                 <div>
                   {`Item ${item} content`}
                   {item === 3
-                    ? <p><img src="https://i.giphy.com/nIMpbXH2WfYRi.gif" /></p>
+                    ? <p>
+                        <img src="https://i.giphy.com/nIMpbXH2WfYRi.gif" />
+                      </p>
                     : null}
                 </div>
               </AccordionItem>
@@ -76,7 +89,9 @@ class Demo extends React.Component {
                 <div>
                   {`Item ${item} content`}
                   {item === 3
-                    ? <p><img src="https://i.giphy.com/nIMpbXH2WfYRi.gif" /></p>
+                    ? <p>
+                        <img src="https://i.giphy.com/nIMpbXH2WfYRi.gif" />
+                      </p>
                     : null}
                 </div>
               </AccordionItem>
@@ -104,7 +119,6 @@ class Demo extends React.Component {
         <p id="changes" />
         <Accordion
           allowMultiple={true}
-          activeItems={2}
           onChange={newState =>
             (document.getElementById(
               'changes'
@@ -112,7 +126,11 @@ class Demo extends React.Component {
         >
           {[1, 2, 3, 4, 5].map(item => {
             return (
-              <AccordionItem title={`Item ${item}`} key={item}>
+              <AccordionItem
+                title={`Item ${item}`}
+                key={item}
+                expanded={item === 2}
+              >
                 <div>
                   {`Item ${item} content`}
                 </div>
@@ -120,7 +138,6 @@ class Demo extends React.Component {
             );
           })}
         </Accordion>
-
       </div>
     );
   }
