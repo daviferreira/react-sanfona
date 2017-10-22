@@ -26,6 +26,10 @@ export default class AccordionItem extends Component {
     this.setMaxHeight();
   }
 
+  componentWillUnmount() {
+    clearTimeout(this.timeout);
+  }
+
   componentDidUpdate(prevProps) {
     const { expanded, disabled, children } = this.props;
 
