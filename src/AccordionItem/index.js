@@ -200,9 +200,7 @@ export default class AccordionItem extends Component {
 AccordionItem.defaultProps = {
   rootTag: 'div',
   titleTag: 'h3',
-  bodyTag: 'div',
-  duration: 300,
-  easing: 'ease'
+  bodyTag: 'div'
 };
 
 AccordionItem.propTypes = {

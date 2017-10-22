@@ -108,6 +108,8 @@ Then:
 | style | `Object` | Inline styles applied to root element | `null` |
 | onChange | `Function` | Triggered when component updates and passes new state as an argument | `null` |
 | rootTag | `String` | Custom HTML tag used for root element | `'div'` |
+| duration | `Number` | Open/close transition duration in milliseconds | `300` |
+| easing | `String` | Open/close transition easing | `'ease'` |
 
 #### AccordionItem
 | Property | Type | Description | Default |
