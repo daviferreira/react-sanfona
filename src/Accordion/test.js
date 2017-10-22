@@ -37,8 +37,8 @@ describe('Accordion Test Case', () => {
     it('should not set item as active when disabled', () => {
       const tree = sd.shallowRender(
         <Accordion>
-          <AccordionItem title="First" />
-          <AccordionItem title="Second" disabled expanded />
+          <AccordionItem title="First" key={1} />
+          <AccordionItem title="Second" key={2} disabled expanded />
         </Accordion>
       );
 
@@ -55,8 +55,8 @@ describe('Accordion Test Case', () => {
     it('should allow multiple expanded items', () => {
       const tree = sd.shallowRender(
         <Accordion allowMultiple={true}>
-          <AccordionItem title="First" />
-          <AccordionItem title="Second" expanded />
+          <AccordionItem title="First" key={1} />
+          <AccordionItem title="Second" key={2} expanded />
         </Accordion>
       );
 
@@ -79,8 +79,8 @@ describe('Accordion Test Case', () => {
     it('should default to first active item if allowMultiple is false', () => {
       const tree = sd.shallowRender(
         <Accordion>
-          <AccordionItem title="First" expanded />
-          <AccordionItem title="Second" expanded />
+          <AccordionItem title="First" key={1} expanded />
+          <AccordionItem title="Second" key={2} expanded />
         </Accordion>
       );
 
@@ -95,8 +95,8 @@ describe('Accordion Test Case', () => {
     it('should allow multiple selected indexes of different types', () => {
       const tree = sd.shallowRender(
         <Accordion allowMultiple>
-          <AccordionItem title="First" expanded />
-          <AccordionItem title="Second" slug="second" expanded />
+          <AccordionItem title="First" key={1} expanded />
+          <AccordionItem title="Second" key={2} slug="second" expanded />
         </Accordion>
       );
 
@@ -111,8 +111,8 @@ describe('Accordion Test Case', () => {
     it('should save activeItems on state when allowMultiple is true', () => {
       const tree = sd.shallowRender(
         <Accordion allowMultiple={true}>
-          <AccordionItem title="First" />
-          <AccordionItem title="Second" expanded />
+          <AccordionItem title="First" key={1} />
+          <AccordionItem title="Second" key={2} expanded />
         </Accordion>
       );
 
@@ -124,8 +124,8 @@ describe('Accordion Test Case', () => {
     it('should update activeItems state when clicking on an item', () => {
       const tree = sd.shallowRender(
         <Accordion allowMultiple={true}>
-          <AccordionItem title="First" />
-          <AccordionItem title="Second" expanded />
+          <AccordionItem title="First" key={1} />
+          <AccordionItem title="Second" key={2} expanded />
         </Accordion>
       );
 
@@ -141,8 +141,8 @@ describe('Accordion Test Case', () => {
     it('should keep only one activeItem when allowMultiple is false', () => {
       const tree = sd.shallowRender(
         <Accordion>
-          <AccordionItem title="First" />
-          <AccordionItem title="Second" expanded />
+          <AccordionItem title="First" key={1} />
+          <AccordionItem title="Second" key={2} expanded />
         </Accordion>
       );
 
@@ -160,8 +160,8 @@ describe('Accordion Test Case', () => {
     it('should open next accordion item', () => {
       const tree = sd.shallowRender(
         <Accordion openNextAccordionItem>
-          <AccordionItem title="First" expanded />
-          <AccordionItem title="Second" />
+          <AccordionItem title="First" key={1} expanded />
+          <AccordionItem title="Second" key={2} />
         </Accordion>
       );
 
@@ -184,8 +184,8 @@ describe('Accordion Test Case', () => {
     it('should close last item and not open another accordion item', () => {
       const tree = sd.shallowRender(
         <Accordion openNextAccordionItem>
-          <AccordionItem title="First" />
-          <AccordionItem title="Second" expanded />
+          <AccordionItem title="First" key={1} />
+          <AccordionItem title="Second" key={2} expanded />
         </Accordion>
       );
 
@@ -208,9 +208,9 @@ describe('Accordion Test Case', () => {
     it('should open multiple if allowMultiple present', () => {
       const tree = sd.shallowRender(
         <Accordion openNextAccordionItem allowMultiple>
-          <AccordionItem title="First" expanded />
-          <AccordionItem title="Second" />
-          <AccordionItem title="Third" />
+          <AccordionItem title="First" key={1} expanded />
+          <AccordionItem title="Second" key={2} />
+          <AccordionItem title="Third" key={3} />
         </Accordion>
       );
 
@@ -236,8 +236,8 @@ describe('Accordion Test Case', () => {
     it('should override slug property and assign key to index', () => {
       const tree = sd.shallowRender(
         <Accordion openNextAccordionItem>
-          <AccordionItem title="First" slug="first" expanded />
-          <AccordionItem title="Second" slug="second" />
+          <AccordionItem title="First" key={1} slug="first" expanded />
+          <AccordionItem title="Second" key={2} slug="second" />
         </Accordion>
       );
 
