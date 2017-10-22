@@ -29,22 +29,22 @@ import { Accordion, AccordionItem } from 'react-sanfona';
 
 …
 
-	render: function () {
-		return (
-			<Accordion>
-				{[1, 2, 3, 4, 5].map((item) => {
-					return (
-						<AccordionItem title={`Item ${ item }`} slug={item} key={item}>
-							<div>
-								{`Item ${ item } content`}
-								{item === 3 ? <p><img src="https://cloud.githubusercontent.com/assets/38787/8015584/2883817e-0bda-11e5-9662-b7daf40e8c27.gif" /></p> : null}
-							</div>
-						</AccordionItem>
-					);
-				})}
-			</Accordion>
-		);
-	}
+  render: function () {
+    return (
+      <Accordion>
+        {[1, 2, 3, 4, 5].map((item) => {
+          return (
+            <AccordionItem title={`Item ${ item }`}>
+              <div>
+                {`Item ${ item } content`}
+                {item === 3 ? <p><img src="https://cloud.githubusercontent.com/assets/38787/8015584/2883817e-0bda-11e5-9662-b7daf40e8c27.gif" /></p> : null}
+              </div>
+            </AccordionItem>
+          );
+        })}
+      </Accordion>
+    );
+  }
 
 …
 
@@ -69,31 +69,31 @@ Then:
 
 ```javascript
 <script type="text/javascript">
-	var input = `
-		var Accordion = ReactSanfona.default.Accordion;
-		var AccordionItem = ReactSanfona.default.AccordionItem;
+  var input = `
+    var Accordion = ReactSanfona.default.Accordion;
+    var AccordionItem = ReactSanfona.default.AccordionItem;
 
-		ReactDOM.render(
-		    <Accordion>
-		      {[1, 2, 3, 4, 5].map(function (item) {
-		        return (
-		          <AccordionItem title={'Item' + item} key={item} titleColor="blue">
-		            <div>
-		              {'Item ' +  item + ' content'}
-		              {item === 3 ? <p><img src="https://cloud.githubusercontent.com/assets/38787/8015584/2883817e-0bda-11e5-9662-b7daf40e8c27.gif" /></p> : null}
-		            </div>
-		          </AccordionItem>
-		        );
-		      })}
-		    </Accordion>,
-		    document.getElementById('demo')
-		);
-	`
+    ReactDOM.render(
+        <Accordion>
+          {[1, 2, 3, 4, 5].map(function (item) {
+            return (
+              <AccordionItem title={'Item' + item} titleColor="blue">
+                <div>
+                  {'Item ' +  item + ' content'}
+                  {item === 3 ? <p><img src="https://cloud.githubusercontent.com/assets/38787/8015584/2883817e-0bda-11e5-9662-b7daf40e8c27.gif" /></p> : null}
+                </div>
+              </AccordionItem>
+            );
+          })}
+        </Accordion>,
+        document.getElementById('demo')
+    );
+  `
 
-	var output = Babel.transform(input, { presets: ['es2015', 'react'] }).code;
-	var script = document.createElement('script');
-	script.innerHTML = output;
-	document.body.appendChild(script);
+  var output = Babel.transform(input, { presets: ['es2015', 'react'] }).code;
+  var script = document.createElement('script');
+  script.innerHTML = output;
+  document.body.appendChild(script);
 </script>
 ```
 
@@ -103,8 +103,7 @@ Then:
 | Property | Type | Description | Default |
 |:---|:---|:---|:---|
 | allowMultiple | `Boolean` | Allow multiple items to be open at the same time. | `false` |
-| activeItems | `Array` | Receives either an array of indexes or a single index. Each index corresponds to the item order, starting from 0. Ex: activeItems={0}, activeItems=[0, 1, 2] | `[0]` |
-| openNextAccordionItem | `Boolean` | Opens the next accordion item after the previous one is closed. Defaults first one as active and applies for each accordion item except the last one. Not compatible when passing in a custom slug | `false` |
+| openNextAccordionItem | `Boolean` | Opens the next accordion item after the previous one is closed. Defaults first one as active and applies for each accordion item except the last one. | `false` |
 | className | `String` | Custom classname applied to root element | `null` |
 | style | `Object` | Inline styles applied to root element | `null` |
 | onChange | `Function` | Triggered when component updates and passes new state as an argument | `null` |
@@ -114,7 +113,6 @@ Then:
 | Property | Type | Description | Default |
 |:---|:---|:---|:---|
 | title | `String`/ `Object` | Text or Object to display in header. | `null` |
-| slug | `String/Number` | Key used in activeItems lookup | `null` |
 | expanded | `Boolean` | If item body should be expanded or not | `false` |
 | onExpand | `Function` | Callback for when item is expanded | `null` |
 | onClose | `Function` | Callback for when item closes | `null` |
