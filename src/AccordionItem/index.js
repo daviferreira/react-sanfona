@@ -51,12 +51,6 @@ export default class AccordionItem extends Component {
     if (onExpand) {
       slug ? onExpand(slug) : onExpand();
     }
-
-    this.timeout = setTimeout(() => {
-      this.setState({
-        overflow: 'visible'
-      });
-    }, this.state.duration);
   }
 
   handleCollapse() {
@@ -83,6 +77,14 @@ export default class AccordionItem extends Component {
       maxHeight: this.props.expanded ? bodyNode.scrollHeight + 'px' : 0,
       overflow: 'hidden'
     });
+
+    if (this.props.expanded) {
+      this.timeout = setTimeout(() => {
+        this.setState({
+          overflow: 'visible'
+        });
+      }, this.state.duration);
+    }
   }
 
   // Wait for images to load before calculating maxHeight
