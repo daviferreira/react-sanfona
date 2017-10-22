@@ -49,7 +49,7 @@ export default class AccordionItem extends Component {
     this.setMaxHeight();
 
     if (onExpand) {
-      slug ? onExpand(slug) : onExpand();
+      slug ? onExpand(slug, index) : onExpand(index);
     }
   }
 
@@ -59,7 +59,7 @@ export default class AccordionItem extends Component {
     this.setMaxHeight();
 
     if (onClose) {
-      slug ? onClose(slug) : onClose();
+      slug ? onClose(slug, index) : onClose(index);
     }
   }
 
@@ -186,4 +186,5 @@ AccordionItem.propTypes = {
   rootTag: PropTypes.string,
   titleTag: PropTypes.string,
   bodyTag: PropTypes.string,
+  index: PropTypes.number.isRequired
 };
