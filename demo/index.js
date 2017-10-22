@@ -45,6 +45,10 @@ class Demo extends React.Component {
           {[0, 1, 2, 3, 4].map(item => {
             return (
               <AccordionItem
+                duration={item === 3 ? 700 : null}
+                easing={
+                  item === 3 ? 'cubic-bezier(0.420, 0.000, 0.580, 1.000)' : null
+                }
                 key={item}
                 title={`Item ${item}`}
                 expanded={this.state.activeItems.includes(item)}
