@@ -54,10 +54,9 @@ export default class AccordionItem extends Component {
 
     this.timeout = setTimeout(() => {
       this.setState({
-        maxHeight: 'none',
         overflow: 'visible'
       });
-    }, this.duration);
+    }, this.state.duration);
   }
 
   handleCollapse() {
@@ -95,7 +94,7 @@ export default class AccordionItem extends Component {
       if (imagesLoaded === images.length) {
         this.setState({
           maxHeight: this.props.expanded ? node.scrollHeight + 'px' : 0,
-          overflow: 'hidden',
+          overflow: 'hidden'
         });
       }
     };
