@@ -166,7 +166,6 @@ export default class AccordionItem extends Component {
       rootTag: Root,
       title,
       titleClassName,
-      titleColor,
       titleTag
     } = this.props;
 
@@ -178,7 +177,6 @@ export default class AccordionItem extends Component {
           className={titleClassName}
           title={title}
           onClick={disabled ? null : onClick}
-          titleColor={titleColor}
           rootTag={titleTag}
           uuid={this.uuid}
         />
@@ -230,7 +228,6 @@ AccordionItem.propTypes = {
   style: PropTypes.object,
   title: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   titleClassName: PropTypes.string,
-  titleColor: PropTypes.string,
   titleTag: PropTypes.string,
   uuid: PropTypes.string
 };

@@ -6,10 +6,9 @@ import PropTypes from 'prop-types';
 
 export default class AccordionItemTitle extends Component {
   render() {
-    const { className, uuid, onClick, rootTag: Root, titleColor } = this.props;
+    const { className, uuid, onClick, rootTag: Root } = this.props;
 
     const style = {
-      color: titleColor,
       cursor: 'pointer',
       margin: 0
     };
@@ -47,6 +46,5 @@ AccordionItemTitle.propTypes = {
   onClick: PropTypes.func,
   rootTag: PropTypes.string,
   title: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
-  titleColor: PropTypes.string,
   uuid: PropTypes.string
 };

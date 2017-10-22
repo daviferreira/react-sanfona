@@ -34,7 +34,7 @@ import { Accordion, AccordionItem } from 'react-sanfona';
       <Accordion>
         {[1, 2, 3, 4, 5].map((item) => {
           return (
-            <AccordionItem title={`Item ${ item }`}>
+            <AccordionItem title={`Item ${ item }`} expanded={item === 1}>
               <div>
                 {`Item ${ item } content`}
                 {item === 3 ? <p><img src="https://cloud.githubusercontent.com/assets/38787/8015584/2883817e-0bda-11e5-9662-b7daf40e8c27.gif" /></p> : null}
@@ -77,7 +77,7 @@ Then:
         <Accordion>
           {[1, 2, 3, 4, 5].map(function (item) {
             return (
-              <AccordionItem title={'Item' + item} titleColor="blue">
+              <AccordionItem title={'Item' + item} expanded={item === 1}>
                 <div>
                   {'Item ' +  item + ' content'}
                   {item === 3 ? <p><img src="https://cloud.githubusercontent.com/assets/38787/8015584/2883817e-0bda-11e5-9662-b7daf40e8c27.gif" /></p> : null}
