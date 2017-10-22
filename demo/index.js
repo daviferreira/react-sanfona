@@ -1,12 +1,12 @@
 'use strict';
 
-require('normalize.css');
-require('./demo.scss');
-
 import React from 'react';
 import ReactDOM from 'react-dom';
 
 import { Accordion, AccordionItem } from '../src';
+
+import 'normalize.css';
+import './demo.css';
 
 class Demo extends React.Component {
   constructor(props) {
@@ -57,17 +57,25 @@ class Demo extends React.Component {
           })}
         </Accordion>
 
-        {[0, 1, 2, 3, 4].map(item => {
-          return (
-            <button onClick={this.toggleActive.bind(this, item)} key={item}>
-              {`Toggle item ${item} active`}
-            </button>
-          );
-        })}
+        <div className="togglers">
+          {[0, 1, 2, 3, 4].map(item => {
+            return (
+              <button
+                className="button"
+                onClick={() => {
+                  this.toggleActive(item);
+                }}
+                key={item}
+              >
+                {`Toggle item ${item} active`}
+              </button>
+            );
+          })}
+        </div>
 
         <h2>Allow multiple</h2>
 
-        <Accordion allowMultiple={true}>
+        <Accordion allowMultiple>
           {[0, 1, 2, 3, 4].map(item => {
             return (
               <AccordionItem
@@ -90,7 +98,7 @@ class Demo extends React.Component {
 
         <h2>Allow multiple, all active</h2>
 
-        <Accordion allowMultiple={true}>
+        <Accordion allowMultiple>
           {[0, 1, 2, 3, 4].map(item => {
             return (
               <AccordionItem key={item} title={`Item ${item}`} expanded>
@@ -145,7 +153,7 @@ class Demo extends React.Component {
 
         <p id="changes" />
         <Accordion
-          allowMultiple={true}
+          allowMultiple
           onChange={newState =>
             (document.getElementById(
               'changes'
