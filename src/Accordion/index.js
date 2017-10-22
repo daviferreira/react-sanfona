@@ -7,20 +7,19 @@ import ReactDOM from 'react-dom';
 
 const arrayify = obj => [].concat(obj);
 
-// removes duplicate from array
-const dedupeArr = arr =>
-  arr.filter((item, index, inputArray) => {
-    return inputArray.indexOf(item) === index;
-  });
-
 export default class Accordion extends Component {
   constructor(props) {
     super(props);
 
-    let activeItems = arrayify(props.activeItems);
+    let activeItems = [];
 
-    // can't have multiple active items, just use the first one
-    if (!props.allowMultiple) activeItems = [activeItems[0]];
+    if (props.children) {
+      props.children.forEach((children, index) => {
+        if (children.props.expanded) {
+          activeItems.push(children.props.slug || index);
+        }
+      });
+    }
 
     this.state = {
       activeItems
@@ -28,52 +27,50 @@ export default class Accordion extends Component {
   }
 
   handleClick(index) {
-    let newState = {};
+    const { children, openNextAccordionItem } = this.props;
 
     // clone active items state array
-    newState.activeItems = this.state.activeItems.slice(0);
+    let activeItems = this.state.activeItems.slice(0);
 
-    const position = newState.activeItems.indexOf(index);
+    const position = activeItems.indexOf(index);
 
-    if (position !== -1) {
-      newState.activeItems.splice(position, 1);
+    if (activeItems.includes(index)) {
+      activeItems.splice(position, 1);
 
-      if (
-        this.props.openNextAccordionItem &&
-        index !== this.props.children.length - 1
-      ) {
-        newState.activeItems.push(index + 1);
+      if (openNextAccordionItem && index !== this.props.children.length - 1) {
+        activeItems.push(index + 1);
       }
-    } else if (this.props.allowMultiple) {
-      newState.activeItems.push(index);
     } else {
-      newState.activeItems = [index];
+      activeItems.push(index);
     }
+
+    const newState = {
+      activeItems
+    };
+
+    this.setState(newState);
 
     if (this.props.onChange) {
       this.props.onChange(newState);
     }
-
-    // removes duplicate items in activeItems array
-    newState.activeItems = dedupeArr(newState.activeItems);
-    this.setState(newState);
   }
 
   renderItems() {
-    if (!this.props.children) {
+    const { children, openNextAccordionItem } = this.props;
+
+    if (!children) {
       return null;
     }
 
-    const children = arrayify(this.props.children).filter(c => c);
-    return children.map((item, index) => {
-      const key = this.props.openNextAccordionItem
-        ? index
-        : item.props.slug || index;
-      const expanded =
-        this.state.activeItems.indexOf(key) !== -1 && !item.props.disabled;
+    const { activeItems } = this.state;
+
+    return arrayify(children).filter(c => c).map((item, index) => {
+      const key = openNextAccordionItem ? index : item.props.slug || index;
+
+      const expanded = activeItems.includes(key);
 
       return React.cloneElement(item, {
-        expanded: expanded,
+        expanded,
         key: key,
         onClick: this.handleClick.bind(this, key),
         ref: `item-${key}`
