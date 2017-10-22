@@ -151,6 +151,7 @@ export default class AccordionItem extends Component {
         <AccordionItemBody
           maxHeight={this.state.maxHeight}
           duration={this.props.duration}
+          easing={this.props.easing}
           className={this.props.bodyClassName}
           overflow={this.state.overflow}
           ref="body"
@@ -168,12 +169,14 @@ AccordionItem.defaultProps = {
   rootTag: 'div',
   titleTag: 'h3',
   bodyTag: 'div',
-  duration: 300
+  duration: 300,
+  easing: 'ease'
 };
 
 AccordionItem.propTypes = {
   bodyClassName: PropTypes.string,
   className: PropTypes.string,
+  easing: PropTypes.string,
   duration: PropTypes.number,
   expanded: PropTypes.bool,
   onClick: PropTypes.func,

@@ -28,8 +28,7 @@ export default class AccordionItemBody extends Component {
 }
 
 AccordionItemBody.defaultProps = {
-  rootTag: 'div',
-  easing: 'ease'
+  rootTag: 'div'
 };
 
 AccordionItemBody.propTypes = {

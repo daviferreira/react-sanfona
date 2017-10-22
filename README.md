@@ -125,6 +125,8 @@ Then:
 | rootTag | `String` | Custom HTML tag used for root element | `'div'` |
 | titleTag | `String` | Custom HTML tag used for title element | `'h3'` |
 | bodyTag | `String` | Custom HTML tag used for body element | `'div'` |
+| duration | `Number` | Open/close transition duration in milliseconds | `300` |
+| easing | `String` | Open/close transition easing | `'ease'` |
 
 ## Styling with classnames
 | Classname | Targets |
