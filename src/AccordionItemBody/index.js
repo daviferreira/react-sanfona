@@ -1,44 +1,57 @@
 'use strict';
 
-import className from 'classnames';
+import cx from 'classnames';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 export default class AccordionItemBody extends Component {
   render() {
+    const {
+      children,
+      className,
+      duration,
+      easing,
+      maxHeight,
+      overflow,
+      rootTag: Root,
+      uuid
+    } = this.props;
+
     const style = {
-      maxHeight: this.props.maxHeight,
-      overflow: this.props.overflow,
-      transition: `max-height ${this.props.duration}ms ease`,
+      maxHeight,
+      overflow,
+      transition: `max-height ${duration}ms ${easing}`
     };
 
     return (
-      <this.props.rootTag
-        aria-labelledby={`react-safona-item-title-${this.props.uuid}`}
-        className={className('react-sanfona-item-body', this.props.className)}
-        id={`react-safona-item-body-${this.props.uuid}`}
+      <Root
+        aria-labelledby={`react-safona-item-title-${uuid}`}
+        className={cx('react-sanfona-item-body', className)}
+        id={`react-safona-item-body-${uuid}`}
         style={style}
       >
         <div className="react-sanfona-item-body-wrapper">
-          {this.props.children}
+          {children}
         </div>
-      </this.props.rootTag>
+      </Root>
     );
   }
 }
 
 AccordionItemBody.defaultProps = {
   rootTag: 'div'
-}
+};
 
 AccordionItemBody.propTypes = {
   className: PropTypes.string,
-  maxHeight: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node
   ]),
   duration: PropTypes.number,
+  easing: PropTypes.string,
+  maxHeight: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   overflow: PropTypes.string,
-  uuid: PropTypes.string,
   rootTag: PropTypes.string,
+  uuid: PropTypes.string
 };

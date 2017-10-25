@@ -1,6 +1,5 @@
 'use strict';
 
-var path = require('path');
 var webpack = require('webpack');
 var autoprefixer = require('autoprefixer');
 
@@ -23,10 +22,6 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        loaders: ['style-loader', 'css-loader']
-      },
-      {
-        test: /\.scss$/,
         loaders: [{
           loader: 'style-loader'
         }, {
@@ -39,12 +34,6 @@ module.exports = {
                 autoprefixer
               ];
             }
-          }
-        }, {
-          loader: 'sass-loader',
-          options: {
-            inputStyle: 'expanded',
-            'includePaths[]': (path.resolve(__dirname, './src'))
           }
         }]
       }

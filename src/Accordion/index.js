@@ -1,95 +1,107 @@
 'use strict';
 
-import className from 'classnames';
+import cx from 'classnames';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import ReactDOM from 'react-dom';
 
-const arrayify = obj => [].concat(obj);
-
-// removes duplicate from array
-const dedupeArr = arr =>
-  arr.filter((item, index, inputArray) => {
-    return inputArray.indexOf(item) === index;
-  });
+import { getChildrenActiveItems, getActiveItems, isSame } from './utils';
 
 export default class Accordion extends Component {
   constructor(props) {
     super(props);
 
-    let activeItems = arrayify(props.activeItems);
-
-    // can't have multiple active items, just use the first one
-    if (!props.allowMultiple) activeItems = [activeItems[0]];
-
     this.state = {
-      activeItems
+      activeItems: getActiveItems(props.children, props.allowMultiple)
     };
   }
 
+  componentWillReceiveProps({ children, allowMultiple }) {
+    if (
+      !isSame(
+        getChildrenActiveItems(this.props.children),
+        getChildrenActiveItems(children)
+      )
+    ) {
+      this.setState({
+        activeItems: getActiveItems(children, allowMultiple)
+      });
+    }
+  }
+
   handleClick(index) {
-    let newState = {};
+    const {
+      allowMultiple,
+      children,
+      onChange,
+      openNextAccordionItem
+    } = this.props;
 
     // clone active items state array
-    newState.activeItems = this.state.activeItems.slice(0);
+    let activeItems = this.state.activeItems.slice(0);
 
-    const position = newState.activeItems.indexOf(index);
+    const position = activeItems.indexOf(index);
 
     if (position !== -1) {
-      newState.activeItems.splice(position, 1);
+      activeItems.splice(position, 1);
 
-      if (
-        this.props.openNextAccordionItem &&
-        index !== this.props.children.length - 1
-      ) {
-        newState.activeItems.push(index + 1);
+      if (openNextAccordionItem && index !== children.length - 1) {
+        activeItems.push(index + 1);
       }
-    } else if (this.props.allowMultiple) {
-      newState.activeItems.push(index);
+    } else if (allowMultiple) {
+      activeItems.push(index);
     } else {
-      newState.activeItems = [index];
+      activeItems = [index];
     }
 
-    if (this.props.onChange) {
-      this.props.onChange(newState);
-    }
+    const newState = {
+      activeItems
+    };
 
-    // removes duplicate items in activeItems array
-    newState.activeItems = dedupeArr(newState.activeItems);
     this.setState(newState);
+
+    if (onChange) {
+      onChange(newState);
+    }
   }
 
   renderItems() {
-    if (!this.props.children) {
+    const { children, duration, easing } = this.props;
+
+    if (!children) {
       return null;
     }
 
-    const children = arrayify(this.props.children).filter(c => c);
-    return children.map((item, index) => {
-      const key = this.props.openNextAccordionItem
-        ? index
-        : item.props.slug || index;
-      const expanded =
-        this.state.activeItems.indexOf(key) !== -1 && !item.props.disabled;
+    const { activeItems } = this.state;
+
+    return children.filter(c => c).map((item, index) => {
+      const {
+        props: { disabled, duration: itemDuration, easing: itemEasing }
+      } = item;
+
+      const isExpanded = !disabled && activeItems.indexOf(index) !== -1;
 
       return React.cloneElement(item, {
-        expanded: expanded,
-        key: key,
-        onClick: this.handleClick.bind(this, key),
-        ref: `item-${key}`
+        duration: itemDuration || duration,
+        easing: itemEasing || easing,
+        expanded: isExpanded,
+        index,
+        onClick: this.handleClick.bind(this, index),
+        ref: `item-${index}`
       });
     });
   }
 
   render() {
+    const { className, style, rootTag: Root } = this.props;
+
     return (
-      <this.props.rootTag
-        className={className('react-sanfona', this.props.className)}
+      <Root
+        className={cx('react-sanfona', className)}
         role="tablist"
-        style={this.props.style}
+        style={style}
       >
         {this.renderItems()}
-      </this.props.rootTag>
+      </Root>
     );
   }
 }
@@ -97,18 +109,22 @@ export default class Accordion extends Component {
 Accordion.defaultProps = {
   activeItems: [0],
   allowMultiple: false,
+  duration: 300,
+  easing: 'ease',
   rootTag: 'div'
 };
 
 Accordion.propTypes = {
   allowMultiple: PropTypes.bool,
-  activeItems: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.array,
-    PropTypes.string
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node
   ]),
   className: PropTypes.string,
+  duration: PropTypes.number,
+  easing: PropTypes.string,
   onChange: PropTypes.func,
+  openNextAccordionItem: PropTypes.bool,
   style: PropTypes.object,
   rootTag: PropTypes.string
 };

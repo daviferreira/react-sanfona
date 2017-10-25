@@ -1,6 +1,6 @@
 'use strict';
 
-import className from 'classnames';
+import cx from 'classnames';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
@@ -14,8 +14,7 @@ export default class AccordionItem extends Component {
     super(props);
     this.state = {
       maxHeight: props.expanded ? 'none' : 0,
-      overflow: props.expanded ? 'visible' : 'hidden',
-      duration: 300,
+      overflow: props.expanded ? 'visible' : 'hidden'
     };
   }
 
@@ -25,6 +24,10 @@ export default class AccordionItem extends Component {
 
   componentDidMount() {
     this.setMaxHeight();
+  }
+
+  componentWillUnmount() {
+    clearTimeout(this.timeout);
   }
 
   componentDidUpdate(prevProps) {
@@ -43,27 +46,29 @@ export default class AccordionItem extends Component {
     }
   }
 
-  handleExpand() {
+  handleExpand(index) {
     const { onExpand, slug } = this.props;
 
     this.setMaxHeight();
 
     if (onExpand) {
-      slug ? onExpand(slug) : onExpand();
+      slug ? onExpand(slug, index) : onExpand(index);
     }
   }
 
-  handleCollapse() {
+  handleCollapse(index) {
     const { onClose, slug } = this.props;
 
     this.setMaxHeight();
 
     if (onClose) {
-      slug ? onClose(slug) : onClose();
+      slug ? onClose(slug, index) : onClose(index);
     }
   }
 
   setMaxHeight() {
+    const { duration, expanded } = this.props;
+
     clearTimeout(this.timeout);
 
     const bodyNode = ReactDOM.findDOMNode(this.refs.body);
@@ -74,28 +79,31 @@ export default class AccordionItem extends Component {
     }
 
     this.setState({
-      maxHeight: this.props.expanded ? bodyNode.scrollHeight + 'px' : 0,
+      maxHeight: expanded ? bodyNode.scrollHeight + 'px' : 0,
       overflow: 'hidden'
     });
 
-    if (this.props.expanded) {
+    if (expanded) {
       this.timeout = setTimeout(() => {
         this.setState({
           overflow: 'visible'
         });
-      }, this.state.duration);
+      }, duration);
     }
   }
 
   // Wait for images to load before calculating maxHeight
   preloadImages(node, images = []) {
+    const { expanded } = this.props;
+
     let imagesLoaded = 0;
+
     const imgLoaded = () => {
       imagesLoaded++;
 
       if (imagesLoaded === images.length) {
         this.setState({
-          maxHeight: this.props.expanded ? node.scrollHeight + 'px' : 0,
+          maxHeight: expanded ? node.scrollHeight + 'px' : 0,
           overflow: 'hidden'
         });
       }
@@ -109,58 +117,77 @@ export default class AccordionItem extends Component {
   }
 
   getProps() {
+    const {
+      className,
+      disabled,
+      disabledClassName,
+      expanded,
+      expandedClassName,
+      style
+    } = this.props;
+
     const props = {
-      className: className(
+      [`aria-${expanded ? 'expanded' : 'hidden'}`]: true,
+      className: cx(
         'react-sanfona-item',
-        this.props.className,
+        className,
         {
-          'react-sanfona-item-expanded':
-            this.props.expanded && !this.props.disabled,
+          'react-sanfona-item-expanded': expanded && !disabled,
+          'react-sanfona-item-disabled': disabled
         },
-        this.props.expandedClassName && {
-          [this.props.expandedClassName]: this.props.expanded,
+        expandedClassName && {
+          [expandedClassName]: expanded
         },
-        { 'react-sanfona-item-disabled': this.props.disabled },
-        this.props.disabledClassName && {
-          [this.props.disabledClassName]: this.props.disabled,
+        disabledClassName && {
+          [disabledClassName]: disabled
         }
       ),
       role: 'tabpanel',
-      style: this.props.style,
+      style
     };
-
-    if (this.props.expanded) {
-      props['aria-expanded'] = true;
-    } else {
-      props['aria-hidden'] = true;
-    }
 
     return props;
   }
 
   render() {
+    const {
+      bodyClassName,
+      bodyTag,
+      children,
+      disabled,
+      duration,
+      easing,
+      onClick,
+      rootTag: Root,
+      title,
+      titleClassName,
+      titleTag
+    } = this.props;
+
+    const { maxHeight, overflow } = this.state;
+
     return (
-      <this.props.rootTag {...this.getProps()} ref="item">
+      <Root {...this.getProps()} ref="item">
         <AccordionItemTitle
-          className={this.props.titleClassName}
-          title={this.props.title}
-          onClick={this.props.disabled ? null : this.props.onClick}
-          titleColor={this.props.titleColor}
-          rootTag={this.props.titleTag}
+          className={titleClassName}
+          onClick={disabled ? null : onClick}
+          rootTag={titleTag}
+          title={title}
           uuid={this.uuid}
         />
         <AccordionItemBody
-          maxHeight={this.state.maxHeight}
-          duration={this.state.duration}
-          className={this.props.bodyClassName}
-          overflow={this.state.overflow}
+          className={bodyClassName}
+          duration={duration}
+          easing={easing}
+          maxHeight={maxHeight}
+          overflow={overflow}
           ref="body"
-          rootTag={this.props.bodyTag}
+          rootTag={bodyTag}
           uuid={this.uuid}
         >
-          {this.props.children}
+          {children}
         </AccordionItemBody>
-      </this.props.rootTag>
+      </Root>
     );
   }
 }
@@ -173,17 +200,27 @@ AccordionItem.defaultProps = {
 
 AccordionItem.propTypes = {
   bodyClassName: PropTypes.string,
+  bodyTag: PropTypes.string,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node
+  ]),
   className: PropTypes.string,
-  expanded: PropTypes.bool,
-  onClick: PropTypes.func,
-  title: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
-  expandedClassName: PropTypes.string,
-  style: PropTypes.object,
-  titleClassName: PropTypes.string,
   disabled: PropTypes.bool,
   disabledClassName: PropTypes.string,
-  uuid: PropTypes.string,
+  duration: PropTypes.number,
+  easing: PropTypes.string,
+  expanded: PropTypes.bool,
+  expandedClassName: PropTypes.string,
+  index: PropTypes.number,
+  onClick: PropTypes.func,
+  onClose: PropTypes.func,
+  onExpand: PropTypes.func,
   rootTag: PropTypes.string,
+  slug: PropTypes.string,
+  style: PropTypes.object,
+  title: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
+  titleClassName: PropTypes.string,
   titleTag: PropTypes.string,
-  bodyTag: PropTypes.string,
+  uuid: PropTypes.string
 };

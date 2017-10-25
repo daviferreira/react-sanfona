@@ -1,0 +1,151 @@
+:root {
+  --border-radius: 6px;
+  --color-primary: rgb(39, 164, 254);
+  --color-background: var(--color-primary);
+  --color-background-active: rgb(39, 148, 235);
+  --color-border: rgb(22, 110, 170);
+}
+
+*,
+*:after,
+*:before {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+.demo-container {
+  padding: 40px;
+  width: 100%;
+
+  h1 {
+    border-bottom: 1px solid #ccc;
+    color: var(--color-primary);
+    margin-bottom: 40px;
+    padding-bottom: 40px;
+    text-align: center;
+  }
+
+  h2 {
+    color: #ccc;
+  }
+}
+
+.react-sanfona {
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  margin-bottom: 70px;
+}
+
+.react-sanfona-item-title {
+  background-color: #fafafa;
+  border-top: 1px solid #ccc;
+  color: #333;
+  padding: 20px;
+  text-transform: uppercase;
+  transition: background-color .3s;
+}
+
+.react-sanfona-item:first-child .react-sanfona-item-title {
+  border-top: none;
+}
+
+.react-sanfona-item-expanded .react-sanfona-item-title {
+  background-color: var(--color-primary);
+  color: #fff;
+
+  .title-done-btn {
+      display: inline-block;
+      float: right;
+      color: #000;
+  }
+}
+
+.react-sanfona-item-body-wrapper {
+  color: #666;
+  padding: 20px;
+  position: relative;
+}
+
+.react-sanfona-item-body-wrapper:hover .tooltip {
+  opacity: 1;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+.title-done-btn {
+    display: none;
+}
+
+.tooltip {
+  background-color: #000;
+  bottom: -10px;
+  border-radius: 3px;
+  color: #fff;
+  left: 10px;
+  opacity: 0;
+  padding: 10px;
+  position: absolute;
+  transition: opacity .3s;
+}
+
+.togglers {
+  align-items: center;
+  display: flex;
+  margin-bottom: 90px;
+  margin-top: -40px;
+}
+
+.togglers button {
+  margin-right: 10px;
+}
+
+.togglers button:last-child {
+  margin-right: 0;
+}
+
+.button {
+  background: linear-gradient(to bottom, #3cacfc 0%, #189af8 100%);
+  background-color: var(--color-background);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  box-shadow: 0 0 2px var(--color-border),
+              inset 0 1px 0 0 rgba(255, 255, 255, .5);
+  color: #fff;
+  cursor: pointer;
+  font-size: 15px;
+  line-height: 1;
+  min-width: 140px;
+  padding: 12px;
+  position: relative;
+  text-shadow: 1px 1px 2px var(--color-border);
+}
+
+.button:focus,
+.button.focus {
+  outline: none;
+}
+
+.button:focus::before,
+.button.focus::before {
+  border-radius: var(--border-radius);
+  box-shadow: 0 0 1px 2px #94d0ff;
+  content: '';
+  height: calc(100% + 6px);
+  left: -3px;
+  position: absolute;
+  top: -3px;
+  width: calc(100% + 6px);
+}
+
+.button:active,
+.button.active {
+  background: linear-gradient(to bottom, #3ca0eb 0%, #168be1 100%);
+  background-color: var(--color-background-active);
+  box-shadow: 0 0 2px var(--color-border);
+}

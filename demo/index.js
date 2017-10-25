@@ -1,14 +1,39 @@
 'use strict';
 
-require('normalize.css');
-require('./demo.scss');
-
 import React from 'react';
 import ReactDOM from 'react-dom';
 
 import { Accordion, AccordionItem } from '../src';
 
+import 'normalize.css';
+import './demo.css';
+
 class Demo extends React.Component {
+  constructor(props) {
+    super();
+
+    this.state = {
+      activeItems: [0]
+    };
+
+    this.toggleActive = this.toggleActive.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  toggleActive(index) {
+    const position = this.state.activeItems.indexOf(index);
+
+    if (position !== -1) {
+      this.setState({ activeItems: [] });
+    } else {
+      this.setState({ activeItems: [index] });
+    }
+  }
+
+  handleChange({ activeItems }) {
+    this.setState({ activeItems });
+  }
+
   render() {
     return (
       <div className="demo-container">
@@ -16,10 +41,14 @@ class Demo extends React.Component {
 
         <h2>Default settings</h2>
 
-        <Accordion>
-          {[1, 'two', 3, 'four', 5].map(item => {
+        <Accordion onChange={this.handleChange}>
+          {[0, 1, 2, 3, 4].map(item => {
             return (
-              <AccordionItem title={`Item ${item}`} slug={item} key={item}>
+              <AccordionItem
+                key={item}
+                title={`Item ${item}`}
+                expanded={this.state.activeItems.includes(item)}
+              >
                 <div>
                   {`Item ${item} content`}
                   {item === 3
@@ -33,16 +62,42 @@ class Demo extends React.Component {
           })}
         </Accordion>
 
+        <div className="togglers">
+          {[0, 1, 2, 3, 4].map(item => {
+            return (
+              <button
+                className="button"
+                onClick={() => {
+                  this.toggleActive(item);
+                }}
+                key={item}
+              >
+                {`Toggle item ${item} active`}
+              </button>
+            );
+          })}
+        </div>
+
         <h2>Allow multiple</h2>
 
-        <Accordion allowMultiple={true} activeItems={2}>
-          {[1, 2, 3, 4, 5].map(item => {
+        <Accordion allowMultiple>
+          {[0, 1, 2, 3, 4].map(item => {
             return (
-              <AccordionItem title={`Item ${item}`} key={item}>
+              <AccordionItem
+                duration={item === 3 ? 700 : null}
+                easing={
+                  item === 3 ? 'cubic-bezier(0.420, 0.000, 0.580, 1.000)' : null
+                }
+                key={item}
+                title={`Item ${item}`}
+                expanded={item === 2}
+              >
                 <div>
                   {`Item ${item} content`}
                   {item === 3
-                    ? <p><img src="https://i.giphy.com/nIMpbXH2WfYRi.gif" /></p>
+                    ? <p>
+                        <img src="https://i.giphy.com/nIMpbXH2WfYRi.gif" />
+                      </p>
                     : null}
                 </div>
               </AccordionItem>
@@ -52,14 +107,16 @@ class Demo extends React.Component {
 
         <h2>Allow multiple, all active</h2>
 
-        <Accordion allowMultiple={true} activeItems={[0, 1, 2, 3, 4]}>
-          {[1, 2, 3, 4, 5].map(item => {
+        <Accordion allowMultiple>
+          {[0, 1, 2, 3, 4].map(item => {
             return (
-              <AccordionItem title={`Item ${item}`} key={item}>
+              <AccordionItem key={item} title={`Item ${item}`} expanded>
                 <div>
                   {`Item ${item} content`}
                   {item === 3
-                    ? <p><img src="https://i.giphy.com/nIMpbXH2WfYRi.gif" /></p>
+                    ? <p>
+                        <img src="https://i.giphy.com/nIMpbXH2WfYRi.gif" />
+                      </p>
                     : null}
                 </div>
               </AccordionItem>
@@ -70,13 +127,15 @@ class Demo extends React.Component {
         <h2>Open next accordion item when previous one closes</h2>
 
         <Accordion openNextAccordionItem>
-          {[1, 2, 3, 4, 5].map(item => {
+          {[0, 1, 2, 3, 4].map(item => {
             return (
-              <AccordionItem title={`Item ${item}`} key={item}>
+              <AccordionItem key={item} title={`Item ${item}`}>
                 <div>
                   {`Item ${item} content`}
                   {item === 3
-                    ? <p><img src="https://i.giphy.com/nIMpbXH2WfYRi.gif" /></p>
+                    ? <p>
+                        <img src="https://i.giphy.com/nIMpbXH2WfYRi.gif" />
+                      </p>
                     : null}
                 </div>
               </AccordionItem>
@@ -87,9 +146,9 @@ class Demo extends React.Component {
         <h2>Overflow example</h2>
 
         <Accordion>
-          {[1, 2].map(item => {
+          {[0, 1].map(item => {
             return (
-              <AccordionItem title={`Item ${item}`} key={item}>
+              <AccordionItem key={item} title={`Item ${item}`}>
                 <div>
                   {`Item ${item} content`}
                   <div className="tooltip">{`Tooltip ${item} content`}</div>
@@ -103,16 +162,19 @@ class Demo extends React.Component {
 
         <p id="changes" />
         <Accordion
-          allowMultiple={true}
-          activeItems={2}
+          allowMultiple
           onChange={newState =>
             (document.getElementById(
               'changes'
             ).innerHTML = `Active: ${newState.activeItems}`)}
         >
-          {[1, 2, 3, 4, 5].map(item => {
+          {[0, 1, 2, 3, 4].map(item => {
             return (
-              <AccordionItem title={`Item ${item}`} key={item}>
+              <AccordionItem
+                key={item}
+                title={`Item ${item}`}
+                expanded={item === 2}
+              >
                 <div>
                   {`Item ${item} content`}
                 </div>
@@ -120,7 +182,6 @@ class Demo extends React.Component {
             );
           })}
         </Accordion>
-
       </div>
     );
   }

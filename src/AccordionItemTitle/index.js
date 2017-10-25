@@ -1,49 +1,50 @@
 'use strict';
 
-import className from 'classnames';
-import React, { Component } from 'react';
+import cx from 'classnames';
+import React from 'react';
 import PropTypes from 'prop-types';
 
-export default class AccordionItemTitle extends Component {
-  render() {
-    const style = {
-      cursor: 'pointer',
-      margin: 0,
-      color: this.props.titleColor,
-    };
+export default function AccordionItemTitle({
+  className,
+  uuid,
+  onClick,
+  rootTag: Root,
+  title
+}) {
+  const style = {
+    cursor: 'pointer',
+    margin: 0
+  };
 
-    const { title } = this.props;
-
-    if (typeof title === 'object') {
-      return React.cloneElement(title, {
-        onClick: this.props.onClick,
-        id: `react-safona-item-title-${this.props.uuid}`,
-        'aria-controls': `react-sanfona-item-body-${this.props.uuid}`,
-      });
-    }
-
-    return (
-      <this.props.rootTag
-        aria-controls={`react-sanfona-item-body-${this.props.uuid}`}
-        className={className('react-sanfona-item-title', this.props.className)}
-        id={`react-safona-item-title-${this.props.uuid}`}
-        onClick={this.props.onClick}
-        style={style}
-      >
-        {title}
-      </this.props.rootTag>
-    );
+  if (typeof title === 'object') {
+    return React.cloneElement(title, {
+      onClick,
+      id: `react-safona-item-title-${uuid}`,
+      'aria-controls': `react-sanfona-item-body-${uuid}`
+    });
   }
+
+  return (
+    <Root
+      aria-controls={`react-sanfona-item-body-${uuid}`}
+      className={cx('react-sanfona-item-title', className)}
+      id={`react-safona-item-title-${uuid}`}
+      onClick={onClick}
+      style={style}
+    >
+      {title}
+    </Root>
+  );
 }
 
 AccordionItemTitle.defaultProps = {
   rootTag: 'h3'
-}
+};
 
 AccordionItemTitle.propTypes = {
   className: PropTypes.string,
   onClick: PropTypes.func,
-  title: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
-  uuid: PropTypes.string,
   rootTag: PropTypes.string,
+  title: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
+  uuid: PropTypes.string
 };
