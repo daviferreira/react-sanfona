@@ -61,7 +61,7 @@ export default class Accordion extends Component {
     let allowChange = true;
 
     if(beforeChange) {
-      let allowChange = beforeChange();
+      allowChange = beforeChange();
     }
 
     if(!allowChange) { return; }
