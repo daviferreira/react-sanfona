@@ -6,11 +6,14 @@
   "scripts": {
     "bundle-demo": "webpack --config webpack.config.demo.js",
     "bundle-dist": "webpack --config webpack.config.dist.js",
+    "bundle-page": "webpack --config webpack.config.page.js",
     "bundle-modules": "rm -rf dist-modules/* --force && babel src --loose --out-dir dist-modules",
     "start": "webpack-dev-server --config webpack.config.demo.js",
     "lint": "eslint ./src",
     "test": "npm run lint && mocha -R spec --require babel-register ./src/**/test.js",
-    "prepublish": "npm run bundle-dist && npm run bundle-modules"
+    "prepare": "npm run bundle-dist && npm run bundle-modules",
+    "prepublishOnly": "npm run deploy",
+    "deploy": "npm run bundle-page && gh-pages -d demo/"
   },
   "repository": {
     "type": "git",
@@ -60,6 +63,7 @@
     "eslint-plugin-promise": "3.6.0",
     "eslint-plugin-react": "7.4.0",
     "eslint-plugin-standard": "3.0.1",
+    "gh-pages": "1.0.0",
     "mocha": "4.0.1",
     "normalize.css": "7.0.0",
     "postcss-loader": "2.0.8",

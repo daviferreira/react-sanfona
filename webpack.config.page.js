@@ -7,7 +7,7 @@ module.exports = {
   devtool: 'eval',
 
   entry: {
-    demo: ['webpack/hot/dev-server', './demo/index.js']
+    demo: ['./demo/index.js']
   },
 
   module: {
@@ -41,7 +41,7 @@ module.exports = {
   },
 
   output: {
-    filename: 'demo/bundle.js'
+    filename: 'page/bundle.js'
   },
 
   plugins: [
@@ -49,6 +49,6 @@ module.exports = {
   ],
 
   devServer: {
-    contentBase: './demo'
+    contentBase: './page'
   }
 };
