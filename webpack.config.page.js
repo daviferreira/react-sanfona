@@ -1,9 +1,10 @@
 'use strict';
 
-var autoprefixer = require('autoprefixer');
+const autoprefixer = require('autoprefixer');
+const webpack = require('webpack');
 
 module.exports = {
-  devtool: 'eval',
+  devtool: 'source-map',
 
   entry: {
     demo: ['./demo/index.js']
@@ -41,5 +42,18 @@ module.exports = {
 
   output: {
     filename: 'page/bundle.js'
-  }
+  },
+
+  plugins: [
+    new webpack.optimize.UglifyJsPlugin({
+      sourceMap: false,
+      compress: {
+        screw_ie8: true,
+        warnings: false
+      },
+      mangle: {
+        screw_ie8: true
+      }
+    })
+  ]
 };
