@@ -250,5 +250,22 @@ describe('Accordion Test Case', () => {
       expect(items[0].props.expanded, 'to be false');
       expect(items[1].props.expanded, 'to be true');
     });
+    
+    it('should ignore null items', () => {
+      const tree = sd.shallowRender(
+        <Accordion>
+          <AccordionItem title="First" key={1} />
+          null
+          <AccordionItem title="Second" key={2} />
+        </Accordion>
+      );
+
+      instance = tree.getMountedInstance();
+
+      vdom = tree.getRenderOutput();
+      items = vdom.props.children;
+
+      expect(items.length, 'to equal', 2);
+    });
   });
 });

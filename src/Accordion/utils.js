@@ -1,7 +1,7 @@
 export function getChildrenActiveItems(children) {
   let activeItems = [];
 
-  (children || []).forEach((children, index) => {
+  (children || []).filter((c) => c).forEach((children, index) => {
     if (!children.props.disabled && children.props.expanded) {
       activeItems.push(index);
     }
