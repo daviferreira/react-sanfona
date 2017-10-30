@@ -1,6 +1,5 @@
 'use strict';
 
-var webpack = require('webpack');
 var autoprefixer = require('autoprefixer');
 
 module.exports = {
@@ -42,13 +41,5 @@ module.exports = {
 
   output: {
     filename: 'page/bundle.js'
-  },
-
-  plugins: [
-    new webpack.HotModuleReplacementPlugin()
-  ],
-
-  devServer: {
-    contentBase: './page'
   }
 };
