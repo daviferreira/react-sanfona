@@ -31,15 +31,15 @@ export default class AccordionItem extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { expanded, disabled, children } = this.props;
+    const { children, disabled, expanded, index } = this.props;
 
     if (prevProps.expanded !== expanded) {
       if (disabled) return;
 
       if (expanded) {
-        this.handleExpand();
+        this.handleExpand(index);
       } else {
-        this.handleCollapse();
+        this.handleCollapse(index);
       }
     } else if (prevProps.children !== children) {
       this.setMaxHeight();
