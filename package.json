@@ -13,7 +13,7 @@
     "test": "npm run lint && mocha -R spec --require babel-register ./src/**/test.js",
     "prepare": "npm run bundle-dist && npm run bundle-modules",
     "prepublishOnly": "npm run deploy",
-    "deploy": "npm run bundle-page && gh-pages -d demo/"
+    "deploy": "npm run bundle-page && gh-pages -d page/"
   },
   "repository": {
     "type": "git",
