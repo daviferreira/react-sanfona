@@ -91,6 +91,7 @@ export default class Accordion extends Component {
           duration: itemDuration || duration,
           easing: itemEasing || easing,
           expanded: isExpanded,
+          key: index,
           index,
           onClick: this.handleClick.bind(this, index),
           ref: `item-${index}`
