@@ -4,7 +4,12 @@ import cx from 'classnames';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { getChildrenActiveItems, getActiveItems, isSame } from './utils';
+import {
+  arrayify,
+  getChildrenActiveItems,
+  getActiveItems,
+  isSame
+} from './utils';
 
 export default class Accordion extends Component {
   constructor(props) {
@@ -81,22 +86,25 @@ export default class Accordion extends Component {
 
     const { activeItems } = this.state;
 
-    return children.filter(c => c).map((item, index) => {
-      const {
-        props: { disabled, duration: itemDuration, easing: itemEasing }
-      } = item;
+    return arrayify(children)
+      .filter(c => c)
+      .map((item, index) => {
+        const {
+          props: { disabled, duration: itemDuration, easing: itemEasing }
+        } = item;
 
-      const isExpanded = !disabled && activeItems.indexOf(index) !== -1;
+        const isExpanded = !disabled && activeItems.indexOf(index) !== -1;
 
-      return React.cloneElement(item, {
-        duration: itemDuration || duration,
-        easing: itemEasing || easing,
-        expanded: isExpanded,
-        index,
-        onClick: this.handleClick.bind(this, index),
-        ref: `item-${index}`
+        return React.cloneElement(item, {
+          duration: itemDuration || duration,
+          easing: itemEasing || easing,
+          expanded: isExpanded,
+          key: index,
+          index,
+          onClick: this.handleClick.bind(this, index),
+          ref: `item-${index}`
+        });
       });
-    });
   }
 
   render() {

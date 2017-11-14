@@ -74,7 +74,7 @@ import { Accordion, AccordionItem } from 'react-sanfona';
 | bodyClassName | `String` | Custom classname applied to the accordion item body | `null` |
 | expandedClassName | `String` | Custom classname applied when accordion is expanded | `null` |
 | titleClassName | `String` | Custom classname applied to accordion item header text | `null` |
-| disabled | `Boolean` | If item should be expanded or not | `false` |
+| disabled | `Boolean` | If item should be disabled or not | `false` |
 | disabledClassName | `String` | Custom classname applied to accordion item header text when item is disabled | `null` |
 | rootTag | `String` | Custom HTML tag used for root element | `'div'` |
 | titleTag | `String` | Custom HTML tag used for title element | `'h3'` |

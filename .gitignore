@@ -6,3 +6,4 @@ npm-debug.log
 demo/bundle.*
 dist
 dist-modules
+page/

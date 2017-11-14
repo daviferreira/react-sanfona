@@ -1,13 +1,13 @@
 'use strict';
 
-var webpack = require('webpack');
-var autoprefixer = require('autoprefixer');
+const autoprefixer = require('autoprefixer');
+const webpack = require('webpack');
 
 module.exports = {
-  devtool: 'eval',
+  devtool: 'source-map',
 
   entry: {
-    demo: ['webpack/hot/dev-server', './demo/index.js']
+    demo: ['./demo/index.js']
   },
 
   module: {
@@ -41,14 +41,19 @@ module.exports = {
   },
 
   output: {
-    filename: 'demo/bundle.js'
+    filename: 'page/bundle.js'
   },
 
   plugins: [
-    new webpack.HotModuleReplacementPlugin()
-  ],
-
-  devServer: {
-    contentBase: './demo'
-  }
+    new webpack.optimize.UglifyJsPlugin({
+      sourceMap: false,
+      compress: {
+        screw_ie8: true,
+        warnings: false
+      },
+      mangle: {
+        screw_ie8: true
+      }
+    })
+  ]
 };

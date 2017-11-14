@@ -32,6 +32,21 @@ describe('Accordion Test Case', () => {
     expect(vdom.type, 'to be', 'ul');
   });
 
+  it('should render with one item only', () => {
+    const tree = sd.shallowRender(
+      <Accordion>
+        <AccordionItem key={1} />
+      </Accordion>
+    );
+
+    instance = tree.getMountedInstance();
+    vdom = tree.getRenderOutput();
+
+    expect(instance, 'to be defined');
+    expect(vdom, 'to be defined');
+    expect(vdom.type, 'to be', 'div');
+  });
+
   describe('activeItems state', () => {
     it('should not set item as active when disabled', () => {
       const tree = sd.shallowRender(
@@ -249,6 +264,23 @@ describe('Accordion Test Case', () => {
 
       expect(items[0].props.expanded, 'to be false');
       expect(items[1].props.expanded, 'to be true');
+    });
+
+    it('should ignore null items', () => {
+      const tree = sd.shallowRender(
+        <Accordion>
+          <AccordionItem title="First" key={1} />
+          {null}
+          <AccordionItem title="Second" key={2} />
+        </Accordion>
+      );
+
+      instance = tree.getMountedInstance();
+
+      vdom = tree.getRenderOutput();
+      items = vdom.props.children;
+
+      expect(items.length, 'to equal', 2);
     });
   });
 });
