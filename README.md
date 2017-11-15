@@ -14,8 +14,6 @@ React accordion component
 
 ## Usage
 
-### CommonJS
-
 Install via NPM:
 
 ```
