@@ -7,3 +7,4 @@ demo/bundle.*
 dist
 dist-modules
 page/
+yarn.lock

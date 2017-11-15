@@ -23,7 +23,7 @@ export default class AccordionItem extends Component {
   }
 
   componentDidMount() {
-    this.setMaxHeight();
+    this.setMaxHeight(false);
   }
 
   componentWillUnmount() {
@@ -42,14 +42,14 @@ export default class AccordionItem extends Component {
         this.handleCollapse();
       }
     } else if (prevProps.children !== children) {
-      this.setMaxHeight();
+      this.setMaxHeight(false);
     }
   }
 
   handleExpand() {
     const { index, onExpand, slug } = this.props;
 
-    this.setMaxHeight();
+    this.setMaxHeight(false);
 
     if (onExpand) {
       slug ? onExpand(slug, index) : onExpand(index);
@@ -59,14 +59,14 @@ export default class AccordionItem extends Component {
   handleCollapse() {
     const { index, onClose, slug } = this.props;
 
-    this.setMaxHeight();
+    this.setMaxHeight(true);
 
     if (onClose) {
       slug ? onClose(slug, index) : onClose(index);
     }
   }
 
-  setMaxHeight() {
+  setMaxHeight(collapse) {
     const { duration, expanded } = this.props;
 
     clearTimeout(this.timeout);
@@ -79,7 +79,7 @@ export default class AccordionItem extends Component {
     }
 
     this.setState({
-      maxHeight: expanded ? bodyNode.scrollHeight + 'px' : 0,
+      maxHeight: expanded || collapse ? bodyNode.scrollHeight + 'px' : 0,
       overflow: 'hidden'
     });
 
@@ -90,6 +90,12 @@ export default class AccordionItem extends Component {
           overflow: 'visible'
         });
       }, duration);
+    } else {
+      this.timeout = setTimeout(() => {
+        this.setState({
+          maxHeight: 0,
+        });
+      }, 0);
     }
   }
 
