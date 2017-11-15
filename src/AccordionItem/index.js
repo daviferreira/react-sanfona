@@ -86,6 +86,7 @@ export default class AccordionItem extends Component {
     if (expanded) {
       this.timeout = setTimeout(() => {
         this.setState({
+          maxHeight: 'none',
           overflow: 'visible'
         });
       }, duration);
