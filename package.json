@@ -1,6 +1,6 @@
 {
   "name": "react-sanfona",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "React accessible accordion component",
   "main": "./dist-modules/index.js",
   "scripts": {
