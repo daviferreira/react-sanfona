@@ -36,6 +36,7 @@ export default class Accordion extends Component {
   handleClick(index) {
     const {
       allowMultiple,
+      beforeChange,
       children,
       onChange,
       openNextAccordionItem
@@ -61,7 +62,14 @@ export default class Accordion extends Component {
     const newState = {
       activeItems
     };
+    
+    let allowChange = true;
 
+    if(beforeChange) {
+      allowChange = beforeChange(newState);
+    }
+
+    if(!allowChange) { return; }
     this.setState(newState);
 
     if (onChange) {
@@ -132,6 +140,7 @@ Accordion.propTypes = {
   duration: PropTypes.number,
   easing: PropTypes.string,
   onChange: PropTypes.func,
+  beforeChange: PropTypes.func,
   openNextAccordionItem: PropTypes.bool,
   style: PropTypes.object,
   rootTag: PropTypes.string
