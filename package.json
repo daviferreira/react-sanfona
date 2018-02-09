@@ -74,7 +74,7 @@
     "skin-deep": "1.2.0",
     "style-loader": "0.19.0",
     "unexpected": "10.36.0",
-    "webpack": "3.8.1",
+    "webpack": "3.10.0",
     "webpack-dev-server": "2.11.1"
   }
 }
