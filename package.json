@@ -55,7 +55,7 @@
     "babel-preset-stage-0": "6.24.1",
     "css-loader": "0.28.9",
     "eslint": "4.9.0",
-    "eslint-config-prettier": "2.6.0",
+    "eslint-config-prettier": "2.9.0",
     "eslint-config-standard": "10.2.1",
     "eslint-config-standard-react": "5.0.0",
     "eslint-plugin-import": "2.8.0",
