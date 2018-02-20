@@ -30,6 +30,12 @@ export default class AccordionItem extends Component {
     clearTimeout(this.timeout);
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    if(nextProps.expanded === this.props.expanded){
+        return false;
+    }
+  }
+
   componentDidUpdate(prevProps) {
     const { children, disabled, expanded } = this.props;
 
