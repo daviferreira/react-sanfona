@@ -30,6 +30,17 @@ export default class AccordionItem extends Component {
     clearTimeout(this.timeout);
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.expanded === this.props.expanded){
+        this.timeout = setTimeout(() => {
+          this.setState({
+            maxHeight: 0,
+            overflow: 'visible',
+          });
+        }, 0);
+    }
+  }
+
   componentDidUpdate(prevProps) {
     const { children, disabled, expanded } = this.props;
 
@@ -83,25 +94,12 @@ export default class AccordionItem extends Component {
       overflow: 'hidden'
     });
 
-    if (expanded) {
-      this.timeout = setTimeout(() => {
-        this.setState({
-          maxHeight: 'none',
-          overflow: 'visible'
-        });
-      }, duration);
-    } else {
-      this.timeout = setTimeout(() => {
-        this.setState({
-          maxHeight: 0,
-        });
-      }, 0);
-    }
+    this.animationPostfix(expanded, duration);
   }
 
   // Wait for images to load before calculating maxHeight
   preloadImages(node, images = []) {
-    const { expanded } = this.props;
+    const { expanded, duration } = this.props;
 
     let imagesLoaded = 0;
 
@@ -121,6 +119,27 @@ export default class AccordionItem extends Component {
       img.src = images[i].src;
       img.onload = img.onerror = imgLoaded;
     }
+
+    this.animationPostfix(expanded, duration);
+  }
+
+  // Remove maxHeight and make overflow visible after item expanding
+  // Make maxHeight: 0, on collapsing the item
+  animationPostfix(expanded, duration) {
+      if (expanded) {
+        this.timeout = setTimeout(() => {
+          this.setState({
+            maxHeight: 'none',
+            overflow: 'visible'
+          });
+        }, duration);
+      } else {
+        this.timeout = setTimeout(() => {
+          this.setState({
+            maxHeight: 0,
+          });
+        }, 0);
+      }
   }
 
   getProps() {
