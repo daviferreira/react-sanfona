@@ -134,7 +134,6 @@ export default class AccordionItem extends Component {
     } = this.props;
 
     const props = {
-      [`aria-${expanded ? 'expanded' : 'hidden'}`]: true,
       className: cx(
         'react-sanfona-item',
         className,
@@ -149,7 +148,6 @@ export default class AccordionItem extends Component {
           [disabledClassName]: disabled
         }
       ),
-      role: 'tabpanel',
       style
     };
 
@@ -186,6 +184,7 @@ export default class AccordionItem extends Component {
           className={bodyClassName}
           duration={duration}
           easing={easing}
+          expanded={this.props.expanded}
           maxHeight={maxHeight}
           overflow={overflow}
           ref="body"
