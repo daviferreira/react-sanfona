@@ -105,7 +105,6 @@ export default class Accordion extends Component {
     return (
       <Root
         className={cx('react-sanfona', className)}
-        role="tablist"
         style={style}
       >
         {this.renderItems()}

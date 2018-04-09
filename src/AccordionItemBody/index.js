@@ -5,6 +5,15 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 export default class AccordionItemBody extends Component {
+
+  getProps() {
+    const props = {
+      [`aria-${this.props.expanded ? 'expanded' : 'hidden'}`]: true
+    };
+
+    return props;
+  }
+
   render() {
     const {
       children,
@@ -25,6 +34,7 @@ export default class AccordionItemBody extends Component {
 
     return (
       <Root
+        {...this.getProps()}
         aria-labelledby={`react-safona-item-title-${uuid}`}
         className={cx('react-sanfona-item-body', className)}
         id={`react-safona-item-body-${uuid}`}
@@ -50,6 +60,7 @@ AccordionItemBody.propTypes = {
   ]),
   duration: PropTypes.number,
   easing: PropTypes.string,
+  expanded: PropTypes.bool,
   maxHeight: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   overflow: PropTypes.string,
   rootTag: PropTypes.string,

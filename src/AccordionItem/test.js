@@ -54,22 +54,6 @@ describe('AccordionItem Test Case', () => {
     expect(anotherInstance.uuid, 'to equal', 'second item');
   });
 
-  describe('aria', () => {
-    it('should set aria-expanded to true when expanded prop is true', () => {
-      const tree = sd.shallowRender(<AccordionItem expanded />);
-      vdom = tree.getRenderOutput();
-      expect(vdom.props['aria-expanded'], 'to be true');
-      expect(vdom.props['aria-hidden'], 'to be undefined');
-    });
-
-    it('should set aria-hidden to true when expanded prop is not true', () => {
-      const tree = sd.shallowRender(<AccordionItem />);
-      vdom = tree.getRenderOutput();
-      expect(vdom.props['aria-expanded'], 'to be undefined');
-      expect(vdom.props['aria-hidden'], 'to be true');
-    });
-  });
-
   describe('disabled mode', () => {
     it('should be false by default', () => {
       const tree = sd.shallowRender(<AccordionItem />);
