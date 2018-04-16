@@ -6,10 +6,11 @@ import PropTypes from 'prop-types';
 
 export default function AccordionItemTitle({
   className,
-  uuid,
+  expanded,
   onClick,
   rootTag: Root,
-  title
+  title,
+  uuid
 }) {
   const style = {
     cursor: 'pointer',
@@ -27,6 +28,7 @@ export default function AccordionItemTitle({
   return (
     <Root
       aria-controls={`react-sanfona-item-body-${uuid}`}
+      aria-expanded={expanded}
       className={cx('react-sanfona-item-title', className)}
       id={`react-safona-item-title-${uuid}`}
       onClick={onClick}
@@ -43,6 +45,7 @@ AccordionItemTitle.defaultProps = {
 
 AccordionItemTitle.propTypes = {
   className: PropTypes.string,
+  expanded: PropTypes.bool,
   onClick: PropTypes.func,
   rootTag: PropTypes.string,
   title: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
