@@ -175,6 +175,7 @@ export default class AccordionItem extends Component {
       <Root {...this.getProps()} ref="item">
         <AccordionItemTitle
           className={titleClassName}
+          expanded={this.props.expanded}
           onClick={disabled ? null : onClick}
           rootTag={titleTag}
           title={title}
