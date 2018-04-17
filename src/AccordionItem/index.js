@@ -93,7 +93,7 @@ export default class AccordionItem extends Component {
     } else {
       this.timeout = setTimeout(() => {
         this.setState({
-          maxHeight: 0,
+          maxHeight: 0
         });
       }, 0);
     }

@@ -22,7 +22,9 @@ describe('AccordionItem Test Case', () => {
   });
 
   it('should render with custom tags', () => {
-    const tree = sd.shallowRender(<AccordionItem rootTag="li" titleTag="h2" bodyTag="ul" />);
+    const tree = sd.shallowRender(
+      <AccordionItem rootTag="li" titleTag="h2" bodyTag="ul" />
+    );
     instance = tree.getMountedInstance();
     vdom = tree.getRenderOutput();
 

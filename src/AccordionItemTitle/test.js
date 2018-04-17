@@ -17,10 +17,9 @@ describe('AccordionItemTitle Test Case', () => {
     });
 
     it('should set aria-expanded to false when expanded prop is false', () => {
-      const tree = sd.shallowRender(<AccordionItemTitle expanded={false}/>);
+      const tree = sd.shallowRender(<AccordionItemTitle expanded={false} />);
       vdom = tree.getRenderOutput();
       expect(vdom.props['aria-expanded'], 'to be false');
     });
   });
-
 });

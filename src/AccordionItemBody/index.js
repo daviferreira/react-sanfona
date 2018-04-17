@@ -5,10 +5,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 export default class AccordionItemBody extends Component {
-
   getProps() {
     const props = {
-      'hidden': !this.props.expanded
+      hidden: !this.props.expanded
     };
 
     return props;
@@ -40,9 +39,7 @@ export default class AccordionItemBody extends Component {
         id={`react-safona-item-body-${uuid}`}
         style={style}
       >
-        <div className="react-sanfona-item-body-wrapper">
-          {children}
-        </div>
+        <div className="react-sanfona-item-body-wrapper">{children}</div>
       </Root>
     );
   }

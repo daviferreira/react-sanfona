@@ -3,11 +3,13 @@ export const arrayify = obj => [].concat(obj);
 export function getChildrenActiveItems(children) {
   let activeItems = [];
 
-  arrayify(children).filter((c) => c).forEach((children, index) => {
-    if (!children.props.disabled && children.props.expanded) {
-      activeItems.push(index);
-    }
-  });
+  arrayify(children)
+    .filter(c => c)
+    .forEach((children, index) => {
+      if (!children.props.disabled && children.props.expanded) {
+        activeItems.push(index);
+      }
+    });
 
   return activeItems;
 }

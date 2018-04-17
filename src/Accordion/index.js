@@ -103,10 +103,7 @@ export default class Accordion extends Component {
     const { className, style, rootTag: Root } = this.props;
 
     return (
-      <Root
-        className={cx('react-sanfona', className)}
-        style={style}
-      >
+      <Root className={cx('react-sanfona', className)} style={style}>
         {this.renderItems()}
       </Root>
     );

@@ -22,5 +22,4 @@ describe('AccordionItemBody Test Case', () => {
       expect(vdom.props['hidden'], 'to be true');
     });
   });
-
 });
