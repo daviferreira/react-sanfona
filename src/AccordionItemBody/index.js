@@ -8,7 +8,7 @@ export default class AccordionItemBody extends Component {
 
   getProps() {
     const props = {
-      [`hidden`]: !this.props.expanded
+      'hidden': !this.props.expanded
     };
 
     return props;
