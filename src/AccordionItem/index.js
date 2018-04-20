@@ -101,7 +101,7 @@ export default class AccordionItem extends Component {
 
   // Wait for images to load before calculating maxHeight
   preloadImages(node, images = []) {
-    const { expanded } = this.props;
+    const { duration, expanded } = this.props;
 
     let imagesLoaded = 0;
 
@@ -109,10 +109,23 @@ export default class AccordionItem extends Component {
       imagesLoaded++;
 
       if (imagesLoaded === images.length) {
-        this.setState({
-          maxHeight: expanded ? node.scrollHeight + 'px' : 0,
-          overflow: expanded ? 'visible' : 'hidden'
-        });
+        if (expanded) {
+          this.setState({
+            maxHeight: `${node.scrollHeight}px`
+          });
+
+          // wait for animation
+          setTimeout(() => {
+            this.setState({
+              overflow: 'visible'
+            });
+          }, duration);
+        } else {
+          this.setState({
+            maxHeight: 0,
+            overflow: 'hidden'
+          });
+        }
       }
     };
 
