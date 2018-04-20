@@ -111,7 +111,7 @@ export default class AccordionItem extends Component {
       if (imagesLoaded === images.length) {
         this.setState({
           maxHeight: expanded ? node.scrollHeight + 'px' : 0,
-          overflow: 'hidden'
+          overflow: expanded ? 'visible' : 'hidden'
         });
       }
     };
