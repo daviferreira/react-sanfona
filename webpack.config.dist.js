@@ -1,24 +1,27 @@
 module.exports = {
+  mode: 'production',
+
   entry: './src/index.js',
 
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js?$/,
-        loader: 'babel-loader',
-        exclude: /node_modules/
-      },
+        use: ['babel-loader'],
+        exclude: [/node_modules/]
+      }
     ]
   },
 
   externals: {
-    'react': 'React',
-    'react-dom': 'ReactDOM',
+    react: 'React',
+    'react-dom': 'ReactDOM'
   },
 
   output: {
-    filename: 'dist/react-sanfona.js',
+    filename: 'react-sanfona.js',
     libraryTarget: 'umd',
-    library: 'ReactSanfona'
+    library: 'ReactSanfona',
+    path: `${__dirname}/dist`,
   }
 };

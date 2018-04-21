@@ -1,9 +1,10 @@
 'use strict';
 
 const autoprefixer = require('autoprefixer');
-const webpack = require('webpack');
 
 module.exports = {
+  mode: 'production',
+
   devtool: 'source-map',
 
   entry: {
@@ -11,49 +12,47 @@ module.exports = {
   },
 
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js?$/,
-        loader: 'babel-loader',
-        exclude: /node_modules/,
-        options: {
-          presets: ['react']
-        }
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              presets: ['react']
+            }
+          }
+        ],
+        exclude: [/node_modules/]
       },
       {
         test: /\.css$/,
-        loaders: [{
-          loader: 'style-loader'
-        }, {
-          loader: 'css-loader'
-        }, {
-          loader: 'postcss-loader',
-          options: {
-            plugins() {
-              return [
-                autoprefixer
-              ];
+        use: [
+          {
+            loader: 'style-loader'
+          },
+          {
+            loader: 'css-loader'
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              plugins() {
+                return [autoprefixer];
+              }
             }
           }
-        }]
+        ]
       }
     ]
   },
 
-  output: {
-    filename: 'page/bundle.js'
+  optimization: {
+    minimize: true
   },
 
-  plugins: [
-    new webpack.optimize.UglifyJsPlugin({
-      sourceMap: false,
-      compress: {
-        screw_ie8: true,
-        warnings: false
-      },
-      mangle: {
-        screw_ie8: true
-      }
-    })
-  ]
+  output: {
+		path: `${__dirname}/page`,
+    filename: 'bundle.js'
+  }
 };

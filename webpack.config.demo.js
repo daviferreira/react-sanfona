@@ -1,9 +1,11 @@
 'use strict';
 
-var webpack = require('webpack');
-var autoprefixer = require('autoprefixer');
+const webpack = require('webpack');
+const autoprefixer = require('autoprefixer');
 
 module.exports = {
+  mode: 'development',
+
   devtool: 'eval',
 
   entry: {
@@ -11,31 +13,37 @@ module.exports = {
   },
 
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js?$/,
-        loader: 'babel-loader',
-        exclude: /node_modules/,
-        options: {
-          presets: ['react']
-        }
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              presets: ['react']
+            }
+          }
+        ],
+        exclude: [/node_modules/]
       },
       {
         test: /\.css$/,
-        loaders: [{
-          loader: 'style-loader'
-        }, {
-          loader: 'css-loader'
-        }, {
-          loader: 'postcss-loader',
-          options: {
-            plugins() {
-              return [
-                autoprefixer
-              ];
+        use: [
+          {
+            loader: 'style-loader'
+          },
+          {
+            loader: 'css-loader'
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              plugins() {
+                return [autoprefixer];
+              }
             }
           }
-        }]
+        ]
       }
     ]
   },
@@ -44,9 +52,7 @@ module.exports = {
     filename: 'demo/bundle.js'
   },
 
-  plugins: [
-    new webpack.HotModuleReplacementPlugin()
-  ],
+  plugins: [new webpack.HotModuleReplacementPlugin()],
 
   devServer: {
     contentBase: './demo'
