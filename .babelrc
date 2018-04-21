@@ -1,8 +1,8 @@
 {
-  "ignore": "**/test.js",
   "presets": ["env", "react", "stage-0"],
   "env": {
     "production": {
+      "ignore": "**/test.js",
       "plugins": [
         [
           "transform-react-remove-prop-types",
