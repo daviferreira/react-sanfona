@@ -52,7 +52,7 @@ module.exports = {
   },
 
   output: {
-		path: `${__dirname}/page`,
+    path: `${__dirname}/page`,
     filename: 'bundle.js'
   }
 };

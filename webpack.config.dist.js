@@ -22,6 +22,6 @@ module.exports = {
     filename: 'react-sanfona.js',
     libraryTarget: 'umd',
     library: 'ReactSanfona',
-    path: `${__dirname}/dist`,
+    path: `${__dirname}/dist`
   }
 };
