@@ -1,7 +1,16 @@
 {
-  "presets": [
-    "env",
-    "react",
-    "stage-0"
-  ]
+  "ignore": "**/test.js",
+  "presets": ["env", "react", "stage-0"],
+  "env": {
+    "production": {
+      "plugins": [
+        [
+          "transform-react-remove-prop-types",
+          {
+            "removeImport": true
+          }
+        ]
+      ]
+    }
+  }
 }
