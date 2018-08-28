@@ -27,9 +27,9 @@ export default class AccordionItemBody extends Component {
     return (
       <Root
         aria-hidden={!expanded}
-        aria-labelledby={`react-safona-item-title-${uuid}`}
+        aria-labelledby={`react-sanfona-item-title-${uuid}`}
         className={cx('react-sanfona-item-body', className)}
-        id={`react-safona-item-body-${uuid}`}
+        id={`react-sanfona-item-body-${uuid}`}
         style={style}
       >
         <div className="react-sanfona-item-body-wrapper">{children}</div>

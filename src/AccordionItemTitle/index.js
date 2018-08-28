@@ -20,7 +20,7 @@ export default function AccordionItemTitle({
   if (typeof title === 'object') {
     return React.cloneElement(title, {
       onClick,
-      id: `react-safona-item-title-${uuid}`,
+      id: `react-sanfona-item-title-${uuid}`,
       'aria-controls': `react-sanfona-item-body-${uuid}`
     });
   }
@@ -30,7 +30,7 @@ export default function AccordionItemTitle({
       aria-controls={`react-sanfona-item-body-${uuid}`}
       aria-expanded={expanded}
       className={cx('react-sanfona-item-title', className)}
-      id={`react-safona-item-title-${uuid}`}
+      id={`react-sanfona-item-title-${uuid}`}
       onClick={onClick}
       style={style}
     >
