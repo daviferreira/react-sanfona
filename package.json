@@ -67,7 +67,7 @@
     "gh-pages": "^1.1.0",
     "mocha": "^5.1.1",
     "normalize.css": "^8.0.0",
-    "postcss-loader": "^2.1.4",
+    "postcss-loader": "^2.1.6",
     "react": "^16.3.2",
     "react-addons-test-utils": "^15.6.2",
     "react-dom": "^16.3.2",
