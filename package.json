@@ -10,6 +10,7 @@
     "bundle:modules": "rm -rf dist-modules/* --force && NODE_ENV=production babel src --loose --out-dir dist-modules",
     "start": "webpack-dev-server --config webpack.config.demo.js",
     "lint": "eslint ./src",
+    "lint-staged": "./node_modules/.bin/lint-staged .",
     "test": "npm run lint && mocha -R spec --require @babel/register ./src/**/test.js",
     "prepare": "npm run bundle:dist && npm run bundle:modules",
     "prepublishOnly": "npm run deploy",
@@ -80,9 +81,12 @@
     "eslint-plugin-react": "^7.11.1",
     "eslint-plugin-standard": "^4.0.0",
     "gh-pages": "^1.2.0",
+    "lint-staged": "^7.2.2",
     "mocha": "^5.2.0",
     "normalize.css": "^8.0.0",
     "postcss-loader": "^3.0.0",
+    "pre-commit": "^1.2.2",
+    "prettier": "^1.14.2",
     "react": "^16.4.2",
     "react-addons-test-utils": "^15.6.2",
     "react-dom": "^16.4.2",
@@ -93,5 +97,15 @@
     "webpack": "^4.17.1",
     "webpack-cli": "^3.1.0",
     "webpack-dev-server": "^3.1.7"
+  },
+  "pre-commit": [
+    "lint-staged"
+  ],
+  "lint-staged": {
+    "*.js": "npm run lint",
+    "*.{js,json}": [
+      "prettier --single-quote --write",
+      "git add"
+    ]
   }
 }
