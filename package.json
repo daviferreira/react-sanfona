@@ -90,7 +90,7 @@
     "react": "^16.4.2",
     "react-addons-test-utils": "^15.6.2",
     "react-dom": "^16.4.2",
-    "react-test-renderer": "^16.4.2",
+    "react-test-renderer": "^16.5.0",
     "skin-deep": "^1.2.0",
     "style-loader": "^0.23.0",
     "unexpected": "^10.38.0",
