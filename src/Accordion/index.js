@@ -62,11 +62,11 @@ export default class Accordion extends Component {
       activeItems
     };
 
-    this.setState(newState);
-
-    if (onChange) {
-      onChange(newState);
-    }
+    this.setState(newState, () => {
+      if (onChange) {
+        onChange(newState);
+      }
+    });
   }
 
   renderItems() {
@@ -78,16 +78,14 @@ export default class Accordion extends Component {
 
     const { activeItems } = this.state;
 
-    return arrayify(children)
-      .filter(c => c)
-      .map((item, index) => {
+    return arrayify(children).reduce((acc, item, index) => {
+      if (item) {
         const {
           props: { disabled, duration: itemDuration, easing: itemEasing }
         } = item;
 
         const isExpanded = !disabled && activeItems.indexOf(index) !== -1;
-
-        return React.cloneElement(item, {
+        const element = React.cloneElement(item, {
           duration: itemDuration || duration,
           easing: itemEasing || easing,
           expanded: isExpanded,
@@ -96,7 +94,10 @@ export default class Accordion extends Component {
           onClick: this.handleClick.bind(this, index),
           ref: `item-${index}`
         });
-      });
+        acc.push(element);
+      }
+      return acc;
+    }, []);
   }
 
   render() {
