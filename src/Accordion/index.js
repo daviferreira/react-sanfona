@@ -33,7 +33,7 @@ export default class Accordion extends Component {
     }
   }
 
-  handleClick(index) {
+  handleChange(index) {
     const {
       allowMultiple,
       children,
@@ -70,7 +70,7 @@ export default class Accordion extends Component {
   }
 
   renderItems() {
-    const { children, duration, easing } = this.props;
+    const { children, duration, easing, isHovered } = this.props;
 
     if (!children) {
       return null;
@@ -85,13 +85,15 @@ export default class Accordion extends Component {
         } = item;
 
         const isExpanded = !disabled && activeItems.indexOf(index) !== -1;
+        const handleChange = this.handleChange.bind(this, index);
         const element = React.cloneElement(item, {
           duration: itemDuration || duration,
           easing: itemEasing || easing,
           expanded: isExpanded,
           key: index,
           index,
-          onClick: this.handleClick.bind(this, index),
+          onClick: handleChange,
+          onMouseOver: isHovered && !disabled ? handleChange : null,
           ref: `item-${index}`
         });
         acc.push(element);
@@ -129,6 +131,7 @@ Accordion.propTypes = {
   duration: PropTypes.number,
   easing: PropTypes.string,
   onChange: PropTypes.func,
+  isHovered: PropTypes.bool,
   openNextAccordionItem: PropTypes.bool,
   style: PropTypes.object,
   rootTag: PropTypes.string

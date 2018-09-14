@@ -176,6 +176,7 @@ export default class AccordionItem extends Component {
       duration,
       easing,
       onClick,
+      onMouseOver,
       rootTag: Root,
       title,
       titleClassName,
@@ -190,6 +191,7 @@ export default class AccordionItem extends Component {
           className={titleClassName}
           expanded={this.props.expanded}
           onClick={disabled ? null : onClick}
+          onMouseOver={disabled ? null : onMouseOver}
           rootTag={titleTag}
           title={title}
           uuid={this.uuid}
@@ -234,8 +236,10 @@ AccordionItem.propTypes = {
   expandedClassName: PropTypes.string,
   index: PropTypes.number,
   onClick: PropTypes.func,
+  onMouseOver: PropTypes.func,
   onClose: PropTypes.func,
   onExpand: PropTypes.func,
+  onHover: PropTypes.func,
   rootTag: PropTypes.string,
   slug: PropTypes.string,
   style: PropTypes.object,

@@ -13,41 +13,48 @@ class Demo extends React.Component {
     super();
 
     this.state = {
-      activeItems: [0]
+      activeClickedItems: [0],
+      activeHoveredItems: [0]
     };
 
     this.toggleActive = this.toggleActive.bind(this);
-    this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    this.handleHover = this.handleHover.bind(this);
   }
 
   toggleActive(index) {
-    const position = this.state.activeItems.indexOf(index);
+    const position = this.state.activeClickedItems.indexOf(index);
 
     if (position !== -1) {
-      this.setState({ activeItems: [] });
+      this.setState({ activeClickedItems: [] });
     } else {
-      this.setState({ activeItems: [index] });
+      this.setState({ activeClickedItems: [index] });
     }
   }
 
-  handleChange({ activeItems }) {
-    this.setState({ activeItems });
+  handleClick({ activeItems }) {
+    this.setState({ activeClickedItems: activeItems });
+  }
+
+  handleHover({ activeItems }) {
+    this.setState({ activeHoveredItems: activeItems });
   }
 
   render() {
+    console.log(this.state);
     return (
       <div className="demo-container">
         <h1>react-sanfona</h1>
 
         <h2>Default settings</h2>
 
-        <Accordion onChange={this.handleChange}>
+        <Accordion>
           {[0, 1, 2, 3, 4].map(item => {
             return (
               <AccordionItem
                 key={item}
                 title={`Item ${item}`}
-                expanded={this.state.activeItems.includes(item)}
+                expanded={this.state.activeClickedItems.includes(item)}
               >
                 <div>
                   {`Item ${item} content`}
@@ -77,6 +84,29 @@ class Demo extends React.Component {
             );
           })}
         </div>
+
+        <h2>Hovered</h2>
+
+        <Accordion onChange={this.handleHover} isHovered>
+          {[0, 1, 2, 3, 4].map(item => {
+            return (
+              <AccordionItem
+                key={item}
+                title={`Item ${item}`}
+                expanded={this.state.activeHoveredItems.includes(item)}
+              >
+                <div>
+                  {`Item ${item} content`}
+                  {item === 2 ? (
+                    <p>
+                      <img src="https://cloud.githubusercontent.com/assets/38787/8015584/2883817e-0bda-11e5-9662-b7daf40e8c27.gif" />
+                    </p>
+                  ) : null}
+                </div>
+              </AccordionItem>
+            );
+          })}
+        </Accordion>
 
         <h2>Allow multiple</h2>
 
