@@ -65,6 +65,32 @@ describe('Accordion Test Case', () => {
     });
   });
 
+  describe('onHover items', () => {
+    it('should expand after hover an item', () => {
+      const tree = sd.shallowRender(
+        <Accordion isHovered>
+          <AccordionItem title="First" key={1} expanded />
+          <AccordionItem title="Second" key={2} />
+          <AccordionItem title="Third" key={3} />
+        </Accordion>
+      );
+
+      instance = tree.getMountedInstance();
+      vdom = tree.getRenderOutput();
+      items = vdom.props.children;
+
+      expect(items[0].props.onMouseOver, 'not to be null');
+      expect(items[1].props.onMouseOver, 'not to be null');
+      expect(items[2].props.onMouseOver, 'not to be null');
+
+      items[2].props.onMouseOver(2);
+
+      vdom = tree.getRenderOutput();
+      items = vdom.props.children;
+      expect(items[2].props.expanded, 'to be true');
+    });
+  });
+
   describe('allowMultiple', () => {
     it('should allow multiple expanded items', () => {
       const tree = sd.shallowRender(
