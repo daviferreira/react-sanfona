@@ -65,6 +65,32 @@ describe('Accordion Test Case', () => {
     });
   });
 
+  describe('onHover items', () => {
+    it('should expand after hover an item', () => {
+      const tree = sd.shallowRender(
+        <Accordion isHovered>
+          <AccordionItem title="First" key={1} expanded />
+          <AccordionItem title="Second" key={2} />
+          <AccordionItem title="Third" key={3} />
+        </Accordion>
+      );
+
+      instance = tree.getMountedInstance();
+      vdom = tree.getRenderOutput();
+      items = vdom.props.children;
+
+      expect(items[0].props.onMouseOver, 'not to be null');
+      expect(items[1].props.onMouseOver, 'not to be null');
+      expect(items[2].props.onMouseOver, 'not to be null');
+
+      items[2].props.onMouseOver(2);
+
+      vdom = tree.getRenderOutput();
+      items = vdom.props.children;
+      expect(items[2].props.expanded, 'to be true');
+    });
+  });
+
   describe('allowMultiple', () => {
     it('should allow multiple expanded items', () => {
       const tree = sd.shallowRender(
@@ -81,7 +107,7 @@ describe('Accordion Test Case', () => {
       expect(items[0].props.expanded, 'to be false');
       expect(items[1].props.expanded, 'to be true');
 
-      instance.handleClick(0);
+      instance.handleChange(0);
 
       vdom = tree.getRenderOutput();
       items = vdom.props.children;
@@ -147,7 +173,7 @@ describe('Accordion Test Case', () => {
 
       expect(instance.state.activeItems, 'to equal', [1]);
 
-      instance.handleClick(0);
+      instance.handleChange(0);
 
       expect(instance.state.activeItems, 'to equal', [1, 0]);
     });
@@ -164,7 +190,7 @@ describe('Accordion Test Case', () => {
 
       expect(instance.state.activeItems, 'to equal', [1]);
 
-      instance.handleClick(0);
+      instance.handleChange(0);
 
       expect(instance.state.activeItems, 'to equal', [0]);
     });
@@ -186,7 +212,7 @@ describe('Accordion Test Case', () => {
       expect(items[0].props.expanded, 'to be true');
       expect(items[1].props.expanded, 'to be false');
 
-      instance.handleClick(0);
+      instance.handleChange(0);
 
       vdom = tree.getRenderOutput();
       items = vdom.props.children;
@@ -210,7 +236,7 @@ describe('Accordion Test Case', () => {
       expect(items[0].props.expanded, 'to be false');
       expect(items[1].props.expanded, 'to be true');
 
-      instance.handleClick(1);
+      instance.handleChange(1);
 
       vdom = tree.getRenderOutput();
       items = vdom.props.children;
@@ -236,8 +262,8 @@ describe('Accordion Test Case', () => {
       expect(items[1].props.expanded, 'to be false');
       expect(items[2].props.expanded, 'to be false');
 
-      instance.handleClick(1);
-      instance.handleClick(2);
+      instance.handleChange(1);
+      instance.handleChange(2);
 
       vdom = tree.getRenderOutput();
       items = vdom.props.children;
@@ -257,7 +283,7 @@ describe('Accordion Test Case', () => {
 
       instance = tree.getMountedInstance();
 
-      instance.handleClick(0);
+      instance.handleChange(0);
 
       vdom = tree.getRenderOutput();
       items = vdom.props.children;

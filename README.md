@@ -52,6 +52,7 @@ import { Accordion, AccordionItem } from 'react-sanfona';
 | Property | Type | Description | Default |
 |:---|:---|:---|:---|
 | allowMultiple | `Boolean` | Allow multiple items to be open at the same time. | `false` |
+| isHovered | `Boolean` | Allow expanding an element after the mouse hovers an item. | `false` |
 | openNextAccordionItem | `Boolean` | Opens the next accordion item after the previous one is closed. Defaults first one as active and applies for each accordion item except the last one. | `false` |
 | className | `String` | Custom classname applied to root element | `null` |
 | style | `Object` | Inline styles applied to root element | `null` |

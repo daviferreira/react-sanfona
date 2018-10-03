@@ -8,6 +8,7 @@ export default function AccordionItemTitle({
   className,
   expanded,
   onClick,
+  onMouseOver,
   rootTag: Root,
   title,
   uuid
@@ -32,6 +33,7 @@ export default function AccordionItemTitle({
       className={cx('react-sanfona-item-title', className)}
       id={`react-sanfona-item-title-${uuid}`}
       onClick={onClick}
+      onMouseOver={onMouseOver}
       style={style}
     >
       {title}
@@ -47,6 +49,7 @@ AccordionItemTitle.propTypes = {
   className: PropTypes.string,
   expanded: PropTypes.bool,
   onClick: PropTypes.func,
+  onMouseOver: PropTypes.func,
   rootTag: PropTypes.string,
   title: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   uuid: PropTypes.string
