@@ -41,7 +41,6 @@ class Demo extends React.Component {
   }
 
   render() {
-    console.log(this.state);
     return (
       <div className="demo-container">
         <h1>react-sanfona</h1>
