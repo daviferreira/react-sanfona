@@ -89,7 +89,7 @@
     "prettier": "^1.15.2",
     "react": "^16.6.1",
     "react-addons-test-utils": "^15.6.2",
-    "react-dom": "^16.6.1",
+    "react-dom": "^16.6.3",
     "react-test-renderer": "^16.6.1",
     "skin-deep": "^1.2.0",
     "style-loader": "^0.23.1",
