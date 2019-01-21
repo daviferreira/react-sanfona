@@ -86,7 +86,7 @@
     "normalize.css": "^8.0.1",
     "postcss-loader": "^3.0.0",
     "pre-commit": "^1.2.2",
-    "prettier": "^1.15.2",
+    "prettier": "^1.16.0",
     "react": "^16.6.3",
     "react-addons-test-utils": "^15.6.2",
     "react-dom": "^16.6.3",
