@@ -69,7 +69,7 @@
     "autoprefixer": "^9.4.7",
     "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.5",
-    "babel-plugin-transform-react-remove-prop-types": "^0.4.23",
+    "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
     "css-loader": "^2.1.0",
     "eslint": "^5.12.1",
     "eslint-config-prettier": "^4.0.0",
