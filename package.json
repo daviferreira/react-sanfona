@@ -82,7 +82,7 @@
     "eslint-plugin-standard": "^4.0.0",
     "gh-pages": "^2.0.1",
     "lint-staged": "^8.1.5",
-    "mocha": "^6.0.2",
+    "mocha": "^6.1.2",
     "normalize.css": "^8.0.1",
     "postcss-loader": "^3.0.0",
     "pre-commit": "^1.2.2",
