@@ -94,7 +94,7 @@
     "skin-deep": "^1.2.0",
     "style-loader": "^0.23.1",
     "unexpected": "^11.6.0",
-    "webpack": "^4.29.6",
+    "webpack": "^4.32.2",
     "webpack-cli": "^3.3.2",
     "webpack-dev-server": "^3.4.1"
   },
