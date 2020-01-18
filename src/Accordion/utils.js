@@ -1,7 +1,7 @@
 export const arrayify = obj => [].concat(obj);
 
 export function getChildrenActiveItems(children) {
-  let activeItems = [];
+  const activeItems = [];
 
   arrayify(children)
     .filter(c => c)

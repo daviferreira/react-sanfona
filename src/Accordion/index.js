@@ -20,7 +20,8 @@ export default class Accordion extends Component {
     };
   }
 
-  componentWillReceiveProps({ children, allowMultiple }) {
+  // eslint-disable-next-line
+  UNSAFE_componentWillReceiveProps({ children, allowMultiple }) {
     if (
       !isSame(
         getChildrenActiveItems(this.props.children),

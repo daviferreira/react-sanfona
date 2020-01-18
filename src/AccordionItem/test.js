@@ -40,7 +40,7 @@ describe('AccordionItem Test Case', () => {
     const treeAlt = sd.shallowRender(<AccordionItem />);
 
     instance = tree.getMountedInstance();
-    let anotherInstance = treeAlt.getMountedInstance();
+    const anotherInstance = treeAlt.getMountedInstance();
 
     expect(instance.uuid, 'not to equal', anotherInstance.uuid);
   });
@@ -60,14 +60,14 @@ describe('AccordionItem Test Case', () => {
     it('should be false by default', () => {
       const tree = sd.shallowRender(<AccordionItem />);
       vdom = tree.getRenderOutput();
-      expect(vdom.props['disabled'], 'to be undefined');
+      expect(vdom.props.disabled, 'to be undefined');
     });
 
     it('should have react-sanfona-item-disabled className when disabled', () => {
       const tree = sd.shallowRender(<AccordionItem disabled />);
       vdom = tree.getRenderOutput();
       expect(
-        vdom.props['className'],
+        vdom.props.className,
         'to be',
         'react-sanfona-item react-sanfona-item-disabled'
       );
@@ -79,7 +79,7 @@ describe('AccordionItem Test Case', () => {
       );
       vdom = tree.getRenderOutput();
       expect(
-        vdom.props['className'],
+        vdom.props.className,
         'to be',
         'react-sanfona-item react-sanfona-item-disabled customDisabled'
       );

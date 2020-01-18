@@ -18,7 +18,8 @@ export default class AccordionItem extends Component {
     };
   }
 
-  componentWillMount() {
+  // eslint-disable-next-line
+  UNSAFE_componentWillMount() {
     this.uuid = this.props.uuid || uuid.v4();
   }
 
@@ -130,7 +131,7 @@ export default class AccordionItem extends Component {
     };
 
     for (let i = 0; i < images.length; i += 1) {
-      let img = new Image();
+      const img = new Image();
       img.src = images[i].src;
       img.onload = img.onerror = imgLoaded;
     }
