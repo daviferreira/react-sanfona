@@ -7,7 +7,7 @@
     "bundle:demo": "webpack --config webpack.config.demo.js",
     "bundle:dist": "NODE_ENV=production webpack --config webpack.config.dist.js",
     "bundle:page": "NODE_ENV=production webpack --config webpack.config.page.js",
-    "bundle:modules": "rm -rf dist-modules/* --force && NODE_ENV=production babel src --loose --out-dir dist-modules",
+    "bundle:modules": "rm -rf dist-modules/* --force && NODE_ENV=production babel src --out-dir dist-modules",
     "start": "webpack-dev-server --config webpack.config.demo.js",
     "lint": "eslint ./src",
     "lint-staged": "./node_modules/.bin/lint-staged .",
