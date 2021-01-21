@@ -79,6 +79,7 @@ import { Accordion, AccordionItem } from 'react-sanfona';
 | bodyTag | `String` | Custom HTML tag used for body element | `'div'` |
 | duration | `Number` | Open/close transition duration in milliseconds | `300` |
 | easing | `String` | Open/close transition easing | `'ease'` |
+| slug | `String` | Slug key to allow indexing by a string
 
 ## Styling with classnames
 | Classname | Targets |
